@@ -10,3 +10,5 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+require_once __DIR__ . '/inc/cpt-acf-registration.php';
