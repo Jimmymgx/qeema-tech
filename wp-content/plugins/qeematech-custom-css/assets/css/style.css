@@ -1,6 +1,13 @@
 /* === global font === */
 body,h1,h2,h3,h4,h5,h6,p,a,li,button,input,textarea,select,label{font-family:'Rubik',sans-serif!important}
 
+/* === one shared animated background for the whole site === */
+body{background:#0a1830}
+body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;background:radial-gradient(circle at 15% 20%,rgba(34,211,238,.18),transparent 40%),radial-gradient(circle at 85% 15%,rgba(139,92,246,.16),transparent 45%),radial-gradient(circle at 30% 80%,rgba(59,130,246,.16),transparent 45%),radial-gradient(circle at 80% 75%,rgba(0,255,170,.12),transparent 45%),linear-gradient(135deg,#071320 0%,#0b1b31 45%,#142b4d 100%);background-size:200% 200%,200% 200%,200% 200%,200% 200%,100% 100%;animation:qeema-bg-drift 26s ease-in-out infinite}
+body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.65;background-image:radial-gradient(circle at 10% 20%,rgba(34,211,238,.8) 0 2px,transparent 3px),radial-gradient(circle at 25% 65%,rgba(255,90,200,.6) 0 2px,transparent 3px),radial-gradient(circle at 45% 30%,rgba(59,130,246,.6) 0 2px,transparent 3px),radial-gradient(circle at 65% 15%,rgba(255,214,102,.55) 0 2px,transparent 3px),radial-gradient(circle at 85% 55%,rgba(0,255,170,.5) 0 2px,transparent 3px),radial-gradient(circle at 92% 85%,rgba(139,92,246,.6) 0 2px,transparent 3px),radial-gradient(circle at 55% 90%,rgba(34,211,238,.5) 0 2px,transparent 3px),radial-gradient(circle at 15% 95%,rgba(255,90,200,.45) 0 2px,transparent 3px),radial-gradient(circle at 40% 50%,rgba(59,130,246,.4) 0 2px,transparent 3px);animation:qeema-bg-particles 8s ease-in-out infinite}
+@keyframes qeema-bg-drift{0%,100%{background-position:0% 0%,0% 0%,0% 0%,0% 0%,0% 0%}50%{background-position:100% 60%,20% 100%,80% 20%,10% 80%,0% 0%}}
+@keyframes qeema-bg-particles{0%,100%{transform:translate(0,0);opacity:.5}50%{transform:translate(10px,-14px);opacity:.85}}
+
 /* === hero-section.css === */
 .qt-code-typing-widget{width:700px;height:500px;max-width:100%;position:relative}
 .qt-code-card{width:100%;height:100%;position:relative;border-radius:24px;overflow:visible;background:rgba(10,24,46,.42);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 26px 80px rgba(0,0,0,.30)}
@@ -40,7 +47,7 @@ body,h1,h2,h3,h4,h5,h6,p,a,li,button,input,textarea,select,label{font-family:'Ru
 .fi-node{background:linear-gradient(135deg,#22c55e,#16a34a)}
 .qt-ficon::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(255,255,255,.22),transparent 45%,rgba(255,255,255,.10))}
 
-.qeema-hero-section{position:relative;overflow:hidden;padding:90px 28px;background:linear-gradient(135deg,#071320 0%,#0b1b31 50%,#142b4d 100%)}
+.qeema-hero-section{position:relative;overflow:hidden;padding:90px 28px}
 .qeema-hero-section__wrap{max-width:1360px;margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:center;position:relative;z-index:1}
 .qeema-hero-section__wrap.qeema-hero--no-visual{grid-template-columns:1fr;text-align:center}
 .qeema-hero-section h1{margin:0 0 16px;color:#fff;font-size:52px;line-height:1.15;font-weight:800}
@@ -64,7 +71,7 @@ body,h1,h2,h3,h4,h5,h6,p,a,li,button,input,textarea,select,label{font-family:'Ru
 @media(max-width:576px){.qeema-stats-counter__wrap{grid-template-columns:1fr}}
 
 /* === feature-grid.css === */
-.qeema-feature-grid{padding:80px 30px;background:linear-gradient(135deg,#081524 0%,#0d1d35 50%,#12274a 100%)}
+.qeema-feature-grid{padding:80px 30px}
 .qeema-feature-grid *{box-sizing:border-box}
 .qeema-feature-grid__wrap{max-width:1400px;margin:auto}
 .qeema-feature-grid__head{text-align:center;max-width:760px;margin:0 auto 40px}
@@ -88,7 +95,7 @@ body,h1,h2,h3,h4,h5,h6,p,a,li,button,input,textarea,select,label{font-family:'Ru
 @media(max-width:576px){.qeema-feature-grid__grid{grid-template-columns:1fr}}
 
 /* === site-header.css === */
-.qeema-header{position:relative;z-index:100;background:#0f2546}
+.qeema-header{position:relative;z-index:100}
 .qeema-header__main{padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px}
 .qeema-header__logo img{max-height:56px;width:auto;display:block}
 .qeema-header__nav{display:flex;align-items:center;gap:26px;list-style:none;margin:0;padding:0}
@@ -117,7 +124,7 @@ body,h1,h2,h3,h4,h5,h6,p,a,li,button,input,textarea,select,label{font-family:'Ru
 @media(max-width:1024px){.qeema-header__nav{display:none}.qeema-header__toggle{display:inline-block}}
 
 /* === site-footer.css === */
-.qeema-footer{background:#0b1b31;color:#fff;padding:60px 24px 20px}
+.qeema-footer{color:#fff;padding:60px 24px 20px}
 .qeema-footer__grid{max-width:1360px;margin:0 auto;display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:30px}
 .qeema-footer__about img{max-height:60px;margin-bottom:16px}
 .qeema-footer__about p{color:rgba(255,255,255,.8);line-height:1.9;font-size:15px}
@@ -134,7 +141,7 @@ body,h1,h2,h3,h4,h5,h6,p,a,li,button,input,textarea,select,label{font-family:'Ru
 @media(max-width:600px){.qeema-footer__grid{grid-template-columns:1fr}}
 
 /* === portfolio-teaser.css === */
-.qeema-portfolio-teaser{padding:70px 30px;text-align:center;background:#0d1d35}
+.qeema-portfolio-teaser{padding:70px 30px;text-align:center}
 .qeema-portfolio-teaser__wrap{max-width:1100px;margin:0 auto}
 .qeema-portfolio-teaser h2{color:#fff;font-size:38px;font-weight:800;margin:0 0 14px}
 .qeema-portfolio-teaser p{color:rgba(255,255,255,.78);font-size:17px;line-height:1.8;margin:0 0 26px}
@@ -147,7 +154,7 @@ body,h1,h2,h3,h4,h5,h6,p,a,li,button,input,textarea,select,label{font-family:'Ru
 .qeema-portfolio-teaser__btn.ghost{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);color:#fff}
 
 /* === testimonials-carousel.css === */
-.qeema-testimonials{padding:70px 30px;text-align:center;background:#0b1b31}
+.qeema-testimonials{padding:70px 30px;text-align:center}
 .qeema-testimonials h2{color:#fff;font-size:36px;font-weight:800;margin:0 0 12px}
 .qeema-testimonials p{color:rgba(255,255,255,.78);font-size:16px;margin:0 0 32px}
 .qeema-testimonials__track{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;max-width:1200px;margin:0 auto;padding-bottom:10px;scrollbar-width:thin}
