@@ -91,7 +91,7 @@
 .qeema-header__nav > li{position:relative}
 .qeema-header__nav > li > a{color:#d0d0d0;text-decoration:none;font-weight:600;font-size:15px;padding:8px 0;display:inline-block;transition:color .25s ease}
 .qeema-header__nav > li > a:hover{color:#00d4ff}
-.qeema-header__nav .qeema-has-dropdown > a::after{content:"";display:inline-block;width:7px;height:7px;margin-inline-start:6px;border-inline-end:2px solid currentColor;border-block-end:2px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .25s ease}
+.qeema-header__nav .qeema-has-dropdown > a::after{content:"";display:inline-block;width:7px;height:7px;margin-inline-start:6px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .25s ease}
 .qeema-header__nav .qeema-has-dropdown:hover > a::after{transform:rotate(225deg) translateY(2px)}
 .qeema-header__nav .qeema-has-dropdown > ul{display:none;position:absolute;top:100%;left:50%;transform:translateX(-50%);z-index:50;grid-template-columns:repeat(3,minmax(200px,1fr));gap:14px;min-width:700px;padding:28px 22px 22px;margin:0;list-style:none;background:#0d2647;border:.8px solid rgba(255,255,255,.08);border-radius:18px;box-shadow:0 22px 55px rgba(0,0,0,.35);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
 .qeema-header__nav .qeema-has-dropdown:hover > ul{display:grid}
