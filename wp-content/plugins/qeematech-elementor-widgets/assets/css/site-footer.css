@@ -1,0 +1,15 @@
+.qeema-footer{background:#0b1b31;color:#fff;padding:60px 24px 20px}
+.qeema-footer__grid{max-width:1360px;margin:0 auto;display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:30px}
+.qeema-footer__about img{max-height:60px;margin-bottom:16px}
+.qeema-footer__about p{color:rgba(255,255,255,.8);line-height:1.9;font-size:15px}
+.qeema-footer__social{display:flex;gap:14px;margin-top:16px}
+.qeema-footer__social a{color:#fff;font-size:18px}
+.qeema-footer h5{color:#fff;font-size:20px;margin:0 0 16px;font-weight:700}
+.qeema-footer__links{list-style:none;margin:0;padding:0}
+.qeema-footer__links li{margin-bottom:10px}
+.qeema-footer__links a{color:rgba(255,255,255,.85);text-decoration:none;font-size:15px}
+.qeema-footer__links a:hover{color:#00d4ff}
+.qeema-footer__contact-item{color:rgba(255,255,255,.85);font-size:15px;margin-bottom:10px;display:flex;gap:8px}
+.qeema-footer__bottom{max-width:1360px;margin:40px auto 0;padding-top:20px;border-top:1px solid rgba(255,255,255,.12);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;font-size:13px;color:rgba(255,255,255,.7)}
+@media(max-width:1024px){.qeema-footer__grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.qeema-footer__grid{grid-template-columns:1fr}}

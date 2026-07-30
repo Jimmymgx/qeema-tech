@@ -27,10 +27,6 @@ class Qeema_Stats_Counter_Widget extends \Elementor\Widget_Base {
 		return array( 'qeema-shared-sections' );
 	}
 
-	public function get_style_depends() {
-		return array( 'qeema-stats-counter' );
-	}
-
 	public function get_script_depends() {
 		return array( 'qeema-stats-counter' );
 	}

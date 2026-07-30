@@ -10,3 +10,27 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+/**
+ * Single consolidated stylesheet for every qeematech-elementor-widgets
+ * component. Enqueued at priority 999 so it loads after Elementor's own
+ * kit/global CSS — that's what actually fixes rules getting silently
+ * overridden by Elementor's global styles at equal specificity (found while
+ * building the Feature Grid widget: an inline !important was needed only
+ * because this stylesheet was loading too early relative to Elementor's).
+ * filemtime() cache-busts so edits show immediately without a version bump.
+ */
+function qeema_custom_css_enqueue() {
+	$path = __DIR__ . '/assets/css/style.css';
+	if ( ! file_exists( $path ) ) {
+		return;
+	}
+	wp_enqueue_style(
+		'qeematech-custom-css',
+		plugin_dir_url( __FILE__ ) . 'assets/css/style.css',
+		array(),
+		filemtime( $path )
+	);
+}
+add_action( 'wp_enqueue_scripts', 'qeema_custom_css_enqueue', 999 );
+add_action( 'elementor/preview/enqueue_styles', 'qeema_custom_css_enqueue', 999 );

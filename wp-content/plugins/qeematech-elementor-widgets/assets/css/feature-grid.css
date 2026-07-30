@@ -2,21 +2,21 @@
 .qeema-feature-grid *{box-sizing:border-box}
 .qeema-feature-grid__wrap{max-width:1400px;margin:auto}
 .qeema-feature-grid__head{text-align:center;max-width:760px;margin:0 auto 40px}
-.qeema-feature-grid__badge{display:inline-block;padding:10px 16px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.10);color:#8feeff;font-size:14px;font-weight:700;margin-bottom:18px}
-.qeema-feature-grid__head h2{color:#fff;font-size:40px;margin:0 0 14px;font-weight:800}
-.qeema-feature-grid__head h2 span{color:#22dcff}
-.qeema-feature-grid__head p{color:rgba(255,255,255,.78);font-size:18px;line-height:1.9;margin:0}
+.qeema-feature-grid__badge{display:inline-block;padding:10px 16px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.10);color:#8feeff!important;font-size:14px;font-weight:700;margin-bottom:18px}
+.qeema-feature-grid__head h2{color:#fff!important;font-size:40px;margin:0 0 14px;font-weight:800}
+.qeema-feature-grid__head h2 span{color:#22dcff!important}
+.qeema-feature-grid__head p{color:rgba(255,255,255,.78)!important;font-size:18px;line-height:1.9;margin:0}
 .qeema-feature-grid__grid{max-width:1600px;margin:0 auto;display:grid;grid-template-columns:repeat(var(--qeema-grid-cols,4),minmax(0,1fr));gap:18px}
 .qeema-feature-card{position:relative;min-height:230px;padding:26px 18px 22px;border-radius:22px;background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.025));border:1px solid rgba(255,255,255,.10);text-align:center;overflow:hidden;text-decoration:none!important;display:block;transition:transform .3s ease,border-color .3s ease,background .3s ease,box-shadow .3s ease}
 .qeema-feature-card:hover{transform:translateY(-8px);border-color:rgba(255,255,255,.18);background:linear-gradient(180deg,rgba(255,255,255,.065),rgba(255,255,255,.03));box-shadow:0 0 20px rgba(255,255,255,.04)}
-.qeema-feature-card__icon{width:64px;height:64px;margin:0 auto 16px;border-radius:18px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:28px;font-weight:800;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);transition:transform .3s ease,background .3s ease}
+.qeema-feature-card__icon{width:64px;height:64px;margin:0 auto 16px;border-radius:18px;display:flex;align-items:center;justify-content:center;color:#fff!important;font-size:28px;font-weight:800;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);transition:transform .3s ease,background .3s ease}
 .qeema-feature-card:hover .qeema-feature-card__icon{transform:translateY(-4px) scale(1.06) rotate(-3deg);background:rgba(255,255,255,.10)}
-.qeema-feature-card h3{margin:0 0 12px;color:#fff;font-size:22px;line-height:1.45;font-weight:800}
-.qeema-feature-card p{margin:0;color:rgba(255,255,255,.78);font-size:15px;line-height:1.9;font-weight:500}
+.qeema-feature-card h3{margin:0 0 12px;color:#fff!important;font-size:22px;line-height:1.45;font-weight:800}
+.qeema-feature-card p{margin:0;color:rgba(255,255,255,.78)!important;font-size:15px;line-height:1.9;font-weight:500}
 .qeema-feature-grid__actions{display:flex;justify-content:center;gap:14px;margin-top:35px;flex-wrap:wrap}
 .qeema-feature-grid__btn{text-decoration:none!important;padding:14px 22px;border-radius:14px;font-size:16px;font-weight:800;transition:.3s ease;display:inline-block}
-.qeema-feature-grid__btn.primary{background:linear-gradient(135deg,#10cfff,#0066ff);color:#fff}
-.qeema-feature-grid__btn.ghost{color:#fff;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12)}
+.qeema-feature-grid__btn.primary{background:linear-gradient(135deg,#10cfff,#0066ff);color:#fff!important}
+.qeema-feature-grid__btn.ghost{color:#fff!important;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12)}
 .qeema-feature-grid__btn:hover{transform:translateY(-3px)}
 @media(max-width:1024px){.qeema-feature-grid__grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:576px){.qeema-feature-grid__grid{grid-template-columns:1fr}}

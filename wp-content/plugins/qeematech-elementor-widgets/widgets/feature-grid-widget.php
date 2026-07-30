@@ -26,10 +26,6 @@ class Qeema_Feature_Grid_Widget extends \Elementor\Widget_Base {
 		return array( 'qeema-shared-sections' );
 	}
 
-	public function get_style_depends() {
-		return array( 'qeema-feature-grid' );
-	}
-
 	protected function register_controls() {
 		$this->start_controls_section( 'header_section', array(
 			'label' => __( 'Header', 'qeematech-elementor-widgets' ),
@@ -154,7 +150,11 @@ class Qeema_Feature_Grid_Widget extends \Elementor\Widget_Base {
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
-		$style    = ! empty( $settings['background_color'] ) ? 'background-color:' . esc_attr( $settings['background_color'] ) . ';' : '';
+		// Set inline as a floor: some host themes/kits load generic resets late
+		// enough to beat an external stylesheet at equal specificity.
+		$style = ! empty( $settings['background_color'] )
+			? 'background-color:' . esc_attr( $settings['background_color'] ) . ' !important;'
+			: 'background:linear-gradient(135deg,#081524 0%,#0d1d35 50%,#12274a 100%) !important;';
 		?>
 		<section class="qeema-feature-grid" <?php echo $style ? 'style="' . $style . '"' : ''; ?>>
 			<div class="qeema-feature-grid__wrap">

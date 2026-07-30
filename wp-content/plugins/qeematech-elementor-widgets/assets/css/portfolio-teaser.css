@@ -1,0 +1,11 @@
+.qeema-portfolio-teaser{padding:70px 30px;text-align:center;background:#0d1d35}
+.qeema-portfolio-teaser__wrap{max-width:1100px;margin:0 auto}
+.qeema-portfolio-teaser h2{color:#fff;font-size:38px;font-weight:800;margin:0 0 14px}
+.qeema-portfolio-teaser p{color:rgba(255,255,255,.78);font-size:17px;line-height:1.8;margin:0 0 26px}
+.qeema-portfolio-teaser__categories{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:30px}
+.qeema-portfolio-teaser__cat{padding:9px 20px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);color:#fff;text-decoration:none;font-size:14px;font-weight:600;transition:.25s}
+.qeema-portfolio-teaser__cat:hover{background:linear-gradient(135deg,#10cfff,#0066ff);border-color:transparent}
+.qeema-portfolio-teaser__actions{display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
+.qeema-portfolio-teaser__btn{text-decoration:none;padding:14px 24px;border-radius:14px;font-weight:800;font-size:15px}
+.qeema-portfolio-teaser__btn.primary{background:linear-gradient(135deg,#10cfff,#0066ff);color:#fff}
+.qeema-portfolio-teaser__btn.ghost{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);color:#fff}

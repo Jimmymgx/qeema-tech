@@ -59,3 +59,65 @@
 [30-Jul-2026 19:20:48 UTC]   Automatic theme updates starting...
 [30-Jul-2026 19:20:48 UTC]   Automatic theme updates complete.
 [30-Jul-2026 19:20:48 UTC] Automatic updates complete.
+[30-Jul-2026 19:36:11 UTC] PHP Notice:  Function WP_Scripts::add was called <strong>incorrectly</strong>. The script with the handle "elementor-v2-editor-components" was enqueued with dependencies that are not registered: elementor-v2-editor-canvas, elementor-v2-editor-controls, elementor-v2-editor-editing-panel, elementor-v2-editor-elements, elementor-v2-editor-props, elementor-v2-editor-styles-repository, elementor-v2-editor-templates. Please see <a href="https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/">Debugging in WordPress</a> for more information. (This message was added in version 6.9.1.) in C:\xampp\htdocs\qeematech-new\wp-includes\functions.php on line 6170
+[30-Jul-2026 19:36:11 UTC] PHP Notice:  Function WP_Scripts::add was called <strong>incorrectly</strong>. The script with the handle "elementor-v2-editor-controls-extended" was enqueued with dependencies that are not registered: elementor-v2-editor-controls, elementor-v2-editor-props. Please see <a href="https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/">Debugging in WordPress</a> for more information. (This message was added in version 6.9.1.) in C:\xampp\htdocs\qeematech-new\wp-includes\functions.php on line 6170
+[30-Jul-2026 19:36:11 UTC] PHP Notice:  Function WP_Scripts::add was called <strong>incorrectly</strong>. The script with the handle "elementor-v2-editor-editing-panel-extended" was enqueued with dependencies that are not registered: elementor-v2-editor-canvas, elementor-v2-editor-controls, elementor-v2-editor-editing-panel, elementor-v2-editor-props. Please see <a href="https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/">Debugging in WordPress</a> for more information. (This message was added in version 6.9.1.) in C:\xampp\htdocs\qeematech-new\wp-includes\functions.php on line 6170
+[30-Jul-2026 20:03:49 UTC] PHP Notice:  Function WP_Scripts::add was called <strong>incorrectly</strong>. The script with the handle "elementor-v2-editor-components" was enqueued with dependencies that are not registered: elementor-v2-editor-canvas, elementor-v2-editor-controls, elementor-v2-editor-editing-panel, elementor-v2-editor-elements, elementor-v2-editor-props, elementor-v2-editor-styles-repository, elementor-v2-editor-templates. Please see <a href="https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/">Debugging in WordPress</a> for more information. (This message was added in version 6.9.1.) in C:\xampp\htdocs\qeematech-new\wp-includes\functions.php on line 6170
+[30-Jul-2026 20:03:49 UTC] PHP Notice:  Function WP_Scripts::add was called <strong>incorrectly</strong>. The script with the handle "elementor-v2-editor-controls-extended" was enqueued with dependencies that are not registered: elementor-v2-editor-controls, elementor-v2-editor-props. Please see <a href="https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/">Debugging in WordPress</a> for more information. (This message was added in version 6.9.1.) in C:\xampp\htdocs\qeematech-new\wp-includes\functions.php on line 6170
+[30-Jul-2026 20:03:49 UTC] PHP Notice:  Function WP_Scripts::add was called <strong>incorrectly</strong>. The script with the handle "elementor-v2-editor-editing-panel-extended" was enqueued with dependencies that are not registered: elementor-v2-editor-canvas, elementor-v2-editor-controls, elementor-v2-editor-editing-panel, elementor-v2-editor-props. Please see <a href="https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/">Debugging in WordPress</a> for more information. (This message was added in version 6.9.1.) in C:\xampp\htdocs\qeematech-new\wp-includes\functions.php on line 6170
+[30-Jul-2026 20:09:36 UTC] PHP Warning:  Undefined array key "_id" in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 847
+[30-Jul-2026 20:09:36 UTC] PHP Warning:  Undefined array key "_id" in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 847
+[30-Jul-2026 20:09:36 UTC] PHP Warning:  Undefined array key "_id" in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 847
+[30-Jul-2026 20:09:36 UTC] PHP Warning:  Undefined array key "_id" in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 847
+[30-Jul-2026 20:09:36 UTC] PHP Warning:  Undefined array key "_id" in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 847
+[30-Jul-2026 20:09:36 UTC] PHP Warning:  Undefined array key "_id" in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 847
+[30-Jul-2026 20:09:36 UTC] PHP Warning:  Undefined array key "_id" in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 847
+[30-Jul-2026 20:09:36 UTC] PHP Warning:  Undefined array key "_id" in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 847
+[30-Jul-2026 20:09:36 UTC] PHP Warning:  Undefined array key "_id" in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 847
+[30-Jul-2026 20:09:36 UTC] PHP Warning:  Undefined array key "_id" in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 847
+[30-Jul-2026 20:09:36 UTC] PHP Warning:  Undefined array key "_id" in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 847
+[30-Jul-2026 20:09:36 UTC] PHP Warning:  Undefined array key "_id" in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 847
+[30-Jul-2026 20:09:36 UTC] PHP Warning:  Undefined array key "_id" in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 847
+[30-Jul-2026 20:09:36 UTC] PHP Warning:  Undefined array key "_id" in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 847
+[30-Jul-2026 20:09:36 UTC] PHP Warning:  Undefined array key "_id" in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 847
+[30-Jul-2026 20:09:36 UTC] PHP Warning:  Undefined array key "_id" in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 847
+[30-Jul-2026 20:09:36 UTC] PHP Warning:  Undefined array key "_id" in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 847
+[30-Jul-2026 20:09:36 UTC] PHP Warning:  Undefined array key "_id" in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 847
+[30-Jul-2026 20:09:36 UTC] PHP Warning:  Undefined array key "_id" in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 847
+[30-Jul-2026 20:11:58 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 966
+[30-Jul-2026 20:11:58 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 966
+[30-Jul-2026 20:11:58 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 966
+[30-Jul-2026 20:11:58 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 966
+[30-Jul-2026 20:11:58 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 966
+[30-Jul-2026 20:11:58 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 966
+[30-Jul-2026 20:11:58 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 966
+[30-Jul-2026 20:11:58 UTC] PHP Warning:  Undefined array key "_id" in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 847
+[30-Jul-2026 20:11:58 UTC] PHP Warning:  Undefined array key "_id" in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 847
+[30-Jul-2026 20:11:58 UTC] PHP Warning:  Undefined array key "_id" in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 847
+[30-Jul-2026 20:11:58 UTC] PHP Warning:  Undefined array key "_id" in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 847
+[30-Jul-2026 20:11:58 UTC] PHP Warning:  Undefined array key "_id" in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 847
+[30-Jul-2026 20:11:58 UTC] PHP Warning:  Undefined array key "_id" in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 847
+[30-Jul-2026 20:11:58 UTC] PHP Warning:  Undefined array key "_id" in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 847
+[30-Jul-2026 20:11:58 UTC] PHP Warning:  Undefined array key "_id" in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 847
+[30-Jul-2026 20:11:58 UTC] PHP Warning:  Undefined array key "_id" in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 847
+[30-Jul-2026 20:11:58 UTC] PHP Warning:  Undefined array key "_id" in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 847
+[30-Jul-2026 20:11:58 UTC] PHP Warning:  Undefined array key "_id" in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 847
+[30-Jul-2026 20:11:58 UTC] PHP Warning:  Undefined array key "_id" in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 847
+[30-Jul-2026 20:11:58 UTC] PHP Warning:  Undefined array key "_id" in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 847
+[30-Jul-2026 20:21:32 UTC] Automatic updates starting...
+[30-Jul-2026 20:21:35 UTC]   Automatic plugin updates starting...
+[30-Jul-2026 20:21:35 UTC]   Automatic plugin updates complete.
+[30-Jul-2026 20:21:35 UTC]   Automatic theme updates starting...
+[30-Jul-2026 20:21:35 UTC]   Automatic theme updates complete.
+[30-Jul-2026 20:21:35 UTC] Automatic updates complete.
+[30-Jul-2026 20:24:56 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 966
+[30-Jul-2026 20:24:56 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 966
+[30-Jul-2026 20:24:56 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 966
+[30-Jul-2026 20:24:56 UTC] PHP Warning:  Undefined array key "_id" in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 847
+[30-Jul-2026 20:24:56 UTC] PHP Warning:  Undefined array key "_id" in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 847
+[30-Jul-2026 20:24:56 UTC] PHP Warning:  Undefined array key "_id" in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 847
+[30-Jul-2026 20:24:56 UTC] PHP Warning:  Undefined array key "_id" in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 847
+[30-Jul-2026 20:24:56 UTC] PHP Warning:  Undefined array key "_id" in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 847
+[30-Jul-2026 20:24:56 UTC] PHP Warning:  Undefined array key "_id" in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 847
+[30-Jul-2026 20:24:56 UTC] PHP Warning:  Undefined array key "_id" in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 847
+[30-Jul-2026 20:24:56 UTC] PHP Warning:  Undefined array key "_id" in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 847

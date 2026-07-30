@@ -28,10 +28,6 @@ class Qeema_Hero_Section_Widget extends \Elementor\Widget_Base {
 		return array( 'qeema-shared-sections' );
 	}
 
-	public function get_style_depends() {
-		return array( 'qeema-hero-section' );
-	}
-
 	public function get_script_depends() {
 		return array( 'qeema-hero-section' );
 	}
