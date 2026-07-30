@@ -33,7 +33,16 @@ function qeema_register_widget_assets() {
 	wp_register_script( 'qeema-site-header', $plugin_url . 'assets/js/site-header.js', array( 'jquery' ), $version, true );
 	wp_register_script( 'qeema-testimonials-carousel', $plugin_url . 'assets/js/testimonials-carousel.js', array( 'jquery' ), $version, true );
 
-	wp_enqueue_style( 'font-awesome-5-all' );
+	// 'font-awesome-5-all' is only registered by Elementor's legacy v4-icon
+	// shim path, not unconditionally - referencing it here was a no-op and
+	// silently left every fa/fab icon in these widgets unstyled. Load
+	// Elementor's own bundled Font Awesome 5 file directly instead.
+	wp_enqueue_style(
+		'qeema-font-awesome-5',
+		ELEMENTOR_ASSETS_URL . 'lib/font-awesome/css/all.min.css',
+		array(),
+		'5.15.3'
+	);
 }
 add_action( 'wp_enqueue_scripts', 'qeema_register_widget_assets' );
 add_action( 'elementor/editor/before_enqueue_scripts', 'qeema_register_widget_assets' );

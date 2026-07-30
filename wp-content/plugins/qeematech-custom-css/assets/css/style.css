@@ -1,3 +1,6 @@
+/* === global font === */
+body,h1,h2,h3,h4,h5,h6,p,a,li,button,input,textarea,select,label{font-family:'Rubik',sans-serif!important}
+
 /* === hero-section.css === */
 .qt-code-typing-widget{width:700px;height:500px;max-width:100%;position:relative}
 .qt-code-card{width:100%;height:100%;position:relative;border-radius:24px;overflow:visible;background:rgba(10,24,46,.42);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 26px 80px rgba(0,0,0,.30)}

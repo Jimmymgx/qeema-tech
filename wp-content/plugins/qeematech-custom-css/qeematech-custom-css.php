@@ -21,6 +21,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  * filemtime() cache-busts so edits show immediately without a version bump.
  */
 function qeema_custom_css_enqueue() {
+	wp_enqueue_style(
+		'qeema-google-font-rubik',
+		'https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap',
+		array(),
+		null
+	);
+
 	$path = __DIR__ . '/assets/css/style.css';
 	if ( ! file_exists( $path ) ) {
 		return;
@@ -28,7 +35,7 @@ function qeema_custom_css_enqueue() {
 	wp_enqueue_style(
 		'qeematech-custom-css',
 		plugin_dir_url( __FILE__ ) . 'assets/css/style.css',
-		array(),
+		array( 'qeema-google-font-rubik' ),
 		filemtime( $path )
 	);
 }
