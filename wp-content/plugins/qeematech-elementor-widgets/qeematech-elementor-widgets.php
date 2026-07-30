@@ -12,3 +12,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 require_once __DIR__ . '/inc/cpt-acf-registration.php';
+require_once __DIR__ . '/inc/widgets-registration.php';

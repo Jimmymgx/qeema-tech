@@ -1,0 +1,9 @@
+.qeema-stats-counter{padding:60px 20px}
+.qeema-stats-counter__wrap{max-width:1200px;margin:auto;display:grid;grid-template-columns:repeat(var(--qeema-stats-cols,4),1fr);gap:20px}
+.qeema-stat-box{padding:30px 20px;border-radius:20px;text-align:center;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);position:relative;transition:.3s}
+.qeema-stat-box:hover{transform:translateY(-6px);border-color:#22d3ee;box-shadow:0 0 20px rgba(34,211,238,.2)}
+.qeema-stat-box::before{content:"";position:absolute;inset:0;border-radius:20px;background:linear-gradient(135deg,#22d3ee,#8b5cf6);opacity:.05;z-index:-1}
+.qeema-stat-box__num{font-size:42px;font-weight:800;color:#22d3ee;margin-bottom:10px}
+.qeema-stat-box__label{color:#ccc;font-size:16px}
+@media(max-width:992px){.qeema-stats-counter__wrap{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:576px){.qeema-stats-counter__wrap{grid-template-columns:1fr}}
