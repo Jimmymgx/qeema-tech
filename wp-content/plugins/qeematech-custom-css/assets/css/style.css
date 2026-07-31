@@ -95,8 +95,10 @@ body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opa
 @media(max-width:576px){.qeema-feature-grid__grid{grid-template-columns:1fr}}
 
 /* === site-header.css === */
-.qeema-header{position:relative;z-index:100}
-.qeema-header__main{padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.qeema-header{position:fixed;top:0;left:0;right:0;width:100%;z-index:200;background:rgba(10,24,48,0);border-bottom:1px solid rgba(255,255,255,0);box-shadow:0 10px 30px rgba(0,0,0,0);transition:background-color .35s ease,border-color .35s ease,box-shadow .35s ease,backdrop-filter .35s ease}
+.qeema-header.qeema-scrolled{background:rgba(10,24,48,.72);border-bottom-color:rgba(255,255,255,.08);box-shadow:0 10px 30px rgba(0,0,0,.35);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.qeema-header__main{padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px;transition:padding .35s ease}
+.qeema-header.qeema-scrolled .qeema-header__main{padding:10px 24px}
 .qeema-header__logo img{max-height:56px;width:auto;display:block}
 .qeema-header__nav{display:flex;align-items:center;gap:26px;list-style:none;margin:0;padding:0}
 .qeema-header__nav > li{position:relative}

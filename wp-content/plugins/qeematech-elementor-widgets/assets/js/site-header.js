@@ -18,6 +18,26 @@
 		}
 	}
 
+	function qeemaInitScrollState( root ) {
+		function update() {
+			root.classList.toggle( 'qeema-scrolled', window.scrollY > 40 );
+		}
+		window.addEventListener( 'scroll', update, { passive: true } );
+		update();
+	}
+
+	// The header is position:fixed (Elementor's Theme Builder wraps it in
+	// containers sized to the header itself, leaving no room for
+	// position:sticky to work), so normal document flow no longer reserves
+	// space for it - push the page down by its rendered height instead.
+	function qeemaInitFixedOffset( root ) {
+		function update() {
+			document.body.style.paddingTop = root.offsetHeight + 'px';
+		}
+		update();
+		window.addEventListener( 'resize', update );
+	}
+
 	function qeemaInitAllHeaders() {
 		document.querySelectorAll( '.qeema-header' ).forEach( function ( root ) {
 			if ( root.dataset.qeemaInit === 'true' ) {
@@ -25,6 +45,8 @@
 			}
 			root.dataset.qeemaInit = 'true';
 			qeemaInitHeader( root );
+			qeemaInitScrollState( root );
+			qeemaInitFixedOffset( root );
 		} );
 	}
 
