@@ -2,20 +2,46 @@
 	function qeemaInitHeader( root ) {
 		var toggle = root.querySelector( '.qeema-header__toggle' );
 		var panel = root.querySelector( '.qeema-header__mobile-panel' );
+		var overlay = root.querySelector( '.qeema-header__overlay' );
 		var closeBtn = root.querySelector( '.qeema-header__mobile-close' );
 		if ( ! toggle || ! panel ) {
 			return;
 		}
-		toggle.addEventListener( 'click', function () {
+
+		function openPanel() {
 			panel.classList.add( 'qeema-open' );
+			if ( overlay ) {
+				overlay.classList.add( 'qeema-open' );
+			}
 			toggle.setAttribute( 'aria-expanded', 'true' );
-		} );
-		if ( closeBtn ) {
-			closeBtn.addEventListener( 'click', function () {
-				panel.classList.remove( 'qeema-open' );
-				toggle.setAttribute( 'aria-expanded', 'false' );
-			} );
 		}
+		function closePanel() {
+			panel.classList.remove( 'qeema-open' );
+			if ( overlay ) {
+				overlay.classList.remove( 'qeema-open' );
+			}
+			toggle.setAttribute( 'aria-expanded', 'false' );
+		}
+
+		toggle.addEventListener( 'click', openPanel );
+		if ( closeBtn ) {
+			closeBtn.addEventListener( 'click', closePanel );
+		}
+		if ( overlay ) {
+			overlay.addEventListener( 'click', closePanel );
+		}
+
+		// Per-item accordion for mobile dropdown children - a separate
+		// toggle button next to the label so tapping the chevron expands
+		// the submenu without hijacking the label's own link navigation.
+		panel.querySelectorAll( '.qeema-mobile-toggle' ).forEach( function ( btn ) {
+			btn.addEventListener( 'click', function ( e ) {
+				e.preventDefault();
+				var item = btn.closest( '.qeema-mobile-item' );
+				var expanded = item.classList.toggle( 'qeema-expanded' );
+				btn.setAttribute( 'aria-expanded', expanded ? 'true' : 'false' );
+			} );
+		} );
 	}
 
 	function qeemaInitScrollState( root ) {

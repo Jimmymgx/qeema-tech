@@ -91,19 +91,47 @@ class Qeema_Site_Header_Widget extends \Elementor\Widget_Base {
 	}
 
 	private function render_nav_items( $items, $is_mobile = false ) {
+		if ( ! $is_mobile ) {
+			foreach ( $items as $item ) {
+				$has_children = ! empty( $item['children'] );
+				echo '<li' . ( $has_children ? ' class="qeema-has-dropdown"' : '' ) . '>';
+				echo '<a' . ( ! empty( $item['link']['url'] ) ? ' href="' . esc_url( $item['link']['url'] ) . '"' : '' ) . '>' . esc_html( $item['label'] ) . '</a>';
+				if ( $has_children ) {
+					echo '<ul>';
+					foreach ( $item['children'] as $child ) {
+						echo '<li><a' . ( ! empty( $child['link']['url'] ) ? ' href="' . esc_url( $child['link']['url'] ) . '"' : '' ) . '>' . esc_html( $child['label'] ) . '</a></li>';
+					}
+					echo '</ul>';
+				}
+				echo '</li>';
+			}
+			return;
+		}
+
+		// Mobile: children collapse into a per-item accordion (toggle chevron
+		// button, separate from the label link so the link still navigates),
+		// and each row carries its own transition-delay so the panel's items
+		// cascade in one after another instead of all snapping in at once.
+		$index = 0;
 		foreach ( $items as $item ) {
 			$has_children = ! empty( $item['children'] );
-			$li_class     = $has_children ? ( $is_mobile ? '' : ' class="qeema-has-dropdown"' ) : '';
-			echo '<li' . $li_class . '>';
+			$delay        = round( $index * 0.05, 2 );
+			echo '<li class="qeema-mobile-item' . ( $has_children ? ' qeema-has-children' : '' ) . '" style="transition-delay:' . esc_attr( $delay ) . 's">';
+			echo '<div class="qeema-mobile-row">';
 			echo '<a' . ( ! empty( $item['link']['url'] ) ? ' href="' . esc_url( $item['link']['url'] ) . '"' : '' ) . '>' . esc_html( $item['label'] ) . '</a>';
 			if ( $has_children ) {
-				echo '<ul' . ( $is_mobile ? ' class="qeema-sub"' : '' ) . '>';
+				echo '<button type="button" class="qeema-mobile-toggle" aria-label="' . esc_attr__( 'Toggle submenu', 'qeematech-elementor-widgets' ) . '" aria-expanded="false"><span class="qeema-mobile-chevron"></span></button>';
+			}
+			echo '</div>';
+			if ( $has_children ) {
+				echo '<ul class="qeema-sub">';
 				foreach ( $item['children'] as $child ) {
 					echo '<li><a' . ( ! empty( $child['link']['url'] ) ? ' href="' . esc_url( $child['link']['url'] ) . '"' : '' ) . '>' . esc_html( $child['label'] ) . '</a></li>';
 				}
 				echo '</ul>';
 			}
 			echo '</li>';
+			$index++;
 		}
 	}
 
@@ -131,14 +159,31 @@ class Qeema_Site_Header_Widget extends \Elementor\Widget_Base {
 					</a>
 				<?php endif; ?>
 
-				<button class="qeema-header__toggle" aria-label="<?php esc_attr_e( 'Open menu', 'qeematech-elementor-widgets' ); ?>" aria-expanded="false">☰</button>
+				<button class="qeema-header__toggle" aria-label="<?php esc_attr_e( 'Open menu', 'qeematech-elementor-widgets' ); ?>" aria-expanded="false">
+					<span class="qeema-burger"><span></span><span></span><span></span></span>
+				</button>
 			</div>
 
+			<div class="qeema-header__overlay"></div>
 			<div class="qeema-header__mobile-panel">
-				<button class="qeema-header__mobile-close" aria-label="<?php esc_attr_e( 'Close menu', 'qeematech-elementor-widgets' ); ?>">×</button>
-				<ul>
+				<div class="qeema-header__mobile-top">
+					<a class="qeema-header__logo" href="<?php echo esc_url( $settings['logo_link']['url'] ?? home_url( '/' ) ); ?>">
+						<?php if ( ! empty( $settings['logo']['url'] ) ) : ?>
+							<img src="<?php echo esc_url( $settings['logo']['url'] ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
+						<?php endif; ?>
+					</a>
+					<button class="qeema-header__mobile-close" aria-label="<?php esc_attr_e( 'Close menu', 'qeematech-elementor-widgets' ); ?>">
+						<span class="qeema-x"><span></span><span></span></span>
+					</button>
+				</div>
+				<ul class="qeema-mobile-nav">
 					<?php $this->render_nav_items( $settings['nav_items'], true ); ?>
 				</ul>
+				<?php if ( ! empty( $settings['cta_text'] ) ) : ?>
+					<a class="qeema-header__cta qeema-mobile-cta" <?php echo ! empty( $settings['cta_link']['url'] ) ? 'href="' . esc_url( $settings['cta_link']['url'] ) . '"' : ''; ?>>
+						<?php echo esc_html( $settings['cta_text'] ); ?>
+					</a>
+				<?php endif; ?>
 			</div>
 		</header>
 		<?php
