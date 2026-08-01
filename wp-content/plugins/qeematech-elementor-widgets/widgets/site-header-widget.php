@@ -111,6 +111,7 @@ class Qeema_Site_Header_Widget extends \Elementor\Widget_Base {
 		$settings = $this->get_settings_for_display();
 		?>
 		<header class="qeema-header">
+			<div class="qeema-progress-bar"><div class="qeema-progress-bar__fill"></div></div>
 			<div class="qeema-header__main">
 				<a class="qeema-header__logo" href="<?php echo esc_url( $settings['logo_link']['url'] ?? home_url( '/' ) ); ?>">
 					<?php if ( ! empty( $settings['logo']['url'] ) ) : ?>

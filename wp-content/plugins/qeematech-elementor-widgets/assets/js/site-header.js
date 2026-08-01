@@ -26,6 +26,21 @@
 		update();
 	}
 
+	function qeemaInitProgressBar( root ) {
+		var fill = root.querySelector( '.qeema-progress-bar__fill' );
+		if ( ! fill ) {
+			return;
+		}
+		function update() {
+			var scrollable = document.documentElement.scrollHeight - window.innerHeight;
+			var pct = scrollable > 0 ? ( window.scrollY / scrollable ) * 100 : 0;
+			fill.style.width = pct + '%';
+		}
+		window.addEventListener( 'scroll', update, { passive: true } );
+		window.addEventListener( 'resize', update );
+		update();
+	}
+
 	// The header is position:fixed (Elementor's Theme Builder wraps it in
 	// containers sized to the header itself, leaving no room for
 	// position:sticky to work), so normal document flow no longer reserves
@@ -47,6 +62,7 @@
 			qeemaInitHeader( root );
 			qeemaInitScrollState( root );
 			qeemaInitFixedOffset( root );
+			qeemaInitProgressBar( root );
 		} );
 	}
 
