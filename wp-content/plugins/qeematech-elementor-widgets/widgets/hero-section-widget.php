@@ -150,7 +150,8 @@ class Qeema_Hero_Section_Widget extends \Elementor\Widget_Base {
 
 				<?php if ( 'code_typing' === $settings['visual_variant'] ) : ?>
 					<div class="qeema-hero-section__visual">
-						<div class="qt-code-typing-widget" aria-hidden="true" data-qt-code="<?php echo esc_attr( $this->get_typing_code() ); ?>">
+						<div class="qt-code-typing-widget" style="direction:ltr;" aria-hidden="true" data-qt-code="<?php echo esc_attr( $this->get_typing_code() ); ?>">
+							<?php echo $this->render_floating_icons(); // phpcs:ignore WordPress.Security.EscapeOutput -- static, trusted markup ?>
 							<div class="qt-code-card">
 								<div class="qt-code-top">
 									<span class="qt-dot r"></span>
@@ -176,5 +177,26 @@ class Qeema_Hero_Section_Widget extends \Elementor\Widget_Base {
 
 	private function get_typing_code() {
 		return "// QeemaTech – Platform Snippet\nconst brand = \"قيمة تك لتصميم وبرمجة المواقع\";\n\nfunction buildWebsite({ uiux, performance, seo }) {\n  return {\n    name: brand,\n    stack: [\"React\", \"Node.js\", \"WordPress\"],\n    uiux,\n    performance,\n    seo,\n    status: \"ready_to_launch\"\n  };\n}\n\nconst project = buildWebsite({\n  uiux: \"neon glass dark mode\",\n  performance: \"fast & optimized\",\n  seo: \"structured & scalable\"\n});\n\nconsole.log(project);";
+	}
+
+	/**
+	 * Floating icon cluster around the code card. Each one carries its own
+	 * icon + position + gradient class (fi-1..fi-6) so the CSS can give every
+	 * icon a distinct float path/speed/delay instead of one repeated motion.
+	 */
+	private function render_floating_icons() {
+		$icons = array(
+			'fi-1' => '<polyline points="9 18 3 12 9 6"></polyline><polyline points="15 6 21 12 15 18"></polyline>',
+			'fi-2' => '<path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path>',
+			'fi-3' => '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>',
+			'fi-4' => '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><polyline points="9 12 12 15 16 10"></polyline>',
+			'fi-5' => '<polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline>',
+			'fi-6' => '<path d="M12 2l1.8 5.6L19 9l-5.2 1.4L12 16l-1.8-5.6L5 9l5.2-1.4L12 2z" fill="currentColor" stroke="none"></path>',
+		);
+		$out = '';
+		foreach ( $icons as $class => $paths ) {
+			$out .= '<div class="qt-ficon ' . esc_attr( $class ) . '"><svg class="qt-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' . $paths . '</svg></div>';
+		}
+		return $out;
 	}
 }

@@ -32,20 +32,17 @@ body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opa
 .qt-pre::-webkit-scrollbar{display:none}
 .qt-caret{display:inline-block;width:10px;height:18px;margin-left:2px;vertical-align:-3px;border-radius:3px;background:rgba(255,255,255,.92);box-shadow:0 0 18px rgba(34,211,238,.18);animation:qtBlink 1s steps(1) infinite}
 @keyframes qtBlink{0%,49%{opacity:1}50%,100%{opacity:0}}
-.qt-ficon{position:absolute;z-index:90;width:56px;height:56px;border-radius:18px;display:grid;place-items:center;box-shadow:0 22px 60px rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.20);overflow:hidden;animation:qtOrbit 3.2s ease-in-out infinite}
-.qt-svg{width:28px;height:28px;color:rgba(255,255,255,.92);filter:drop-shadow(0 0 10px rgba(0,0,0,.15))}
-@keyframes qtOrbit{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-.fi-html{top:-26px;left:-18px;animation-duration:3.6s}
-.fi-css{top:-30px;right:-16px;animation-duration:3s}
-.fi-js{bottom:-24px;left:-14px;animation-duration:4s}
-.fi-react{bottom:-30px;right:-18px;animation-duration:3.4s}
-.fi-node{top:52%;left:-26px;transform:translateY(-50%);animation-duration:3.8s}
-.fi-html{background:linear-gradient(135deg,#ff2d95,#7c3aed)}
-.fi-css{background:linear-gradient(135deg,#22d3ee,#2563eb)}
-.fi-js{background:linear-gradient(135deg,#f59e0b,#ef4444)}
-.fi-react{background:linear-gradient(135deg,#00ffb2,#22d3ee)}
-.fi-node{background:linear-gradient(135deg,#22c55e,#16a34a)}
+.qt-ficon{position:absolute;z-index:90;width:56px;height:56px;border-radius:18px;display:grid;place-items:center;box-shadow:0 22px 60px rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.20);overflow:hidden;animation:qtOrbit var(--fi-dur,3.2s) ease-in-out infinite;animation-delay:var(--fi-delay,0s)}
+.qt-svg{width:26px;height:26px;color:rgba(255,255,255,.92);filter:drop-shadow(0 0 10px rgba(0,0,0,.15))}
+@keyframes qtOrbit{0%,100%{transform:translate(0,0) rotate(0deg)}50%{transform:translate(var(--fi-dx,0px),var(--fi-dy,-8px)) rotate(var(--fi-rot,4deg))}}
+.fi-1{top:-26px;left:-18px;--fi-dur:3.6s;--fi-delay:0s;--fi-dy:-10px;--fi-rot:-6deg;background:linear-gradient(135deg,#ff2d95,#7c3aed)}
+.fi-2{top:-34px;right:-20px;width:60px;height:60px;--fi-dur:4.1s;--fi-delay:.5s;--fi-dx:4px;--fi-dy:-9px;--fi-rot:8deg;background:linear-gradient(135deg,#ff8a3d,#ff2d6a)}
+.fi-3{top:36%;right:-34px;width:46px;height:46px;border-radius:14px;--fi-dur:2.8s;--fi-delay:.2s;--fi-dx:6px;--fi-dy:-6px;--fi-rot:14deg;background:linear-gradient(135deg,#ffd166,#ef4444)}
+.fi-4{bottom:-26px;right:-16px;width:58px;height:58px;--fi-dur:3.9s;--fi-delay:.8s;--fi-dy:-8px;--fi-rot:-8deg;background:linear-gradient(135deg,#00ffb2,#0d9488)}
+.fi-5{bottom:-22px;left:-18px;--fi-dur:4.4s;--fi-delay:.3s;--fi-dx:-4px;--fi-dy:-9px;--fi-rot:6deg;background:linear-gradient(135deg,#60a5fa,#7c3aed)}
+.fi-6{top:42%;left:-30px;width:42px;height:42px;border-radius:12px;--fi-dur:3.1s;--fi-delay:1s;--fi-dx:-5px;--fi-dy:-7px;--fi-rot:-16deg;background:linear-gradient(135deg,#22d3ee,#14b8a6)}
 .qt-ficon::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(255,255,255,.22),transparent 45%,rgba(255,255,255,.10))}
+@media(max-width:1024px){.qt-ficon{display:none}}
 
 .qeema-hero-section{position:relative;overflow:hidden;padding:150px 28px 90px}
 .qeema-hero-section__wrap{max-width:1360px;margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:center;position:relative;z-index:1}
