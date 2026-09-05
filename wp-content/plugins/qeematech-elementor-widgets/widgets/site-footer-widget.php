@@ -26,6 +26,10 @@ class Qeema_Site_Footer_Widget extends \Elementor\Widget_Base {
 		return array( 'qeema-shared-sections' );
 	}
 
+	public function get_script_depends() {
+		return array( 'qeema-site-footer' );
+	}
+
 	private function link_column_fields() {
 		return array(
 			array( 'name' => 'heading', 'label' => 'Column Heading', 'type' => \Elementor\Controls_Manager::TEXT ),
@@ -48,8 +52,11 @@ class Qeema_Site_Footer_Widget extends \Elementor\Widget_Base {
 			'label' => __( 'About Column', 'qeematech-elementor-widgets' ),
 		) );
 		$this->add_control( 'logo', array(
-			'label' => __( 'Logo', 'qeematech-elementor-widgets' ),
-			'type'  => \Elementor\Controls_Manager::MEDIA,
+			'label'   => __( 'Logo', 'qeematech-elementor-widgets' ),
+			'type'    => \Elementor\Controls_Manager::MEDIA,
+			'default' => array(
+				'url' => \Elementor\Utils::get_placeholder_image_src(),
+			),
 		) );
 		$this->add_control( 'about_text', array(
 			'label'   => __( 'About Text', 'qeematech-elementor-widgets' ),
@@ -112,7 +119,7 @@ class Qeema_Site_Footer_Widget extends \Elementor\Widget_Base {
 		$this->end_controls_section();
 	}
 
-	private function render_column( $column ) {
+	private function render_column( $column, $icon_class = '' ) {
 		if ( empty( $column ) ) {
 			return;
 		}
@@ -122,7 +129,12 @@ class Qeema_Site_Footer_Widget extends \Elementor\Widget_Base {
 			}
 			?>
 			<div class="qeema-footer__column">
-				<?php if ( ! empty( $col['heading'] ) ) : ?><h5><?php echo esc_html( $col['heading'] ); ?></h5><?php endif; ?>
+				<?php if ( ! empty( $col['heading'] ) ) : ?>
+					<h5>
+						<?php if ( $icon_class ) : ?><i class="<?php echo esc_attr( $icon_class ); ?>" aria-hidden="true"></i><?php endif; ?>
+						<?php echo esc_html( $col['heading'] ); ?>
+					</h5>
+				<?php endif; ?>
 				<ul class="qeema-footer__links">
 					<?php foreach ( $col['links'] as $link ) : ?>
 						<li><a <?php echo ! empty( $link['link']['url'] ) ? 'href="' . esc_url( $link['link']['url'] ) . '"' : ''; ?>><?php echo esc_html( $link['text'] ); ?></a></li>
@@ -137,31 +149,42 @@ class Qeema_Site_Footer_Widget extends \Elementor\Widget_Base {
 		$settings = $this->get_settings_for_display();
 		?>
 		<footer class="qeema-footer">
-			<div class="qeema-footer__grid">
-				<div class="qeema-footer__about">
-					<?php if ( ! empty( $settings['logo']['url'] ) ) : ?>
-						<img src="<?php echo esc_url( $settings['logo']['url'] ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
-					<?php endif; ?>
-					<?php if ( ! empty( $settings['about_text'] ) ) : ?>
-						<p><?php echo esc_html( $settings['about_text'] ); ?></p>
-					<?php endif; ?>
-					<div class="qeema-footer__social">
-						<?php foreach ( $settings['social_icons'] as $s ) : ?>
-							<a <?php echo ! empty( $s['link']['url'] ) ? 'href="' . esc_url( $s['link']['url'] ) . '"' : ''; ?> target="_blank" rel="noopener"><i class="<?php echo esc_attr( $s['icon_class'] ); ?>"></i></a>
-						<?php endforeach; ?>
+			<img class="qeema-footer__watermark" src="<?php echo esc_url( trailingslashit( wp_upload_dir()['baseurl'] ) . '2026/08/qt-icon-only.png' ); ?>" alt="" aria-hidden="true">
+			<div class="qeema-footer__wrap">
+				<div class="qeema-footer__cards">
+					<div class="qeema-footer__brand">
+						<?php if ( ! empty( $settings['logo']['url'] ) && \Elementor\Utils::get_placeholder_image_src() !== $settings['logo']['url'] ) : ?>
+							<img src="<?php echo esc_url( $settings['logo']['url'] ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
+						<?php endif; ?>
+						<?php if ( ! empty( $settings['about_text'] ) ) : ?>
+							<p><?php echo esc_html( $settings['about_text'] ); ?></p>
+						<?php endif; ?>
+						<div class="qeema-footer__stats">
+							<div class="qeema-footer__stat"><strong>+6500</strong><span><?php esc_html_e( 'مشروع', 'qeematech-elementor-widgets' ); ?></span></div>
+							<div class="qeema-footer__stat"><strong>+80</strong><span><?php esc_html_e( 'مهندس', 'qeematech-elementor-widgets' ); ?></span></div>
+							<div class="qeema-footer__stat"><strong>99%</strong><span><?php esc_html_e( 'جاهزية', 'qeematech-elementor-widgets' ); ?></span></div>
+						</div>
+						<div class="qeema-footer__social">
+							<?php foreach ( $settings['social_icons'] as $s ) : ?>
+								<a <?php echo ! empty( $s['link']['url'] ) ? 'href="' . esc_url( $s['link']['url'] ) . '"' : ''; ?> target="_blank" rel="noopener"><i class="<?php echo esc_attr( $s['icon_class'] ); ?>"></i></a>
+							<?php endforeach; ?>
+						</div>
 					</div>
-				</div>
 
-				<?php
-				$this->render_column( $settings['column1'] );
-				$this->render_column( $settings['column2'] );
-				$this->render_column( $settings['column3'] );
-				?>
+					<?php
+					$this->render_column( $settings['column1'], 'fas fa-link' );
+					$this->render_column( $settings['column2'], 'fas fa-headset' );
+					$this->render_column( $settings['column3'], 'fas fa-map-marker-alt' );
+					?>
+				</div>
 			</div>
 
 			<?php if ( ! empty( $settings['copyright_text'] ) ) : ?>
 				<div class="qeema-footer__bottom">
 					<span><?php echo esc_html( $settings['copyright_text'] ); ?></span>
+					<a class="qeema-footer__totop" href="#" aria-label="<?php esc_attr_e( 'Back to top', 'qeematech-elementor-widgets' ); ?>">
+						<i class="fas fa-arrow-up" aria-hidden="true"></i>
+					</a>
 				</div>
 			<?php endif; ?>
 		</footer>

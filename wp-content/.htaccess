@@ -1,0 +1,14 @@
+# Block direct web access to WordPress debug logs — they can leak full
+# server filesystem paths and error detail (found unprotected during the
+# 2026-08-29 pre-launch audit).
+<IfModule mod_authz_core.c>
+	<FilesMatch "\.log$">
+		Require all denied
+	</FilesMatch>
+</IfModule>
+<IfModule !mod_authz_core.c>
+	<FilesMatch "\.log$">
+		Order allow,deny
+		Deny from all
+	</FilesMatch>
+</IfModule>

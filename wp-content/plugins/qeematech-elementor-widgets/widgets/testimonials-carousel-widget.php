@@ -47,15 +47,43 @@ class Qeema_Testimonials_Carousel_Widget extends \Elementor\Widget_Base {
 			'default' => 'لقد واصلنا ابداعنا مع مجموعة من أهم رواد الأعمال فى شتى المجالات',
 		) );
 		$this->add_control( 'items_count', array(
-			'label'   => __( 'Number of testimonials to show', 'qeematech-elementor-widgets' ),
-			'type'    => \Elementor\Controls_Manager::NUMBER,
-			'default' => 12,
+			'label'       => __( 'Number of testimonials to show', 'qeematech-elementor-widgets' ),
+			'description' => __( '-1 shows all published testimonials.', 'qeematech-elementor-widgets' ),
+			'type'        => \Elementor\Controls_Manager::NUMBER,
+			'default'     => -1,
+		) );
+		$this->add_control( 'layout', array(
+			'label'   => __( 'Layout', 'qeematech-elementor-widgets' ),
+			'type'    => \Elementor\Controls_Manager::SELECT,
+			'default' => 'carousel',
+			'options' => array(
+				'carousel' => __( 'Carousel (auto-scroll)', 'qeematech-elementor-widgets' ),
+				'grid'     => __( 'Grid (show all at once)', 'qeematech-elementor-widgets' ),
+			),
 		) );
 		$this->end_controls_section();
 	}
 
+	/**
+	 * Works out how a stored video URL should be played in the popup: a
+	 * YouTube/Facebook link needs an embeddable iframe URL, while a
+	 * self-hosted mp4 (the copied-over old testimonial uploads) can just be
+	 * played directly in a <video> tag.
+	 */
+	private function get_video_embed( $video_url ) {
+		if ( preg_match( '#(?:youtube\.com/(?:watch\?v=|shorts/)|youtu\.be/)([A-Za-z0-9_-]+)#', $video_url, $m ) ) {
+			return array( 'type' => 'youtube', 'src' => 'https://www.youtube.com/embed/' . $m[1] . '?autoplay=1&rel=0' );
+		}
+		if ( false !== strpos( $video_url, 'facebook.com' ) ) {
+			return array( 'type' => 'facebook', 'src' => 'https://www.facebook.com/plugins/video.php?href=' . rawurlencode( $video_url ) . '&show_text=false&autoplay=true' );
+		}
+		return array( 'type' => 'video', 'src' => $video_url );
+	}
+
 	protected function render() {
-		$settings = $this->get_settings_for_display();
+		$settings  = $this->get_settings_for_display();
+		$is_grid   = 'grid' === ( $settings['layout'] ?? 'carousel' );
+		$wrap_class = $is_grid ? 'qeema-testimonials__grid' : 'qeema-testimonials__track';
 
 		$query = new \WP_Query( array(
 			'post_type'      => 'testimonial',
@@ -63,16 +91,18 @@ class Qeema_Testimonials_Carousel_Widget extends \Elementor\Widget_Base {
 			'post_status'    => 'publish',
 			'orderby'        => 'menu_order',
 			'order'          => 'ASC',
+			'no_found_rows'  => true,
 		) );
 		?>
 		<section class="qeema-testimonials">
+			<span class="qeema-testimonials__eyebrow"><?php esc_html_e( 'قصص نجاح حقيقية', 'qeematech-elementor-widgets' ); ?></span>
 			<h2><?php echo esc_html( $settings['heading'] ); ?></h2>
 			<?php if ( ! empty( $settings['subheading'] ) ) : ?>
 				<p><?php echo esc_html( $settings['subheading'] ); ?></p>
 			<?php endif; ?>
 
 			<?php if ( $query->have_posts() ) : ?>
-				<div class="qeema-testimonials__track">
+				<div class="<?php echo esc_attr( $wrap_class ); ?>" <?php if ( ! $is_grid ) : ?>data-cursor="<?php esc_attr_e( 'اسحب للتصفح', 'qeematech-elementor-widgets' ); ?>"<?php endif; ?>>
 					<?php while ( $query->have_posts() ) : $query->the_post();
 						$image_id  = get_post_meta( get_the_ID(), 'client_image', true );
 						$image_url = $image_id ? wp_get_attachment_image_url( $image_id, 'medium' ) : get_the_post_thumbnail_url( get_the_ID(), 'medium' );
@@ -80,20 +110,32 @@ class Qeema_Testimonials_Carousel_Widget extends \Elementor\Widget_Base {
 						if ( ! $image_url ) {
 							continue;
 						}
+						$embed = $video_url ? $this->get_video_embed( $video_url ) : null;
 						?>
 						<div class="qeema-testimonial-card">
-							<img src="<?php echo esc_url( $image_url ); ?>" alt="<?php the_title_attribute(); ?>" loading="lazy">
-							<?php if ( $video_url ) : ?>
-								<a class="qeema-testimonial-card__play" href="<?php echo esc_url( $video_url ); ?>" target="_blank" rel="noopener" aria-label="<?php esc_attr_e( 'Play video testimonial', 'qeematech-elementor-widgets' ); ?>">
-									<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="rgba(0,0,0,.45)"/><polygon points="9,7 17,12 9,17" fill="#fff"/></svg>
-								</a>
+							<img src="<?php echo esc_url( $image_url ); ?>" class="qeema-testimonial-card__bg" alt="" aria-hidden="true" loading="lazy">
+							<img src="<?php echo esc_url( $image_url ); ?>" class="qeema-testimonial-card__fg" alt="<?php the_title_attribute(); ?>" loading="lazy" decoding="sync">
+							<?php if ( $embed ) : ?>
+								<button type="button" class="qeema-testimonial-card__play" data-video-type="<?php echo esc_attr( $embed['type'] ); ?>" data-video-src="<?php echo esc_attr( $embed['src'] ); ?>" data-cursor="<?php esc_attr_e( 'مشاهدة', 'qeematech-elementor-widgets' ); ?>" aria-label="<?php esc_attr_e( 'Play video testimonial', 'qeematech-elementor-widgets' ); ?>">
+									<span class="qeema-testimonial-card__ring">
+										<svg viewBox="0 0 24 24"><polygon points="9,7 18,12 9,17" fill="currentColor"/></svg>
+									</span>
+									<span class="qeema-testimonial-card__label"><?php esc_html_e( 'مشاهدة الفيديو', 'qeematech-elementor-widgets' ); ?></span>
+								</button>
 							<?php endif; ?>
 						</div>
 					<?php endwhile; wp_reset_postdata(); ?>
 				</div>
-				<div class="qeema-testimonials__nav">
-					<button type="button" class="qeema-testimonials__prev" aria-label="<?php esc_attr_e( 'Previous', 'qeematech-elementor-widgets' ); ?>">›</button>
-					<button type="button" class="qeema-testimonials__next" aria-label="<?php esc_attr_e( 'Next', 'qeematech-elementor-widgets' ); ?>">‹</button>
+				<?php if ( ! $is_grid ) : ?>
+					<div class="qeema-testimonials__progress"><span class="qeema-testimonials__progress-bar"></span></div>
+				<?php endif; ?>
+
+				<div class="qeema-video-modal" aria-hidden="true">
+					<div class="qeema-video-modal__backdrop"></div>
+					<div class="qeema-video-modal__inner">
+						<button type="button" class="qeema-video-modal__close" aria-label="<?php esc_attr_e( 'Close', 'qeematech-elementor-widgets' ); ?>">&times;</button>
+						<div class="qeema-video-modal__media"></div>
+					</div>
 				</div>
 			<?php else : ?>
 				<p style="color:rgba(255,255,255,.5)"><?php esc_html_e( 'No testimonials yet — add some under the Testimonials post type.', 'qeematech-elementor-widgets' ); ?></p>

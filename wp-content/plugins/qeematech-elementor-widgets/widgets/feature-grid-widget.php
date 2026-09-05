@@ -66,13 +66,23 @@ class Qeema_Feature_Grid_Widget extends \Elementor\Widget_Base {
 			),
 		) );
 
+		$this->add_control( 'card_style', array(
+			'label'   => __( 'Card Style', 'qeematech-elementor-widgets' ),
+			'type'    => \Elementor\Controls_Manager::SELECT,
+			'default' => 'icons',
+			'options' => array(
+				'icons' => __( 'Icon Cards', 'qeematech-elementor-widgets' ),
+				'glow'  => __( 'Glow Cards (mission/vision/values)', 'qeematech-elementor-widgets' ),
+			),
+		) );
+
 		$this->add_control( 'cards', array(
 			'label'       => __( 'Cards', 'qeematech-elementor-widgets' ),
 			'type'        => \Elementor\Controls_Manager::REPEATER,
 			'fields'      => array(
 				array(
 					'name'    => 'icon_text',
-					'label'   => __( 'Icon (emoji or short glyph)', 'qeematech-elementor-widgets' ),
+					'label'   => __( 'Icon (emoji, glyph, or Font Awesome class e.g. "fas fa-laptop-code")', 'qeematech-elementor-widgets' ),
 					'type'    => \Elementor\Controls_Manager::TEXT,
 					'default' => '🔎',
 				),
@@ -149,12 +159,14 @@ class Qeema_Feature_Grid_Widget extends \Elementor\Widget_Base {
 	}
 
 	protected function render() {
-		$settings = $this->get_settings_for_display();
-		$style    = ! empty( $settings['background_color'] )
+		$settings   = $this->get_settings_for_display();
+		$style      = ! empty( $settings['background_color'] )
 			? 'background-color:' . esc_attr( $settings['background_color'] ) . ';'
 			: '';
+		$is_glow    = 'glow' === $settings['card_style'];
+		$grid_class = 'qeema-feature-grid' . ( $is_glow ? ' qeema-feature-grid--glow' : '' );
 		?>
-		<section class="qeema-feature-grid" <?php echo $style ? 'style="' . $style . '"' : ''; ?>>
+		<section class="<?php echo esc_attr( $grid_class ); ?>" <?php echo $style ? 'style="' . $style . '"' : ''; ?>>
 			<div class="qeema-feature-grid__wrap">
 				<div class="qeema-feature-grid__head">
 					<?php if ( ! empty( $settings['badge'] ) ) : ?>
@@ -167,12 +179,23 @@ class Qeema_Feature_Grid_Widget extends \Elementor\Widget_Base {
 				</div>
 
 				<div class="qeema-feature-grid__grid" style="--qeema-grid-cols:<?php echo esc_attr( $settings['columns'] ); ?>;">
-					<?php foreach ( $settings['cards'] as $card ) :
-						$tag  = ! empty( $card['link']['url'] ) ? 'a' : 'div';
-						$href = ! empty( $card['link']['url'] ) ? ' href="' . esc_url( $card['link']['url'] ) . '"' : '';
+					<?php foreach ( $settings['cards'] as $index => $card ) :
+						$tag        = ! empty( $card['link']['url'] ) ? 'a' : 'div';
+						$href       = ! empty( $card['link']['url'] ) ? ' href="' . esc_url( $card['link']['url'] ) . '"' : '';
+						$card_class = 'qeema-feature-card' . ( $is_glow ? ' accent-' . ( ( $index % 3 ) + 1 ) : '' );
 						?>
-						<<?php echo esc_attr( $tag ) . $href; ?> class="qeema-feature-card">
-							<div class="qeema-feature-card__icon"><?php echo esc_html( $card['icon_text'] ); ?></div>
+						<<?php echo esc_attr( $tag ) . $href; ?> class="<?php echo esc_attr( $card_class ); ?>">
+							<?php if ( $is_glow ) : ?>
+								<div class="qeema-feature-card__glow"></div>
+							<?php endif; ?>
+							<div class="qeema-feature-card__icon"><?php
+								$icon_value = trim( $card['icon_text'] );
+								if ( preg_match( '/^(fas|far|fab|fal|fad)\s+fa-[\w-]+$/', $icon_value ) ) {
+									printf( '<i class="%s" aria-hidden="true"></i>', esc_attr( $icon_value ) );
+								} else {
+									echo esc_html( $icon_value );
+								}
+							?></div>
 							<h3><?php echo esc_html( $card['title'] ); ?></h3>
 							<?php if ( ! empty( $card['description'] ) ) : ?>
 								<p><?php echo esc_html( $card['description'] ); ?></p>

@@ -39,8 +39,11 @@ class Qeema_Site_Header_Widget extends \Elementor\Widget_Base {
 			'label' => __( 'Logo', 'qeematech-elementor-widgets' ),
 		) );
 		$this->add_control( 'logo', array(
-			'label' => __( 'Logo', 'qeematech-elementor-widgets' ),
-			'type'  => \Elementor\Controls_Manager::MEDIA,
+			'label'   => __( 'Logo', 'qeematech-elementor-widgets' ),
+			'type'    => \Elementor\Controls_Manager::MEDIA,
+			'default' => array(
+				'url' => \Elementor\Utils::get_placeholder_image_src(),
+			),
 		) );
 		$this->add_control( 'logo_link', array(
 			'label'   => __( 'Logo Link', 'qeematech-elementor-widgets' ),
@@ -136,14 +139,16 @@ class Qeema_Site_Header_Widget extends \Elementor\Widget_Base {
 	}
 
 	protected function render() {
-		$settings = $this->get_settings_for_display();
+		$settings         = $this->get_settings_for_display();
+		$logo_mobile_url  = trailingslashit( wp_upload_dir()['baseurl'] ) . '2026/08/qt-icon-only.png';
 		?>
 		<header class="qeema-header">
 			<div class="qeema-progress-bar"><div class="qeema-progress-bar__fill"></div></div>
 			<div class="qeema-header__main">
 				<a class="qeema-header__logo" href="<?php echo esc_url( $settings['logo_link']['url'] ?? home_url( '/' ) ); ?>">
-					<?php if ( ! empty( $settings['logo']['url'] ) ) : ?>
-						<img src="<?php echo esc_url( $settings['logo']['url'] ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
+					<?php if ( ! empty( $settings['logo']['url'] ) && \Elementor\Utils::get_placeholder_image_src() !== $settings['logo']['url'] ) : ?>
+						<img class="qeema-header__logo-full" src="<?php echo esc_url( $settings['logo']['url'] ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
+						<img class="qeema-header__logo-mobile" src="<?php echo esc_url( $logo_mobile_url ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
 					<?php endif; ?>
 				</a>
 
@@ -168,8 +173,9 @@ class Qeema_Site_Header_Widget extends \Elementor\Widget_Base {
 			<div class="qeema-header__mobile-panel">
 				<div class="qeema-header__mobile-top">
 					<a class="qeema-header__logo" href="<?php echo esc_url( $settings['logo_link']['url'] ?? home_url( '/' ) ); ?>">
-						<?php if ( ! empty( $settings['logo']['url'] ) ) : ?>
-							<img src="<?php echo esc_url( $settings['logo']['url'] ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
+						<?php if ( ! empty( $settings['logo']['url'] ) && \Elementor\Utils::get_placeholder_image_src() !== $settings['logo']['url'] ) : ?>
+							<img class="qeema-header__logo-full" src="<?php echo esc_url( $settings['logo']['url'] ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
+							<img class="qeema-header__logo-mobile" src="<?php echo esc_url( $logo_mobile_url ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
 						<?php endif; ?>
 					</a>
 					<button class="qeema-header__mobile-close" aria-label="<?php esc_attr_e( 'Close menu', 'qeematech-elementor-widgets' ); ?>">

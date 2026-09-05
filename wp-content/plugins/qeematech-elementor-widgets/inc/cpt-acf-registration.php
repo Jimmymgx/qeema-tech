@@ -28,6 +28,19 @@ function qeema_register_post_types() {
 		'supports'     => array( 'title', 'editor', 'thumbnail', 'excerpt' ),
 	) );
 
+	register_taxonomy( 'portfolio-categories', array( 'portfolio' ), array(
+		'label'        => 'Portfolio Categories',
+		'labels'       => array(
+			'name'          => 'Portfolio Categories',
+			'singular_name' => 'Portfolio Category',
+		),
+		'public'       => true,
+		'hierarchical' => true,
+		'show_in_rest' => true,
+		'show_admin_column' => true,
+		'rewrite'      => array( 'slug' => 'portfolio-categories', 'with_front' => true ),
+	) );
+
 	register_post_type( 'live-apps', array(
 		'label'        => 'Live Apps',
 		'labels'       => array(
@@ -38,7 +51,10 @@ function qeema_register_post_types() {
 		'show_in_rest' => true,
 		'has_archive'  => true,
 		'menu_icon'    => 'dashicons-smartphone',
-		'supports'     => array( 'title', 'editor', 'thumbnail' ),
+		// 'page-attributes' adds WP core's native "Order" field to each Live
+		// App's edit screen, letting an admin control the display order on
+		// the Live App page by typing a number — no extra plugin needed.
+		'supports'     => array( 'title', 'editor', 'thumbnail', 'page-attributes' ),
 	) );
 
 	register_post_type( 'testimonial', array(
