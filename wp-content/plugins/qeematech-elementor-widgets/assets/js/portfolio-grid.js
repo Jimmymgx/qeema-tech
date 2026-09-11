@@ -1,9 +1,17 @@
 (function () {
 	function slugFromHref( href ) {
+		if ( ! href || href === '#' || href.indexOf( 'all' ) !== -1 ) {
+			return '';
+		}
 		try {
 			var url = new URL( href, window.location.href );
 			var parts = url.pathname.split( '/' ).filter( Boolean );
-			return parts.length ? decodeURIComponent( parts[ parts.length - 1 ] ) : '';
+			var last = parts.length ? decodeURIComponent( parts[ parts.length - 1 ] ) : '';
+			// "الكل" tabs usually point at the portfolio archive page, not a category.
+			if ( ! last || last === 'أعمالنا' || last === 'portfolio' || last === 'qeema-tech' ) {
+				return '';
+			}
+			return last;
 		} catch ( e ) {
 			return '';
 		}

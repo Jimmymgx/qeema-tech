@@ -68,7 +68,7 @@ add_action( 'elementor/preview/enqueue_styles', 'qeema_custom_css_enqueue', 999 
  * The preconnect hints cut the connection-setup latency for that request.
  */
 function qeema_preload_google_font() {
-	$font_url = 'https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap';
+	$font_url = 'https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700;800&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap';
 	?>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

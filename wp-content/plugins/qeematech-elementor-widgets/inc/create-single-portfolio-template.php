@@ -100,9 +100,9 @@ function qeema_maybe_create_single_portfolio_template() {
 		'elements' => array(
 			qeema_single_portfolio_template_widget( 'qeema-cta-banner', array(
 				'heading'    => 'جاهز تبدأ مشروعك القادم؟',
-				'subheading' => 'تواصل معنا واحصل على عرض سعر مخصص لمشروعك',
+				'subheading' => 'حوّل فكرتك إلى منتج رقمي حقيقي — بخبرة وتنفيذ يليق بطموحك.',
 				'buttons'    => array(
-					array( 'text' => 'طلب عرض سعر', 'link' => array( 'url' => $contact_url ), 'style' => 'primary' ),
+					array( 'text' => 'ابدأ مشروعك', 'link' => array( 'url' => $contact_url ), 'style' => 'primary' ),
 					array( 'text' => 'شاهد أعمالنا', 'link' => array( 'url' => '/أعمالنا/' ), 'style' => 'ghost' ),
 				),
 			) ),

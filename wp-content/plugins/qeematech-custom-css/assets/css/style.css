@@ -1,4 +1,4 @@
-/* === scroll-reveal.css — progressive enhancement: elements only start
+﻿/* === scroll-reveal.css — progressive enhancement: elements only start
    hidden once JS has actually armed them (data attribute set by
    scroll-reveal.js), so content stays fully visible if JS fails/never
    runs. Skipped entirely for prefers-reduced-motion. === */
@@ -970,61 +970,162 @@ body::before{content:"";position:fixed;top:-140px;right:-140px;bottom:-140px;lef
 .qeema-footer__totop:hover{background:rgba(0,212,255,.22);transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,212,255,.3)}
 @media(max-width:600px){.qeema-footer{padding:64px 20px 0}.qeema-footer__cards{gap:16px}.qeema-footer__brand,.qeema-footer__column{flex:1 1 100%;padding:24px 22px}.qeema-footer__bottom{justify-content:center;text-align:center}}
 
-/* === portfolio-teaser.css === */
-.qeema-portfolio-teaser{padding:70px 30px;text-align:center}
-.qeema-portfolio-teaser__wrap{max-width:1600px;margin:0 auto}
-.qeema-portfolio-teaser h2{color:#fff;font-size:38px;line-height:1.4;font-weight:800;margin:0 0 14px}
-.qeema-portfolio-teaser p{color:rgba(255,255,255,.78);font-size:17px;line-height:1.8;margin:0 0 26px}
-.qeema-portfolio-teaser__categories{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:30px}
-.qeema-portfolio-teaser__cat{padding:9px 20px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);color:#fff;text-decoration:none;font-size:14px;font-weight:600;transition:.25s}
-.qeema-portfolio-teaser__cat:hover{background:linear-gradient(135deg,#10cfff,#0066ff);border-color:transparent;color:#fff}
-.qeema-portfolio-teaser__cat.active{background:#0a1020;border-color:rgba(255,255,255,.22);box-shadow:0 6px 16px rgba(0,0,0,.4)}
-.qeema-portfolio-teaser__cat.active:hover{background:linear-gradient(135deg,#10cfff,#0066ff);color:#fff}
-.qeema-portfolio-teaser__actions{display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
-.qeema-portfolio-teaser__btn{text-decoration:none;padding:14px 24px;border-radius:14px;font-weight:800;font-size:15px}
-.qeema-portfolio-teaser__btn.primary{background:linear-gradient(135deg,#10cfff,#0066ff);color:#fff}
+/* === portfolio-teaser + portfolio-grid — approved homepage mockup === */
+.qeema-portfolio-teaser{
+  position:relative;isolation:isolate;padding:88px 24px 72px;text-align:center;
+  background:
+    radial-gradient(circle at 50% 0%,rgba(56,189,248,.14) 0%,transparent 42%),
+    radial-gradient(circle at 15% 70%,rgba(14,165,233,.08) 0%,transparent 40%),
+    #050a12;
+  font-family:"Readex Pro",Rubik,sans-serif;
+}
+.qeema-portfolio-teaser__wrap{max-width:1240px;margin:0 auto}
+.qeema-portfolio-teaser__head{max-width:760px;margin:0 auto 28px}
+.qeema-portfolio-teaser__badge{
+  display:inline-flex;align-items:center;gap:8px;margin:0 0 18px;padding:8px 16px;
+  border-radius:999px;background:rgba(8,18,36,.75);border:1px solid rgba(56,189,248,.28);
+  color:#dbeafe;font-size:13px;font-weight:600;
+}
+.qeema-portfolio-teaser__badge-icon{
+  width:18px;height:18px;border-radius:50%;
+  background:radial-gradient(circle at 35% 35%,#7dd3fc,#0284c7 70%);
+  box-shadow:0 0 12px rgba(56,189,248,.55);
+}
+.qeema-portfolio-teaser h2{color:#fff;font-size:clamp(30px,4vw,44px);line-height:1.35;font-weight:800;margin:0 0 14px}
+.qeema-portfolio-teaser__lead{color:rgba(226,232,240,.78);font-size:16px;line-height:1.85;margin:0 auto;max-width:52ch}
+.qeema-portfolio-teaser__categories{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:0 0 28px}
+.qeema-portfolio-teaser__cat{
+  padding:10px 18px;border-radius:999px;background:rgba(8,18,36,.7);
+  border:1px solid rgba(56,189,248,.28);color:#e2e8f0;text-decoration:none;
+  font-size:13.5px;font-weight:600;transition:background .25s ease,border-color .25s ease,box-shadow .25s ease,color .25s ease;
+}
+.qeema-portfolio-teaser__cat:hover{border-color:rgba(56,189,248,.55);color:#fff;box-shadow:0 0 18px rgba(56,189,248,.18)}
+.qeema-portfolio-teaser__cat.active{
+  background:linear-gradient(135deg,#38bdf8,#0ea5e9);border-color:transparent;color:#04101f;
+  box-shadow:0 10px 28px rgba(14,165,233,.35);
+}
+.qeema-portfolio-teaser__cat.active:hover{color:#04101f}
+.qeema-portfolio-teaser__actions{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:8px}
+.qeema-portfolio-teaser__btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  text-decoration:none;padding:14px 28px;border-radius:999px;font-weight:800;font-size:15px;border:none;cursor:pointer;
+  transition:transform .25s ease,box-shadow .25s ease,background .25s ease;
+}
+.qeema-portfolio-teaser__btn.primary{background:linear-gradient(135deg,#38bdf8,#0284c7);color:#fff;box-shadow:0 12px 30px rgba(14,165,233,.28)}
+.qeema-portfolio-teaser__btn.primary:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(14,165,233,.4)}
 .qeema-portfolio-teaser__btn.ghost{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);color:#fff}
-.qeema-portfolio-grid__show-more{display:block;margin:32px auto 0;border:none;cursor:pointer;transition:transform .25s ease,box-shadow .25s ease}
-.qeema-portfolio-grid__show-more:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(16,207,255,.3)}
+.qeema-portfolio-teaser__foot{margin:22px auto 0;max-width:48ch;color:rgba(148,163,184,.9);font-size:13.5px;line-height:1.75}
 
-/* === portfolio-grid.css === */
-/* Full-bleed breakout: the section's own wrap caps at 1100px for the
-   heading/tabs, but the grid needs much more room, so it escapes that
-   constraint with the standard 100vw/negative-margin trick instead of
-   widening the whole section (which would also stretch the heading text
-   uncomfortably wide). */
-.qeema-portfolio-grid{position:relative;left:50%;right:50%;width:100vw;margin-left:-50vw;margin-right:-50vw;padding:10px 30px 60px}
-.qeema-portfolio-grid__count{max-width:1600px;margin:0 auto 20px;text-align:center;color:rgba(255,255,255,.55);font-size:14px;font-weight:600;letter-spacing:.3px}
-.qeema-portfolio-grid__wrap{max-width:1600px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:24px;align-items:start}
-.qeema-portfolio-grid__item{transition:opacity .28s ease,transform .28s ease}
+.qeema-portfolio-grid{padding:0 0 8px}
+.qeema-portfolio-grid__meta{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  margin:0 0 22px;padding:0 4px;
+}
+.qeema-portfolio-grid__count{
+  margin:0;padding:8px 14px;border-radius:999px;background:rgba(56,189,248,.1);
+  border:1px solid rgba(56,189,248,.22);color:#7dd3fc;font-size:13px;font-weight:700;
+}
+.qeema-portfolio-grid__meta-note{margin:0;display:inline-flex;align-items:center;gap:8px;color:rgba(226,232,240,.7);font-size:13px;font-weight:600}
+.qeema-portfolio-grid__meta-dot{width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 10px rgba(34,197,94,.7)}
+.qeema-portfolio-grid__wrap{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px;align-items:stretch}
+.qeema-portfolio-grid__item{transition:opacity .28s ease,transform .28s ease;min-width:0}
 .qeema-portfolio-grid__item--hide{opacity:0;transform:scale(.92);pointer-events:none}
-@media(max-width:1400px){.qeema-portfolio-grid__wrap{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:1000px){.qeema-portfolio-grid__wrap{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:600px){.qeema-portfolio-grid__wrap{grid-template-columns:1fr}}
+.qeema-portfolio-grid__show-more{display:inline-flex;margin:36px auto 0;border:none}
+@media(max-width:1100px){.qeema-portfolio-grid__wrap{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:820px){.qeema-portfolio-grid__wrap{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){
+  .qeema-portfolio-grid__wrap{grid-template-columns:1fr;max-width:360px;margin:0 auto}
+  .qeema-portfolio-grid__meta{justify-content:center;text-align:center}
+}
 
-/* Mockup-frame cards for both portfolio card types — website (browser-card:
-   traffic-light dots + fake URL bar, reusing the same .qt-dot classes
-   already defined near the top of this file for qeema-browser-showcase) and
-   mobile app (phone-card: a centered notch instead). Both share the exact
-   same box (aspect-ratio:3/4, so the two types always come out the same
-   size in the grid) and the exact same footer/title/actions/button classes,
-   so the 2 action buttons look identical on every card regardless of type —
-   only the top chrome and the primary button's link differ. */
-.qeema-portfolio-grid__browser-card,.qeema-portfolio-grid__phone-card{position:relative;display:flex;flex-direction:column;aspect-ratio:3/4;border-radius:18px;overflow:hidden;background:#0b1526;border:1px solid rgba(255,255,255,.10);transition:transform .35s cubic-bezier(.2,.8,.2,1),border-color .3s ease,box-shadow .3s ease}
-.qeema-portfolio-grid__browser-card:hover,.qeema-portfolio-grid__phone-card:hover{transform:translateY(-4px);border-color:rgba(0,212,255,.35);box-shadow:0 20px 44px rgba(0,0,0,.4),0 0 0 1px rgba(0,212,255,.2)}
-.qeema-portfolio-grid__browser-bar{display:flex;align-items:center;gap:7px;flex-shrink:0;padding:11px 14px;background:rgba(255,255,255,.03);border-bottom:1px solid rgba(255,255,255,.08)}
-.qeema-portfolio-grid__browser-bar.qeema-portfolio-grid__phone-bar{justify-content:center}
-.qeema-portfolio-grid__phone-notch{width:44px;height:6px;border-radius:99px;background:rgba(255,255,255,.28)}
-.qeema-portfolio-grid__browser-url{margin-inline-start:8px;padding:4px 12px;border-radius:999px;background:rgba(255,255,255,.07);color:rgba(255,255,255,.55);font-size:11px;font-family:ui-monospace,Menlo,Consolas,monospace;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:center}
-.qeema-portfolio-grid__browser-screen{display:block;width:100%;flex:1;min-height:0;background-size:cover;background-position:top center;background-repeat:no-repeat;background-color:#060c18}
-.qeema-portfolio-grid__browser-footer{flex-shrink:0;padding:16px 18px 18px;display:flex;flex-direction:column;gap:12px}
-.qeema-portfolio-grid__browser-title{margin:0;color:#fff;font-size:16px;font-weight:800;line-height:1.4;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
-.qeema-portfolio-grid__browser-actions{display:flex;gap:8px;flex-wrap:wrap}
-.qeema-portfolio-grid__browser-btn{flex:1;text-align:center;padding:9px 12px;border-radius:10px;font-size:12.5px;font-weight:700;text-decoration:none;white-space:nowrap}
-.qeema-portfolio-grid__browser-btn.primary{background:linear-gradient(135deg,#10cfff,#0066ff);color:#fff}
-.qeema-portfolio-grid__browser-btn.ghost{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);color:#fff}
-.qeema-portfolio-grid__browser-btn.ghost:hover{background:rgba(255,255,255,.1)}
-@media (prefers-reduced-motion:reduce){.qeema-portfolio-grid__browser-card,.qeema-portfolio-grid__phone-card{transition:none}}
+.qeema-portfolio-grid__card,
+.qeema-portfolio-grid__browser-card,
+.qeema-portfolio-grid__phone-card{
+  position:relative;display:flex;flex-direction:column;height:100%;
+  border-radius:22px;overflow:hidden;
+  background:linear-gradient(160deg,rgba(16,28,48,.92),rgba(8,14,26,.96));
+  border:1px solid rgba(56,189,248,.22);
+  box-shadow:0 18px 40px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.04);
+  transition:transform .35s cubic-bezier(.2,.8,.2,1),border-color .3s ease,box-shadow .3s ease;
+}
+.qeema-portfolio-grid__card:hover,
+.qeema-portfolio-grid__browser-card:hover,
+.qeema-portfolio-grid__phone-card:hover{
+  transform:translateY(-6px);
+  border-color:rgba(56,189,248,.55);
+  box-shadow:0 26px 50px rgba(0,0,0,.45),0 0 28px rgba(56,189,248,.16);
+}
+.qeema-portfolio-grid__stage{
+  flex:1 1 auto;min-height:280px;display:flex;align-items:flex-end;justify-content:center;
+  padding:26px 16px 10px;
+  background:
+    radial-gradient(circle at 50% 18%,rgba(56,189,248,.14),transparent 55%),
+    linear-gradient(180deg,rgba(255,255,255,.02),transparent 40%);
+}
+.qeema-portfolio-grid__shot{
+  display:block;width:min(68%,200px);line-height:0;
+  filter:drop-shadow(0 22px 28px rgba(0,0,0,.45));
+  transition:transform .35s cubic-bezier(.2,.8,.2,1);
+}
+.qeema-portfolio-grid__phone-card:hover .qeema-portfolio-grid__shot{transform:translateY(-4px)}
+.qeema-portfolio-grid__shot .qeema-portfolio-grid__media,
+.qeema-portfolio-grid__shot img{
+  display:block;width:100%;height:auto;max-height:340px;object-fit:contain;
+  image-rendering:auto;-webkit-backface-visibility:hidden;backface-visibility:hidden;
+}
+.qeema-portfolio-grid__browser{
+  width:100%;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.12);
+  background:#0a1220;box-shadow:0 16px 30px rgba(0,0,0,.4);
+}
+.qeema-portfolio-grid__browser-bar{
+  display:flex;align-items:center;gap:7px;flex-shrink:0;padding:10px 12px;
+  background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.08);
+}
+.qeema-portfolio-grid__browser-url{
+  margin-inline-start:8px;padding:4px 12px;border-radius:999px;background:rgba(255,255,255,.07);
+  color:rgba(255,255,255,.55);font-size:11px;font-family:ui-monospace,Menlo,Consolas,monospace;
+  flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:center;
+}
+.qeema-portfolio-grid__browser-screen{
+  display:block;width:100%;line-height:0;overflow:hidden;background:#060c18;
+}
+.qeema-portfolio-grid__browser-screen .qeema-portfolio-grid__media,
+.qeema-portfolio-grid__browser-screen img{
+  display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;object-position:top center;
+}
+.qeema-portfolio-grid__browser-footer{
+  flex-shrink:0;padding:16px 16px 18px;display:flex;flex-direction:column;gap:8px;text-align:center;
+  border-top:1px solid rgba(255,255,255,.06);
+}
+.qeema-portfolio-grid__browser-title{
+  margin:0;color:#fff;font-size:15.5px;font-weight:800;line-height:1.4;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+.qeema-portfolio-grid__browser-desc{
+  margin:0;color:rgba(148,163,184,.95);font-size:12.5px;line-height:1.6;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+.qeema-portfolio-grid__browser-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.qeema-portfolio-grid__browser-btn{
+  flex:1;text-align:center;padding:10px 12px;border-radius:999px;font-size:12.5px;font-weight:700;
+  text-decoration:none;white-space:nowrap;transition:background .2s ease,box-shadow .2s ease,border-color .2s ease;
+}
+.qeema-portfolio-grid__browser-btn.primary{background:linear-gradient(135deg,#38bdf8,#0284c7);color:#fff}
+.qeema-portfolio-grid__browser-btn.primary:hover{box-shadow:0 8px 20px rgba(14,165,233,.35)}
+.qeema-portfolio-grid__browser-btn.ghost{background:transparent;border:1px solid rgba(56,189,248,.35);color:#e2e8f0}
+.qeema-portfolio-grid__browser-btn.ghost:hover{background:rgba(56,189,248,.08);border-color:rgba(56,189,248,.55)}
+@media (prefers-reduced-motion:reduce){
+  .qeema-portfolio-grid__card,.qeema-portfolio-grid__browser-card,.qeema-portfolio-grid__phone-card,
+  .qeema-portfolio-grid__shot,.qeema-portfolio-grid__browser-btn,.qeema-portfolio-teaser__btn{transition:none}
+}
+
+/* Legacy archive cards without __stage still fill usablely */
+.qeema-portfolio-grid__phone-card > .qeema-portfolio-grid__browser-bar,
+.qeema-portfolio-grid__browser-card > .qeema-portfolio-grid__browser-bar{display:none}
+.qeema-portfolio-grid__phone-card > .qeema-portfolio-grid__browser-screen,
+.qeema-portfolio-grid__browser-card > .qeema-portfolio-grid__browser-screen{
+  min-height:220px;flex:1;background-size:cover;background-position:top center;
+}
 
 /* === testimonials-carousel.css === */
 .qeema-testimonials{padding:84px 30px;text-align:center;position:relative}
@@ -1796,74 +1897,179 @@ body.page-id-869 .qeema-category-showcase__grid{grid-template-columns:repeat(3,m
 	.qeema-bank-details__value-wrap{width:100%;justify-content:space-between}
 }
 
-/* === portfolio-case-hero.css / portfolio-case-story.css — the single-portfolio
-   case-study template (Elementor Theme Builder condition: include/singular/portfolio).
-   Hero uses the post's real banner/featured image directly (no browser-chrome
-   frame) inside an animated gradient-flow border with a slow ken-burns zoom.
-   Story sections map 1:1 to the real ACF fields (idea/التحدي/الحل_من_قيمة_تك/
-   idea_copy2) and only render for whichever fields a given post actually has -
-   no empty placeholder sections across the 166 real portfolio posts. === */
-.qeema-portfolio-case-hero{position:relative;padding:64px 0 0;overflow:hidden}
-.qeema-portfolio-case-hero__glow{position:absolute;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 900px 500px at 85% -10%,rgba(0,212,255,.16),transparent 60%),radial-gradient(ellipse 700px 500px at 10% 30%,rgba(139,92,246,.12),transparent 60%)}
-.qeema-portfolio-case-hero__blob{position:absolute;border-radius:50%;filter:blur(70px);pointer-events:none;z-index:0;opacity:.5;animation:qeema-pch-drift 20s ease-in-out infinite}
-.qeema-portfolio-case-hero__blob--a{width:320px;height:320px;background:radial-gradient(circle,rgba(0,212,255,.32),transparent 70%);top:-70px;left:-50px}
-.qeema-portfolio-case-hero__blob--b{width:260px;height:260px;background:radial-gradient(circle,rgba(139,92,246,.28),transparent 70%);bottom:-50px;right:8%;animation-delay:-7s;animation-duration:24s}
-@keyframes qeema-pch-drift{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(26px,-20px) scale(1.07)}66%{transform:translate(-18px,16px) scale(.95)}}
-.qeema-portfolio-case-hero__content{position:relative;z-index:1;text-align:center;max-width:760px;margin:0 auto 40px;padding:0 20px}
-.qeema-portfolio-case-hero__eyebrow{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:999px;background:rgba(0,212,255,.10);border:1px solid rgba(0,212,255,.35);color:#00d4ff;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;font-weight:700;letter-spacing:.3px;margin-bottom:22px}
-.qeema-portfolio-case-hero__eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:#00d4ff;box-shadow:0 0 10px rgba(0,212,255,.9);animation:qeema-pch-pulse 2s ease-in-out infinite}
-@keyframes qeema-pch-pulse{0%,100%{opacity:1}50%{opacity:.35}}
-.qeema-portfolio-case-hero h1{font-size:52px;font-weight:800;margin:0 0 22px;text-wrap:balance;background:linear-gradient(135deg,#fff 40%,rgba(255,255,255,.75));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.qeema-portfolio-case-hero__meta{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-bottom:30px}
-.qeema-portfolio-case-hero__chip{display:inline-flex;align-items:center;gap:7px;padding:8px 15px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.75);font-size:13px;font-weight:600}
-.qeema-portfolio-case-hero__chip svg{width:14px;height:14px;flex-shrink:0;opacity:.8}
-.qeema-portfolio-case-hero__ctas{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
-.qeema-portfolio-case-hero__btn{display:inline-flex;align-items:center;gap:8px;padding:14px 26px;border-radius:14px;font-weight:800;font-size:15px;text-decoration:none;border:1px solid transparent;transition:transform .25s ease,box-shadow .25s ease,background .25s ease}
-.qeema-portfolio-case-hero__btn.primary{background:linear-gradient(135deg,#10cfff,#0066ff);color:#04101f}
-.qeema-portfolio-case-hero__btn.primary:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(0,150,255,.35)}
-.qeema-portfolio-case-hero__btn.ghost{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.18);color:#fff}
-.qeema-portfolio-case-hero__btn.ghost:hover{background:rgba(255,255,255,.12);transform:translateY(-3px)}
-.qeema-portfolio-case-hero__wrap{max-width:1200px;margin:0 auto;padding:0 28px}
-.qeema-portfolio-case-hero__banner{position:relative;z-index:1;max-width:1040px;margin:0 auto;padding:3px;border-radius:26px;background:linear-gradient(120deg,#00d4ff,#8b5cf6,#0066ff,#00d4ff);background-size:300% 300%;animation:qeema-pch-border-flow 8s ease infinite}
-@keyframes qeema-pch-border-flow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-.qeema-portfolio-case-hero__banner-inner{position:relative;border-radius:24px;overflow:hidden;background:#060c18}
-.qeema-portfolio-case-hero__banner-img{display:block;width:100%;aspect-ratio:16/8.4;object-fit:cover;object-position:top center;animation:qeema-pch-kenburns 15s ease-in-out infinite alternate}
-@keyframes qeema-pch-kenburns{from{transform:scale(1) translateY(0)}to{transform:scale(1.06) translateY(-1.5%)}}
-.qeema-portfolio-case-hero__banner-sheen{position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(6,12,24,.75) 100%);pointer-events:none}
-.qeema-portfolio-case-hero__scroll-cue{display:flex;justify-content:center;padding:30px 0 10px;position:relative;z-index:1}
-.qeema-portfolio-case-hero__scroll-cue svg{width:20px;height:20px;color:rgba(255,255,255,.35);animation:qeema-pch-bounce 1.8s ease-in-out infinite}
-@keyframes qeema-pch-bounce{0%,100%{transform:translateY(0);opacity:.4}50%{transform:translateY(8px);opacity:.9}}
+/* === qeema-cs-* — وأتموا-approved case study system (cyan/gold glass). === */
+body.single-portfolio{
+  background-color:#060c16;
+  color:#e2e8f0;
+}
+body.single-portfolio .qeema-cs-hero,
+body.single-portfolio .qeema-cs-story,
+.qeema-cs-hero,.qeema-cs-story{font-family:"Readex Pro",Rubik,sans-serif}
+.qeema-cs-hero,.qeema-cs-story{
+  --cs-dark:#060c16;--cs-night:#080f1d;--cs-surface:#0e1726;--cs-card:#131f33;
+  --cs-cyan:#38bdf8;--cs-gold:#c5a869;--cs-text:#e2e8f0;--cs-muted:#94a3b8;
+  color:var(--cs-text);
+  background:
+    radial-gradient(circle at 15% 15%,rgba(56,189,248,.08) 0%,transparent 40%),
+    radial-gradient(circle at 85% 60%,rgba(197,168,105,.06) 0%,transparent 45%),
+    radial-gradient(circle at 50% 100%,rgba(14,165,233,.07) 0%,transparent 50%),
+    var(--cs-dark);
+}
+/* Keep Elementor parent sections from washing out the mockup wash */
+body.single-portfolio .elementor-top-section.elementor-section-boxed > .elementor-container,
+body.single-portfolio .elementor-element.e-con,
+body.single-portfolio .e-con-inner{
+  background:transparent!important;
+  --padding-top:0px!important;
+  --padding-bottom:0px!important;
+  --padding-left:0px!important;
+  --padding-right:0px!important;
+  max-width:none!important;
+}
+body.single-portfolio .elementor-widget-qeema-portfolio-case-hero,
+body.single-portfolio .elementor-widget-qeema-portfolio-case-story{width:100%}
+/* Case page already has its sticky mini-bar + final CTA — hide the generic extras */
+body.single-portfolio .elementor-widget-qeema-testimonials-carousel,
+body.single-portfolio .elementor-widget-qeema-related-posts,
+body.single-portfolio .elementor-widget-qeema-cta-banner{display:none!important}
+.qeema-cs-wrap{width:min(1200px,100%);margin:0 auto;padding:0 24px}
+.qeema-cs-label{margin:0 0 8px;font-size:12px;font-weight:600;color:var(--cs-cyan);letter-spacing:.04em}
+.qeema-cs-head{margin-bottom:28px;text-align:start}
+.qeema-cs-head h2{margin:0;font-size:clamp(20px,2.4vw,26px);font-weight:700;color:#fff;line-height:1.35}
+.qeema-cs-chip{display:inline-flex;align-items:center;gap:8px;padding:5px 11px;margin-bottom:14px;border-radius:8px;background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.22);color:var(--cs-cyan);font-size:11px;font-weight:600}
+.qeema-cs-glass{background:linear-gradient(135deg,rgba(19,31,51,.72),rgba(10,18,32,.85));backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.08);border-radius:24px;transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .35s ease,box-shadow .35s ease}
+.qeema-cs-glass:hover{border-color:rgba(56,189,248,.35);transform:translateY(-4px);box-shadow:0 16px 36px -10px rgba(0,0,0,.5),0 0 24px rgba(56,189,248,.12)}
+.qeema-cs-btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 28px;border-radius:999px;font-size:14px;font-weight:800;text-decoration:none;border:1px solid transparent;transition:transform .2s ease,background .2s ease,box-shadow .2s ease,border-color .2s ease}
+.qeema-cs-btn--solid{background:#fff;color:#0f172a}
+.qeema-cs-btn--solid:hover{background:#e2e8f0;transform:translateY(-2px);box-shadow:0 12px 28px rgba(255,255,255,.12)}
+.qeema-cs-btn--ghost{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.15);color:#fff}
+.qeema-cs-btn--ghost:hover{background:rgba(255,255,255,.12);transform:translateY(-2px)}
+.qeema-cs-btn--sm{min-height:40px;padding:8px 18px;font-size:12px}
 
-.qeema-portfolio-case-story{padding:70px 0 30px}
-.qeema-portfolio-case-story__wrap{max-width:1200px;margin:0 auto;padding:0 28px;position:relative}
-.qeema-portfolio-case-story__spine{position:absolute;top:60px;bottom:60px;right:calc(28px + 33px);width:1px;background:linear-gradient(180deg,rgba(0,212,255,.5),rgba(139,92,246,.35) 45%,rgba(255,255,255,.06));z-index:0}
-.qeema-portfolio-case-story__section{position:relative;display:grid;grid-template-columns:220px 1fr;gap:40px;padding:48px 0;border-top:1px solid rgba(255,255,255,.10)}
-.qeema-portfolio-case-story__section:first-child{border-top:none}
-.qeema-portfolio-case-story__marker{position:relative}
-.qeema-portfolio-case-story__ghost{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:74px;font-weight:800;line-height:1;color:rgba(255,255,255,.05);position:absolute;top:-14px;right:0;pointer-events:none;user-select:none;animation:qeema-pcs-breathe 5s ease-in-out infinite}
-@keyframes qeema-pcs-breathe{0%,100%{color:rgba(255,255,255,.05)}50%{color:rgba(255,255,255,.09)}}
-.qeema-portfolio-case-story__label{position:relative;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;font-weight:700;letter-spacing:.4px;color:rgba(255,255,255,.42);text-transform:uppercase}
-.qeema-portfolio-case-story__heading{font-size:15px;font-weight:800;margin:10px 0 0;color:#fff;display:flex;align-items:center}
-.qeema-portfolio-case-story__dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-inline-end:8px;flex-shrink:0;animation:qeema-pch-pulse 2.4s ease-in-out infinite}
-.qeema-portfolio-case-story__section--idea .qeema-portfolio-case-story__dot{background:#8b5cf6;box-shadow:0 0 10px rgba(139,92,246,.7)}
-.qeema-portfolio-case-story__section--challenge .qeema-portfolio-case-story__dot{background:#ff6b6b;box-shadow:0 0 10px rgba(255,107,107,.7)}
-.qeema-portfolio-case-story__section--approach .qeema-portfolio-case-story__dot{background:#00d4ff;box-shadow:0 0 10px rgba(0,212,255,.8)}
-.qeema-portfolio-case-story__section--journey .qeema-portfolio-case-story__dot{background:#34d399;box-shadow:0 0 10px rgba(52,211,153,.7)}
-.qeema-portfolio-case-story__body p{font-size:16.5px;color:rgba(255,255,255,.68);max-width:68ch;margin:0 0 12px}
-.qeema-portfolio-case-story__body p:last-child{margin-bottom:0}
-.qeema-portfolio-case-story__bullets{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-direction:column;gap:10px;max-width:60ch}
-.qeema-portfolio-case-story__bullets li{position:relative;padding-inline-start:26px;color:rgba(255,255,255,.75);font-size:15px}
-.qeema-portfolio-case-story__bullets li::before{content:"✓";position:absolute;inset-inline-start:0;top:0;width:18px;height:18px;border-radius:6px;background:rgba(0,212,255,.14);border:1px solid rgba(0,212,255,.4);color:#00d4ff;font-size:11px;display:flex;align-items:center;justify-content:center;line-height:1}
-.qeema-portfolio-case-story__result{margin-top:14px;padding:14px 20px;border-radius:14px;background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.3);color:#a7f3d4;font-size:14.5px;font-weight:700;display:inline-flex;align-items:center;gap:8px}
-.qeema-portfolio-case-story__result::before{content:"↗";font-size:16px}
-.qeema-portfolio-case-story__gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:16px}
-.qeema-portfolio-case-story__gallery img{width:100%;height:180px;object-fit:cover;border-radius:14px;border:1px solid rgba(255,255,255,.10);transition:transform .35s ease,border-color .35s ease}
-.qeema-portfolio-case-story__gallery img:hover{transform:translateY(-4px);border-color:rgba(0,212,255,.4)}
-@media(max-width:900px){
-	.qeema-portfolio-case-hero h1{font-size:34px}
-	.qeema-portfolio-case-story__section{grid-template-columns:1fr;gap:14px}
-	.qeema-portfolio-case-story__ghost{display:none}
-	.qeema-portfolio-case-story__spine{display:none}
+.qeema-cs-bar{position:sticky;top:0;z-index:40;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:rgba(6,12,22,.82);border-bottom:1px solid rgba(255,255,255,.05)}
+.qeema-cs-bar__inner{width:min(1200px,100%);margin:0 auto;padding:0 24px;height:72px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.qeema-cs-bar__back{display:inline-flex;align-items:center;gap:8px;color:#94a3b8;font-size:13px;font-weight:600;text-decoration:none;transition:color .2s ease}
+.qeema-cs-bar__back span{color:var(--cs-cyan);display:inline-block;transition:transform .2s ease}
+.qeema-cs-bar__back:hover{color:#fff}
+.qeema-cs-bar__back:hover span{transform:translateX(3px)}
+.qeema-cs-bar__badge{display:none;align-items:center;gap:10px;padding:7px 14px;border-radius:999px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);color:#cbd5e1;font-size:12px;font-weight:500}
+.qeema-cs-bar__dot{width:7px;height:7px;border-radius:50%;background:var(--cs-cyan);box-shadow:0 0 10px rgba(56,189,248,.8);animation:qeema-cs-pulse 2s ease-in-out infinite}
+.qeema-cs-bar__sep{color:#475569}
+.qeema-cs-bar__cat{color:#7dd3fc}
+@keyframes qeema-cs-pulse{0%,100%{opacity:1}50%{opacity:.35}}
+
+.qeema-cs-hero{padding:24px 0 56px;overflow:hidden}
+.qeema-cs-hero__stage{width:min(1200px,100%);margin:0 auto;padding:24px 24px 0;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);gap:40px;align-items:center}
+.qeema-cs-hero__title{margin:0 0 14px;font-size:clamp(26px,3.6vw,36px);font-weight:700;line-height:1.25;color:#fff;letter-spacing:-.01em;text-wrap:balance}
+.qeema-cs-hero__lead{margin:0 0 22px;font-size:clamp(14px,1.3vw,16px);line-height:1.85;color:#cbd5e1;font-weight:300;max-width:46ch}
+.qeema-cs-facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin:0 0 24px;padding:18px 0;border-block:1px solid rgba(255,255,255,.1);max-width:640px}
+.qeema-cs-facts__item{margin:0}
+.qeema-cs-facts dt{margin:0 0 4px;font-size:11px;font-weight:600;color:var(--cs-cyan)}
+.qeema-cs-facts dd{margin:0;font-size:13px;font-weight:600;color:#fff;line-height:1.45}
+.qeema-cs-facts__item.is-accent dd{color:#fff}
+.qeema-cs-hero__ctas{display:flex;flex-wrap:wrap;gap:12px}
+.qeema-cs-hero__visual{position:relative;display:flex;justify-content:center;align-items:center}
+.qeema-cs-hero__glow{position:absolute;inset:-18%;border-radius:50px;background:linear-gradient(135deg,rgba(56,189,248,.22),rgba(197,168,105,.14));filter:blur(42px);opacity:.65;pointer-events:none}
+
+.qeema-cs-phone{position:relative;z-index:1;width:min(330px,78vw)}
+.qeema-cs-phone__bezel{padding:11px;border-radius:52px;background:linear-gradient(180deg,#2b3545,#141c2b 45%,#0a101d);border:3px solid rgba(62,77,100,.55);box-shadow:0 25px 50px -12px rgba(0,0,0,.75),0 0 40px rgba(56,189,248,.12)}
+.qeema-cs-phone__screen{border-radius:40px;overflow:hidden;background:#0a0a0a;aspect-ratio:9/19.2}
+.qeema-cs-phone__screen img{display:block;width:100%;height:100%;object-fit:cover;object-position:top center}
+.qeema-cs-phone__home{display:block;width:34%;height:4px;margin:8px auto 2px;border-radius:999px;background:rgba(255,255,255,.35)}
+.qeema-cs-phone--sm{width:min(250px,70vw)}
+/* App thumbnails already include device chrome — show one clean shot only */
+.qeema-cs-shot{
+  position:relative;z-index:1;margin:0;width:min(320px,72vw);line-height:0;
+  filter:drop-shadow(0 28px 40px rgba(0,0,0,.55));
+}
+.qeema-cs-shot img{
+  display:block;width:100%;height:auto;max-height:640px;object-fit:contain;
+  -webkit-backface-visibility:hidden;backface-visibility:hidden;
+}
+.qeema-cs-shot--sm{width:min(220px,58vw)}
+.qeema-cs-shot--sm img{max-height:460px}
+.qeema-cs-webframe{margin:0;width:min(100%,520px);border-radius:18px;overflow:hidden;background:#0a1220;border:1px solid rgba(255,255,255,.12);box-shadow:0 30px 70px rgba(0,0,0,.45)}
+.qeema-cs-webframe__chrome{display:flex;gap:7px;padding:12px 14px;background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.08)}
+.qeema-cs-webframe__chrome span{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.22)}
+.qeema-cs-webframe__chrome span:nth-child(1){background:#ff5f57}
+.qeema-cs-webframe__chrome span:nth-child(2){background:#febc2e}
+.qeema-cs-webframe__chrome span:nth-child(3){background:#28c840}
+.qeema-cs-webframe__screen img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top center}
+
+.qeema-cs-band{padding:56px 0}
+.qeema-cs-band--story,.qeema-cs-band--dark{background:var(--cs-night);border-block:1px solid rgba(255,255,255,.05)}
+.qeema-cs-story-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(240px,.7fr);gap:28px;align-items:start}
+.qeema-cs-story-lead{font-size:clamp(15px,1.6vw,18px);font-weight:600;line-height:1.85;color:rgba(255,255,255,.92)}
+.qeema-cs-story-lead p{margin:0 0 14px}
+.qeema-cs-checks{list-style:none;margin:18px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:10px}
+.qeema-cs-checks li{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:12px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);color:#cbd5e1;font-size:12.5px}
+.qeema-cs-checks li span{color:#34d399;font-weight:700}
+.qeema-cs-aside{padding:22px}
+.qeema-cs-aside__kicker{margin:0 0 8px;font-size:11px;color:#94a3b8}
+.qeema-cs-aside h3{margin:0 0 10px;font-size:15px;font-weight:700;color:#fff;line-height:1.45}
+.qeema-cs-aside p{margin:0;font-size:13px;line-height:1.8;color:#cbd5e1}
+.qeema-cs-aside__foot{margin-top:18px;padding-top:14px;border-top:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:11px;color:#94a3b8}
+.qeema-cs-aside__foot strong{color:var(--cs-cyan);font-weight:700}
+
+.qeema-cs-duet{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.qeema-cs-panel{padding:24px 22px;position:relative;overflow:hidden}
+.qeema-cs-panel__top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.qeema-cs-panel__ico{font-size:18px;opacity:.7}
+.qeema-cs-panel h2{margin:0 0 12px;font-size:clamp(16px,1.8vw,18px);font-weight:700;color:#fff}
+.qeema-cs-panel p{margin:0;font-size:14px;line-height:1.8;color:#cbd5e1;font-weight:300}
+.qeema-cs-panel--challenge{border-top:2px solid rgba(251,113,133,.4)}
+.qeema-cs-panel--solution{border-top:2px solid rgba(56,189,248,.7)}
+.qeema-cs-tag{display:inline-flex;padding:4px 9px;border-radius:8px;font-size:10px;font-weight:700;letter-spacing:.04em}
+.qeema-cs-tag--rose{color:#fda4af;background:rgba(244,63,94,.1);border:1px solid rgba(244,63,94,.22)}
+.qeema-cs-tag--cyan{color:var(--cs-cyan);background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.22)}
+
+.qeema-cs-features{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.qeema-cs-feature{padding:20px 18px;display:flex;flex-direction:column;gap:8px;min-height:150px}
+.qeema-cs-feature__num{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:16px;font-weight:800;color:var(--cs-cyan)}
+.qeema-cs-feature__title{margin:0;font-size:14px;font-weight:700;color:#fff;line-height:1.45}
+.qeema-cs-feature p{margin:0;font-size:13px;line-height:1.7;color:#94a3b8}
+.qeema-cs-feature.is-wide{grid-column:span 2}
+
+.qeema-cs-results{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.qeema-cs-result{margin:0;padding:20px 18px;border:1px solid rgba(56,189,248,.28);border-inline-start:3px solid var(--cs-cyan);text-align:center}
+.qeema-cs-result p{margin:0;font-size:13.5px;line-height:1.75;color:#e2e8f0;font-weight:500}
+
+.qeema-cs-journey{padding:28px 26px;text-align:center;position:relative;overflow:hidden}
+.qeema-cs-journey .qeema-cs-label{margin-bottom:10px}
+.qeema-cs-journey__text{font-size:clamp(14px,1.6vw,17px);font-weight:600;line-height:1.8;color:#fff;max-width:56ch;margin:0 auto}
+.qeema-cs-journey__text p{margin:0}
+
+.qeema-cs-screens{display:grid;gap:18px}
+.qeema-cs-screens.is-app{grid-template-columns:repeat(4,minmax(0,1fr));justify-items:center;align-items:start}
+.qeema-cs-screens.is-web{grid-template-columns:repeat(2,minmax(0,1fr))}
+.qeema-cs-screen{margin:0;width:100%;display:flex;justify-content:center}
+.qeema-cs-screens.is-app .qeema-cs-phone--sm{width:min(100%,240px)}
+.qeema-cs-screens.is-app .qeema-cs-shot--sm{width:min(100%,220px)}
+.qeema-cs-screens.is-web .qeema-cs-webframe{width:100%}
+@media(max-width:1100px){.qeema-cs-screens.is-app,.qeema-cs-results{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){.qeema-cs-screens.is-app,.qeema-cs-screens.is-web,.qeema-cs-results{grid-template-columns:1fr}}
+
+.qeema-cs-cta{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;padding:32px 28px;position:relative;overflow:hidden}
+.qeema-cs-cta__copy{max-width:640px}
+.qeema-cs-cta h2{margin:0 0 8px;font-size:clamp(18px,2.2vw,24px);font-weight:700;color:#fff;line-height:1.35}
+.qeema-cs-cta p{margin:0;font-size:14px;color:#cbd5e1;line-height:1.7}
+.qeema-cs-cta__actions{display:flex;flex-wrap:wrap;gap:10px}
+
+@media(min-width:640px){.qeema-cs-bar__badge{display:inline-flex}}
+@media(max-width:980px){
+  .qeema-cs-hero__stage,.qeema-cs-story-grid,.qeema-cs-duet,.qeema-cs-features,.qeema-cs-results{grid-template-columns:1fr}
+  .qeema-cs-feature.is-wide{grid-column:auto}
+  .qeema-cs-facts{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .qeema-cs-hero__stage{gap:28px}
+  .qeema-cs-cta{padding:24px}
+}
+@media(max-width:560px){
+  .qeema-cs-facts{grid-template-columns:1fr}
+  .qeema-cs-bar__inner{height:64px}
+  .qeema-cs-band{padding:44px 0}
+}
+@media(prefers-reduced-motion:reduce){
+  .qeema-cs-glass,.qeema-cs-btn,.qeema-cs-bar__dot{transition:none;animation:none}
 }
 
 /* === live-apps-carousel.css — homepage "our live apps" section: a 3D fanned

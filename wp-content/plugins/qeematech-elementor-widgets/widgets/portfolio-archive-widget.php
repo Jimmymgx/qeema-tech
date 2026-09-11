@@ -237,7 +237,6 @@ class Qeema_Portfolio_Archive_Widget extends \Elementor\Widget_Base {
 	 * between the two widgets (per the class docblock above).
 	 */
 	private function render_browser_card( $post_id, $image_id ) {
-		$image_url = wp_get_attachment_image_url( $image_id, 'large' );
 		$permalink = get_permalink( $post_id );
 		$external  = function_exists( 'get_field' ) ? get_field( 'link', $post_id ) : '';
 		$domain    = '';
@@ -247,58 +246,71 @@ class Qeema_Portfolio_Archive_Widget extends \Elementor\Widget_Base {
 		}
 		ob_start();
 		?>
-		<div class="qeema-portfolio-grid__browser-card">
-			<div class="qeema-portfolio-grid__browser-bar">
-				<span class="qt-dot r"></span><span class="qt-dot y"></span><span class="qt-dot g"></span>
-				<?php if ( $domain ) : ?>
-					<span class="qeema-portfolio-grid__browser-url"><?php echo esc_html( $domain ); ?></span>
-				<?php endif; ?>
+		<article class="qeema-portfolio-grid__card qeema-portfolio-grid__browser-card">
+			<div class="qeema-portfolio-grid__stage">
+				<div class="qeema-portfolio-grid__browser">
+					<div class="qeema-portfolio-grid__browser-bar">
+						<span class="qt-dot r"></span><span class="qt-dot y"></span><span class="qt-dot g"></span>
+						<?php if ( $domain ) : ?>
+							<span class="qeema-portfolio-grid__browser-url"><?php echo esc_html( $domain ); ?></span>
+						<?php endif; ?>
+					</div>
+					<a class="qeema-portfolio-grid__browser-screen" href="<?php echo esc_url( $permalink ); ?>" aria-label="<?php echo esc_attr( get_the_title( $post_id ) ); ?>">
+						<?php
+						echo wp_get_attachment_image( $image_id, 'large', false, array(
+							'class'    => 'qeema-portfolio-grid__media',
+							'loading'  => 'lazy',
+							'decoding' => 'async',
+							'sizes'    => '(max-width:820px) 45vw, 280px',
+						) );
+						?>
+					</a>
+				</div>
 			</div>
-			<a class="qeema-portfolio-grid__browser-screen" href="<?php echo esc_url( $permalink ); ?>" style="background-image:url('<?php echo esc_url( $image_url ); ?>')" aria-label="<?php echo esc_attr( get_the_title( $post_id ) ); ?>"></a>
 			<div class="qeema-portfolio-grid__browser-footer">
 				<h3 class="qeema-portfolio-grid__browser-title"><?php echo esc_html( get_the_title( $post_id ) ); ?></h3>
 				<div class="qeema-portfolio-grid__browser-actions">
+					<a class="qeema-portfolio-grid__browser-btn ghost" href="<?php echo esc_url( $permalink ); ?>"><?php esc_html_e( 'عرض المشروع', 'qeematech-elementor-widgets' ); ?></a>
 					<?php if ( $external ) : ?>
 						<a class="qeema-portfolio-grid__browser-btn primary" href="<?php echo esc_url( $external ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'زيارة الموقع', 'qeematech-elementor-widgets' ); ?></a>
 					<?php endif; ?>
-					<a class="qeema-portfolio-grid__browser-btn ghost" href="<?php echo esc_url( $permalink ); ?>"><?php esc_html_e( 'عرض المشروع', 'qeematech-elementor-widgets' ); ?></a>
 				</div>
 			</div>
-		</div>
+		</article>
 		<?php
 		return ob_get_clean();
 	}
 
-	/**
-	 * Phone mockup card for a real mobile-app project — see the identical
-	 * method on portfolio-teaser-widget.php's render_grid() for the full
-	 * rationale; kept as a byte-identical copy here for the same reason the
-	 * surrounding grid markup itself is already duplicated between the two
-	 * widgets (per the class docblock above).
-	 */
 	private function render_phone_card( $post_id, $image_id ) {
-		$image_url = wp_get_attachment_image_url( $image_id, 'large' );
 		$permalink = get_permalink( $post_id );
 		$android   = function_exists( 'get_field' ) ? get_field( 'android', $post_id ) : '';
 		$ios       = function_exists( 'get_field' ) ? get_field( 'ios', $post_id ) : '';
 		$store_url = $android ? $android : $ios;
 		ob_start();
 		?>
-		<div class="qeema-portfolio-grid__phone-card">
-			<div class="qeema-portfolio-grid__browser-bar qeema-portfolio-grid__phone-bar">
-				<span class="qeema-portfolio-grid__phone-notch"></span>
+		<article class="qeema-portfolio-grid__card qeema-portfolio-grid__phone-card">
+			<div class="qeema-portfolio-grid__stage">
+				<a class="qeema-portfolio-grid__shot" href="<?php echo esc_url( $permalink ); ?>" aria-label="<?php echo esc_attr( get_the_title( $post_id ) ); ?>">
+					<?php
+					echo wp_get_attachment_image( $image_id, 'full', false, array(
+						'class'    => 'qeema-portfolio-grid__media',
+						'loading'  => 'lazy',
+						'decoding' => 'async',
+						'sizes'    => '(max-width:560px) 70vw, 220px',
+					) );
+					?>
+				</a>
 			</div>
-			<a class="qeema-portfolio-grid__browser-screen" href="<?php echo esc_url( $permalink ); ?>" style="background-image:url('<?php echo esc_url( $image_url ); ?>')" aria-label="<?php echo esc_attr( get_the_title( $post_id ) ); ?>"></a>
 			<div class="qeema-portfolio-grid__browser-footer">
 				<h3 class="qeema-portfolio-grid__browser-title"><?php echo esc_html( get_the_title( $post_id ) ); ?></h3>
 				<div class="qeema-portfolio-grid__browser-actions">
+					<a class="qeema-portfolio-grid__browser-btn ghost" href="<?php echo esc_url( $permalink ); ?>"><?php esc_html_e( 'عرض المشروع', 'qeematech-elementor-widgets' ); ?></a>
 					<?php if ( $store_url ) : ?>
 						<a class="qeema-portfolio-grid__browser-btn primary" href="<?php echo esc_url( $store_url ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'تحميل التطبيق', 'qeematech-elementor-widgets' ); ?></a>
 					<?php endif; ?>
-					<a class="qeema-portfolio-grid__browser-btn ghost" href="<?php echo esc_url( $permalink ); ?>"><?php esc_html_e( 'عرض المشروع', 'qeematech-elementor-widgets' ); ?></a>
 				</div>
 			</div>
-		</div>
+		</article>
 		<?php
 		return ob_get_clean();
 	}
