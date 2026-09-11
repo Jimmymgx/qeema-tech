@@ -55,6 +55,11 @@
 
 		root.addEventListener( 'mouseenter', stopAutoplay );
 		root.addEventListener( 'mouseleave', startAutoplay );
+		// Without this, autoplay can flip a slide out from under a
+		// reading/tapping mobile user - no mouseenter/mouseleave ever fires
+		// on touch (see the other carousels' JS for the same fix).
+		root.addEventListener( 'touchstart', stopAutoplay, { passive: true } );
+		root.addEventListener( 'touchend', startAutoplay, { passive: true } );
 
 		startAutoplay();
 	}

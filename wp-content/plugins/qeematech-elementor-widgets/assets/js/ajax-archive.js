@@ -74,7 +74,16 @@
 					if ( pushState ) {
 						window.history.pushState( { qeemaAjaxArchive: true }, '', url );
 					}
-					root.scrollIntoView( { behavior: 'smooth', block: 'start' } );
+					// Plain scrollIntoView({block:'start'}) puts the wrapper's
+					// top edge at viewport y=0, which lands directly under the
+					// site's fixed header - the filter tabs / first row of
+					// results render hidden behind it right after every swap.
+					// Compensate using the header's real (breakpoint-aware)
+					// height instead of a hardcoded offset.
+					var header       = document.querySelector( '.qeema-header' );
+					var headerHeight = header ? header.offsetHeight : 0;
+					var targetY      = root.getBoundingClientRect().top + window.scrollY - headerHeight - 16;
+					window.scrollTo( { top: targetY, behavior: 'smooth' } );
 				} )
 				.catch( function () {
 					// Progressive enhancement's fallback: if the AJAX request

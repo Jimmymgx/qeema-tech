@@ -179,9 +179,9 @@ class Qeema_Works_Hero_Slider_Widget extends \Elementor\Widget_Base {
 								<?php endif; ?>
 							</div>
 						</div>
-						<div class="qeema-works-hero__visual">
+						<?php $variant = ! empty( $slide['visual_variant'] ) ? $slide['visual_variant'] : 'icon'; ?>
+						<div class="qeema-works-hero__visual<?php echo 'facets' === $variant ? ' qeema-works-hero__visual--facets' : ''; ?>">
 							<?php
-							$variant = ! empty( $slide['visual_variant'] ) ? $slide['visual_variant'] : 'icon';
 							if ( 'browser' === $variant ) {
 								echo $this->render_browser_visual(); // phpcs:ignore WordPress.Security.EscapeOutput -- static, trusted markup
 							} elseif ( 'phone' === $variant ) {
