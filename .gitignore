@@ -1,1 +1,4 @@
 .htaccess.tar
+
+uploads/
+uploads/*   

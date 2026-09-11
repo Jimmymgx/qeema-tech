@@ -1,9 +1,17 @@
 (function () {
 	function slugFromHref( href ) {
+		if ( ! href || href === '#' || href.indexOf( 'all' ) !== -1 ) {
+			return '';
+		}
 		try {
 			var url = new URL( href, window.location.href );
 			var parts = url.pathname.split( '/' ).filter( Boolean );
-			return parts.length ? decodeURIComponent( parts[ parts.length - 1 ] ) : '';
+			var last = parts.length ? decodeURIComponent( parts[ parts.length - 1 ] ) : '';
+			// "الكل" tabs usually point at the portfolio archive page, not a category.
+			if ( ! last || last === 'أعمالنا' || last === 'portfolio' || last === 'qeema-tech' ) {
+				return '';
+			}
+			return last;
 		} catch ( e ) {
 			return '';
 		}
@@ -25,7 +33,6 @@
 		var section = grid.closest( '.qeema-portfolio-teaser' ) || document;
 		var tabs = section.querySelectorAll( '.qeema-portfolio-teaser__cat' );
 		var items = grid.querySelectorAll( '.qeema-portfolio-grid__item' );
-		var counter = grid.querySelector( '.qeema-portfolio-grid__count' );
 		var showMoreBtn = grid.querySelector( '.qeema-portfolio-grid__show-more' );
 		var initialCount = parseInt( grid.dataset.initialCount || '0', 10 );
 		var expanded = false;
@@ -81,10 +88,6 @@
 					}, 260 );
 				}
 			} );
-
-			if ( counter ) {
-				counter.textContent = matchedIndex + ' مشروع';
-			}
 
 			if ( showMoreBtn ) {
 				showMoreBtn.style.display = ( initialCount && ! expanded && matchedIndex > initialCount ) ? '' : 'none';

@@ -4,12 +4,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Hero for the single-portfolio case-study template. Reads the CURRENT
- * portfolio post at render time (this widget is attached via an Elementor
- * Theme Builder condition, not hand-placed per post) — service/client/link
- * from real ACF fields, banner image falling back to the featured image.
- * No fabricated copy: a field that's empty on a given post just doesn't
- * render its chip/button.
+ * Case-study hero matching the approved وأتموا mockup: sticky mini-bar,
+ * split copy + device stage, facts strip, dual CTAs. Uses real ACF/media —
+ * no fabricated UI chrome inside the phone screen.
  */
 class Qeema_Portfolio_Case_Hero_Widget extends \Elementor\Widget_Base {
 
@@ -37,19 +34,11 @@ class Qeema_Portfolio_Case_Hero_Widget extends \Elementor\Widget_Base {
 		$this->start_controls_section( 'content_section', array(
 			'label' => __( 'Content', 'qeematech-elementor-widgets' ),
 		) );
-
 		$this->add_control( 'quote_link', array(
-			'label'   => __( 'Request-Quote Button Link', 'qeematech-elementor-widgets' ),
+			'label'   => __( 'Start-Project Button Link', 'qeematech-elementor-widgets' ),
 			'type'    => \Elementor\Controls_Manager::URL,
 			'default' => array( 'url' => '/أتصل-بنا/' ),
 		) );
-
-		$this->add_control( 'quote_text', array(
-			'label'   => __( 'Request-Quote Button Text', 'qeematech-elementor-widgets' ),
-			'type'    => \Elementor\Controls_Manager::TEXT,
-			'default' => 'طلب عرض سعر',
-		) );
-
 		$this->end_controls_section();
 	}
 
@@ -59,125 +48,182 @@ class Qeema_Portfolio_Case_Hero_Widget extends \Elementor\Widget_Base {
 			return;
 		}
 
-		$settings = $this->get_settings_for_display();
+		$settings  = $this->get_settings_for_display();
+		$service   = get_field( 'الخدمة', $post_id );
+		$client    = get_field( 'العميل', $post_id );
+		$link      = get_field( 'link', $post_id );
+		$android   = get_field( 'android', $post_id );
+		$ios       = get_field( 'ios', $post_id );
+		$idea      = get_field( 'idea', $post_id );
+		$challenge = get_field( 'التحدي', $post_id );
+		$journey   = get_field( 'idea_copy2', $post_id );
+		$banner_id = get_field( 'banner', $post_id );
+		$thumb_id  = get_post_thumbnail_id( $post_id );
+		$title     = get_the_title( $post_id );
 
-		$service = get_field( 'الخدمة', $post_id );
-		$client  = get_field( 'العميل', $post_id );
-		$link    = get_field( 'link', $post_id );
-		$android = get_field( 'android', $post_id );
-		$ios     = get_field( 'ios', $post_id );
+		$project_url = $link ? $link : ( $android ? $android : $ios );
+		$quote_url   = ! empty( $settings['quote_link']['url'] ) ? $settings['quote_link']['url'] : '/أتصل-بنا/';
+		if ( is_string( $quote_url ) && str_starts_with( $quote_url, '/' ) && ! str_starts_with( $quote_url, '//' ) ) {
+			$quote_url = home_url( $quote_url );
+		}
 
-		// Meta-strip additions (Industry/Year/Services). Industry reuses the
-		// existing `portfolio-categories` taxonomy rather than a new field.
-		// project_year/services_list are new ACF fields, still empty on all
-		// 167 pre-existing posts today, so these render nothing until a post
-		// is actually backfilled.
-		$industry_terms = get_the_terms( $post_id, 'portfolio-categories' );
-		$industry       = ( ! empty( $industry_terms ) && ! is_wp_error( $industry_terms ) ) ? $industry_terms[0]->name : '';
-
-		$project_year = get_field( 'project_year', $post_id );
-
-		$service_rows  = get_field( 'services_list', $post_id );
-		$service_names = array();
-		if ( is_array( $service_rows ) ) {
-			foreach ( $service_rows as $service_row ) {
-				if ( ! empty( $service_row['service_name'] ) ) {
-					$service_names[] = $service_row['service_name'];
+		$industry = '';
+		$is_app   = false;
+		$terms    = get_the_terms( $post_id, 'portfolio-categories' );
+		if ( $terms && ! is_wp_error( $terms ) ) {
+			$industry = $terms[0]->name;
+			foreach ( $terms as $term ) {
+				$slug = urldecode( (string) $term->slug );
+				if ( 'تطبيقات-الهاتف' === $slug || false !== mb_strpos( (string) $term->name, 'تطبيق' ) ) {
+					$is_app = true;
+					break;
 				}
 			}
 		}
-		$services_text = $service_names ? implode( '، ', $service_names ) : '';
 
-		// App-only projects have no website link, just store links - the
-		// "view project" button should still work, falling back in the same
-		// order live uses (website, then whichever store link exists).
-		$project_url = $link ? $link : ( $android ? $android : $ios );
+		$service = $this->clean_service_label( $service, $title );
 
-		$banner_id = get_field( 'banner', $post_id );
-		$image_id  = $banner_id ? $banner_id : get_post_thumbnail_id( $post_id );
+		$year  = get_the_date( 'Y', $post_id );
+		$month = get_the_date( 'F Y', $post_id );
+		$facts = array();
+		if ( $client ) {
+			$facts[] = array( 'العميل', $client );
+		}
+		if ( $month ) {
+			$facts[] = array( 'التاريخ', $month );
+		}
+		if ( $industry ) {
+			$facts[] = array( 'المجال', $industry );
+		}
+		if ( $service ) {
+			$facts[] = array( 'المنصة', $service );
+		} elseif ( $is_app ) {
+			$facts[] = array( 'المنصة', 'تطبيق جوال' );
+		} elseif ( $year ) {
+			$facts[] = array( 'السنة', $year );
+		}
 
-		$quote_url = ! empty( $settings['quote_link']['url'] ) ? $settings['quote_link']['url'] : '/أتصل-بنا/';
+		$device_id = ( $is_app && $thumb_id ) ? $thumb_id : ( $banner_id ? $banner_id : $thumb_id );
+		$lead     = $this->first_non_empty_excerpt( array( $idea, $challenge, $journey ), 42 );
+
+		$works_url   = home_url( '/أعمالنا/' );
+		$contact_url = home_url( '/أتصل-بنا/' );
+		$mod         = $is_app ? ' qeema-cs-hero--app' : ' qeema-cs-hero--web';
 		?>
-		<section class="qeema-portfolio-case-hero">
-			<div class="qeema-portfolio-case-hero__glow"></div>
-			<div class="qeema-portfolio-case-hero__blob qeema-portfolio-case-hero__blob--a"></div>
-			<div class="qeema-portfolio-case-hero__blob qeema-portfolio-case-hero__blob--b"></div>
-
-			<div class="qeema-portfolio-case-hero__content qeema-reveal">
-				<?php if ( $service ) : ?>
-					<span class="qeema-portfolio-case-hero__eyebrow"><?php echo esc_html( $service ); ?></span>
-				<?php endif; ?>
-
-				<h1><?php the_title(); ?></h1>
-
-				<?php if ( $client || $industry || $project_year || $services_text || $link ) : ?>
-					<div class="qeema-portfolio-case-hero__meta">
-						<?php if ( $client ) : ?>
-							<span class="qeema-portfolio-case-hero__chip">
-								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-								<?php echo esc_html( $client ); ?>
-							</span>
-						<?php endif; ?>
+		<section class="qeema-cs-hero<?php echo esc_attr( $mod ); ?>" id="qeema-cs-top">
+			<div class="qeema-cs-bar">
+				<div class="qeema-cs-bar__inner">
+					<a class="qeema-cs-bar__back" href="<?php echo esc_url( $works_url ); ?>">
+						<span aria-hidden="true">→</span>
+						كل الأعمال
+					</a>
+					<div class="qeema-cs-bar__badge">
+						<span class="qeema-cs-bar__dot" aria-hidden="true"></span>
+						<span>دراسة حالة متكاملة</span>
 						<?php if ( $industry ) : ?>
-							<span class="qeema-portfolio-case-hero__chip">
-								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h8l10 10-8 8L3 11V3Z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg>
-								<?php echo esc_html( $industry ); ?>
-							</span>
-						<?php endif; ?>
-						<?php if ( $project_year ) : ?>
-							<span class="qeema-portfolio-case-hero__chip">
-								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-								<?php echo esc_html( $project_year ); ?>
-							</span>
-						<?php endif; ?>
-						<?php if ( $services_text ) : ?>
-							<span class="qeema-portfolio-case-hero__chip">
-								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-								<?php echo esc_html( $services_text ); ?>
-							</span>
-						<?php endif; ?>
-						<?php if ( $link ) : ?>
-							<span class="qeema-portfolio-case-hero__chip" dir="ltr">
-								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-								<?php echo esc_html( preg_replace( '#^https?://(www\.)?#', '', untrailingslashit( $link ) ) ); ?>
-							</span>
+							<span class="qeema-cs-bar__sep" aria-hidden="true">•</span>
+							<span class="qeema-cs-bar__cat"><?php echo esc_html( $industry ); ?></span>
 						<?php endif; ?>
 					</div>
-				<?php endif; ?>
-
-				<div class="qeema-portfolio-case-hero__ctas">
-					<?php if ( $project_url ) : ?>
-						<a class="qeema-portfolio-case-hero__btn primary" href="<?php echo esc_url( $project_url ); ?>" target="_blank" rel="noopener">
-							مشاهدة المشروع ↗
-						</a>
-					<?php endif; ?>
-					<a class="qeema-portfolio-case-hero__btn <?php echo $project_url ? 'ghost' : 'primary'; ?>" href="<?php echo esc_url( $quote_url ); ?>">
-						<?php echo esc_html( $settings['quote_text'] ); ?>
-					</a>
+					<a class="qeema-cs-btn qeema-cs-btn--solid qeema-cs-btn--sm" href="<?php echo esc_url( $quote_url ? $quote_url : $contact_url ); ?>">ابدأ مشروعك</a>
 				</div>
 			</div>
 
-			<?php if ( $image_id ) : ?>
-				<div class="qeema-portfolio-case-hero__wrap">
-					<div class="qeema-portfolio-case-hero__banner qeema-reveal" style="--reveal-delay:.15s">
-						<div class="qeema-portfolio-case-hero__banner-inner">
-							<?php echo wp_get_attachment_image( $image_id, 'large', false, array(
-								'class'         => 'qeema-portfolio-case-hero__banner-img',
-								'alt'           => get_the_title( $post_id ),
-								'loading'       => 'eager',
-								'fetchpriority' => 'high',
-								'decoding'      => 'async',
-							) ); ?>
-							<div class="qeema-portfolio-case-hero__banner-sheen"></div>
-						</div>
+			<div class="qeema-cs-hero__stage">
+				<div class="qeema-cs-hero__copy qeema-reveal">
+					<?php if ( $industry || $service ) : ?>
+						<span class="qeema-cs-chip"><?php echo esc_html( $industry ? $industry : $service ); ?></span>
+					<?php endif; ?>
+
+					<h1 class="qeema-cs-hero__title"><?php the_title(); ?></h1>
+
+					<?php if ( $lead ) : ?>
+						<p class="qeema-cs-hero__lead"><?php echo esc_html( $lead ); ?></p>
+					<?php endif; ?>
+
+					<?php if ( ! empty( $facts ) ) : ?>
+						<dl class="qeema-cs-facts">
+							<?php foreach ( $facts as $i => $fact ) : ?>
+								<div class="qeema-cs-facts__item<?php echo ( 3 === $i ) ? ' is-accent' : ''; ?>">
+									<dt><?php echo esc_html( $fact[0] ); ?></dt>
+									<dd><?php echo esc_html( $fact[1] ); ?></dd>
+								</div>
+							<?php endforeach; ?>
+						</dl>
+					<?php endif; ?>
+
+					<div class="qeema-cs-hero__ctas">
+						<a class="qeema-cs-btn qeema-cs-btn--solid" href="<?php echo esc_url( $quote_url ? $quote_url : $contact_url ); ?>">ابدأ مشروعك</a>
+						<a class="qeema-cs-btn qeema-cs-btn--ghost" href="#qeema-cs-screens">استكشف واجهات المنتج</a>
+						<?php if ( $project_url ) : ?>
+							<a class="qeema-cs-btn qeema-cs-btn--ghost" href="<?php echo esc_url( $project_url ); ?>" target="_blank" rel="noopener">
+								<?php echo $is_app ? 'فتح التطبيق' : 'زيارة الموقع'; ?>
+							</a>
+						<?php endif; ?>
 					</div>
 				</div>
-			<?php endif; ?>
 
-			<div class="qeema-portfolio-case-hero__scroll-cue" aria-hidden="true">
-				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+				<?php if ( $device_id ) : ?>
+					<div class="qeema-cs-hero__visual qeema-reveal" style="--reveal-delay:.12s">
+						<div class="qeema-cs-hero__glow" aria-hidden="true"></div>
+						<?php if ( $is_app ) : ?>
+							<figure class="qeema-cs-shot">
+								<?php
+								echo wp_get_attachment_image( $device_id, 'full', false, array(
+									'alt'           => get_the_title( $post_id ),
+									'loading'       => 'eager',
+									'fetchpriority' => 'high',
+									'decoding'      => 'async',
+									'sizes'         => '(max-width:980px) 70vw, 320px',
+								) );
+								?>
+							</figure>
+						<?php else : ?>
+							<figure class="qeema-cs-webframe">
+								<div class="qeema-cs-webframe__chrome" aria-hidden="true"><span></span><span></span><span></span></div>
+								<div class="qeema-cs-webframe__screen">
+									<?php
+									echo wp_get_attachment_image( $device_id, 'large', false, array(
+										'alt'           => get_the_title( $post_id ),
+										'loading'       => 'eager',
+										'fetchpriority' => 'high',
+										'decoding'      => 'async',
+									) );
+									?>
+								</div>
+							</figure>
+						<?php endif; ?>
+					</div>
+				<?php endif; ?>
 			</div>
 		</section>
 		<?php
+	}
+
+	/**
+	 * Some imported ACF "service" values were glued to the title/body.
+	 */
+	private function clean_service_label( $service, $title ) {
+		if ( ! is_string( $service ) || '' === trim( $service ) ) {
+			return '';
+		}
+		$text = trim( wp_strip_all_tags( $service ) );
+		if ( $title ) {
+			$pos = mb_strpos( $text, $title );
+			if ( false !== $pos && $pos > 8 ) {
+				$text = trim( mb_substr( $text, 0, $pos ) );
+			}
+		}
+		return wp_trim_words( $text, 14, '…' );
+	}
+
+	private function first_non_empty_excerpt( array $candidates, $words = 40 ) {
+		foreach ( $candidates as $value ) {
+			if ( ! is_string( $value ) || '' === trim( wp_strip_all_tags( $value ) ) ) {
+				continue;
+			}
+			return wp_trim_words( wp_strip_all_tags( $value ), $words, '…' );
+		}
+		return '';
 	}
 }
