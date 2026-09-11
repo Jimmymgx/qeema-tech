@@ -143,3 +143,33 @@
 [01-Sep-2026 10:01:17 UTC] PHP Warning:  wp_version_check(): حدث خطأ غير متوقع. هناك شئ خاطئ مع موقع WordPress.org أو إعدادات هذا الخادم. إذا استمرت هذه المشاكل، رجاء جرب <a href="https://ar.wordpress.org/support/forums/">منتديات الدعم الفني</a>. (تعذّر على ووردبريس تأسيس اتصال آمن مع WordPress.org. يرجى الاتصال بمسؤول الخادم الخاص بك.) in C:\xampp\htdocs\qeematech-new\wp-includes\functions.php on line 6170
 [01-Sep-2026 10:01:17 UTC] PHP Warning:  wp_update_plugins(): حدث خطأ غير متوقع. هناك شئ خاطئ مع موقع WordPress.org أو إعدادات هذا الخادم. إذا استمرت هذه المشاكل، رجاء جرب <a href="https://ar.wordpress.org/support/forums/">منتديات الدعم الفني</a>. (تعذّر على ووردبريس تأسيس اتصال آمن مع WordPress.org. يرجى الاتصال بمسؤول الخادم الخاص بك.) in C:\xampp\htdocs\qeematech-new\wp-includes\functions.php on line 6170
 [01-Sep-2026 10:01:17 UTC] PHP Warning:  wp_update_themes(): حدث خطأ غير متوقع. هناك شئ خاطئ مع موقع WordPress.org أو إعدادات هذا الخادم. إذا استمرت هذه المشاكل، رجاء جرب <a href="https://ar.wordpress.org/support/forums/">منتديات الدعم الفني</a>. (تعذّر على ووردبريس تأسيس اتصال آمن مع WordPress.org. يرجى الاتصال بمسؤول الخادم الخاص بك.) in C:\xampp\htdocs\qeematech-new\wp-includes\functions.php on line 6170
+[09-Sep-2026 15:21:58 UTC] Automatic updates starting...
+[09-Sep-2026 15:22:00 UTC]   Automatic plugin updates starting...
+[09-Sep-2026 15:22:00 UTC]   Automatic plugin updates complete.
+[09-Sep-2026 15:22:01 UTC]   Automatic theme updates starting...
+[09-Sep-2026 15:22:01 UTC]   Automatic theme updates complete.
+[09-Sep-2026 15:22:01 UTC] Automatic updates complete.
+[11-Sep-2026 13:47:52 UTC] Automatic updates starting...
+[11-Sep-2026 13:47:54 UTC]   Automatic plugin updates starting...
+[11-Sep-2026 13:47:54 UTC]   Automatic plugin updates complete.
+[11-Sep-2026 13:47:55 UTC]   Automatic theme updates starting...
+[11-Sep-2026 13:47:55 UTC]   Automatic theme updates complete.
+[11-Sep-2026 13:47:55 UTC] Automatic updates complete.
+[11-Sep-2026 16:01:57 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in C:\Users\Qeema\AppData\Local\Temp\claude\c--Users-Qeema-Downloads-qeema-test\3599d2bb-a069-4aa0-81f1-e966327f822c\scratchpad\add-contact-fields.php on line 13
+[11-Sep-2026 16:01:57 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\Users\Qeema\AppData\Local\Temp\claude\c--Users-Qeema-Downloads-qeema-test\3599d2bb-a069-4aa0-81f1-e966327f822c\scratchpad\add-contact-fields.php on line 77
+[11-Sep-2026 16:01:57 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\Users\Qeema\AppData\Local\Temp\claude\c--Users-Qeema-Downloads-qeema-test\3599d2bb-a069-4aa0-81f1-e966327f822c\scratchpad\add-contact-fields.php on line 77
+[11-Sep-2026 16:01:57 UTC] PHP Fatal error:  Uncaught TypeError: array_map(): Argument #2 ($array) must be of type array, null given in C:\Users\Qeema\AppData\Local\Temp\claude\c--Users-Qeema-Downloads-qeema-test\3599d2bb-a069-4aa0-81f1-e966327f822c\scratchpad\add-contact-fields.php:77
+Stack trace:
+#0 C:\Users\Qeema\AppData\Local\Temp\claude\c--Users-Qeema-Downloads-qeema-test\3599d2bb-a069-4aa0-81f1-e966327f822c\scratchpad\add-contact-fields.php(77): array_map(Object(Closure), NULL)
+#1 {main}
+  thrown in C:\Users\Qeema\AppData\Local\Temp\claude\c--Users-Qeema-Downloads-qeema-test\3599d2bb-a069-4aa0-81f1-e966327f822c\scratchpad\add-contact-fields.php on line 77
+[11-Sep-2026 16:03:16 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in C:\Users\Qeema\AppData\Local\Temp\claude\c--Users-Qeema-Downloads-qeema-test\3599d2bb-a069-4aa0-81f1-e966327f822c\scratchpad\verify-800.php:8
+Stack trace:
+#0 {main}
+  thrown in C:\Users\Qeema\AppData\Local\Temp\claude\c--Users-Qeema-Downloads-qeema-test\3599d2bb-a069-4aa0-81f1-e966327f822c\scratchpad\verify-800.php on line 8
+[11-Sep-2026 16:17:02 UTC] PHP Warning:  Undefined array key "_id" in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 847
+[11-Sep-2026 16:17:02 UTC] PHP Warning:  Undefined array key "_id" in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 847
+[11-Sep-2026 16:17:02 UTC] PHP Warning:  Undefined array key "_id" in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 847
+[11-Sep-2026 16:17:02 UTC] PHP Warning:  Undefined array key "_id" in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 847
+[11-Sep-2026 16:17:02 UTC] PHP Warning:  Undefined array key "_id" in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 847
+[11-Sep-2026 16:17:02 UTC] PHP Warning:  Undefined array key "_id" in C:\xampp\htdocs\qeematech-new\wp-content\plugins\elementor\core\files\css\base.php on line 847

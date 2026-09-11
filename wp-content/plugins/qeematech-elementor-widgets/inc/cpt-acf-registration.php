@@ -185,6 +185,48 @@ function qeema_register_acf_fields() {
 			array( 'key' => 'field_qeema_required_1required_copy2', 'label' => 'required 1 (copy2)', 'name' => 'required_1required_copy2', 'type' => 'text' ),
 			array( 'key' => 'field_qeema_required_1required_copy3', 'label' => 'required 1 (copy3)', 'name' => 'required_1required_copy3', 'type' => 'text' ),
 			array( 'key' => 'field_qeema_required_1required_copy4', 'label' => 'required 1 (copy4)', 'name' => 'required_1required_copy4', 'type' => 'text' ),
+
+			// New fields below — not part of the production mirror above, added
+			// for the client review's "curated homepage + richer case study
+			// template" P0 items. No production equivalent to match, so these
+			// use fresh field keys/names.
+			array( 'key' => 'field_qeema_featured_homepage', 'label' => 'Featured (homepage)', 'name' => 'featured_homepage', 'type' => 'true_false', 'instructions' => 'Show this project in the homepage "Selected Work" section.' ),
+			array( 'key' => 'field_qeema_project_year', 'label' => 'Year', 'name' => 'project_year', 'type' => 'number' ),
+			array(
+				'key'        => 'field_qeema_services_list',
+				'label'      => 'Services',
+				'name'       => 'services_list',
+				'type'       => 'repeater',
+				'layout'     => 'table',
+				'button_label' => 'Add Service',
+				'sub_fields' => array(
+					array( 'key' => 'field_qeema_services_list_item', 'label' => 'Service', 'name' => 'service_name', 'type' => 'text' ),
+				),
+			),
+			array( 'key' => 'field_qeema_design_process', 'label' => 'Design Process', 'name' => 'design_process', 'type' => 'wysiwyg' ),
+			array(
+				'key'        => 'field_qeema_key_features',
+				'label'      => 'Key Features',
+				'name'       => 'key_features',
+				'type'       => 'repeater',
+				'layout'     => 'table',
+				'button_label' => 'Add Feature',
+				'sub_fields' => array(
+					array( 'key' => 'field_qeema_key_features_item', 'label' => 'Feature', 'name' => 'feature_text', 'type' => 'text' ),
+				),
+			),
+			array(
+				'key'        => 'field_qeema_technology_stack',
+				'label'      => 'Technology',
+				'name'       => 'technology_stack',
+				'type'       => 'repeater',
+				'layout'     => 'table',
+				'button_label' => 'Add Technology',
+				'sub_fields' => array(
+					array( 'key' => 'field_qeema_technology_stack_name', 'label' => 'Name', 'name' => 'tech_name', 'type' => 'text' ),
+					array( 'key' => 'field_qeema_technology_stack_icon', 'label' => 'Icon', 'name' => 'tech_icon', 'type' => 'image', 'return_format' => 'id' ),
+				),
+			),
 		),
 		'location' => array(
 			array(

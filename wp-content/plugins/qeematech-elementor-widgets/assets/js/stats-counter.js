@@ -9,6 +9,11 @@
 		var duration = 1600;
 		var startTime = performance.now();
 
+		// The markup already shows the real number as a no-JS fallback, so
+		// only reset the visible text to 0 right here, at the moment we know
+		// the animation is actually about to run - never in the initial HTML.
+		el.textContent = prefix + '0' + suffix;
+
 		function update( now ) {
 			var progress = Math.min( ( now - startTime ) / duration, 1 );
 			var eased = 1 - Math.pow( 1 - progress, 3 );

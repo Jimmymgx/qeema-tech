@@ -119,7 +119,7 @@ class Qeema_Stats_Counter_Widget extends \Elementor\Widget_Base {
 							<div class="qeema-stat-box__num"
 								data-target="<?php echo esc_attr( $stat['target'] ); ?>"
 								data-prefix="<?php echo esc_attr( $stat['prefix'] ); ?>"
-								data-suffix="<?php echo esc_attr( $stat['suffix'] ); ?>">0</div>
+								data-suffix="<?php echo esc_attr( $stat['suffix'] ); ?>"><?php echo esc_html( $stat['prefix'] . $stat['target'] . $stat['suffix'] ); ?></div>
 						<?php endif; ?>
 						<div class="qeema-stat-box__label"><?php echo esc_html( $stat['label'] ); ?></div>
 					</div>

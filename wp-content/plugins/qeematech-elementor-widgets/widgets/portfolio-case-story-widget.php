@@ -127,6 +127,79 @@ class Qeema_Portfolio_Case_Story_Widget extends \Elementor\Widget_Base {
 			);
 		}
 
+		$design_process = get_field( 'design_process', $post_id );
+		if ( $design_process ) {
+			$sections[] = array(
+				'label'   => 'منهجية العمل',
+				'heading' => 'مراحل التصميم',
+				'content' => $design_process,
+				'mod'     => 'design-process',
+			);
+		}
+
+		$feature_rows = get_field( 'key_features', $post_id );
+		$features     = array();
+		if ( is_array( $feature_rows ) ) {
+			foreach ( $feature_rows as $feature_row ) {
+				if ( ! empty( $feature_row['feature_text'] ) ) {
+					$features[] = $feature_row['feature_text'];
+				}
+			}
+		}
+		if ( $features ) {
+			$content = '<ul class="qeema-portfolio-case-story__bullets">';
+			foreach ( $features as $feature ) {
+				$content .= '<li>' . esc_html( $feature ) . '</li>';
+			}
+			$content .= '</ul>';
+			$sections[] = array(
+				'label'   => 'أبرز المزايا',
+				'heading' => 'أبرز المزايا',
+				'content' => $content,
+				'mod'     => 'key-features',
+			);
+		}
+
+		$tech_rows  = get_field( 'technology_stack', $post_id );
+		$tech_items = array();
+		if ( is_array( $tech_rows ) ) {
+			foreach ( $tech_rows as $tech_row ) {
+				if ( ! empty( $tech_row['tech_name'] ) ) {
+					$tech_items[] = array(
+						'name'    => $tech_row['tech_name'],
+						'icon_id' => ! empty( $tech_row['tech_icon'] ) ? $tech_row['tech_icon'] : 0,
+					);
+				}
+			}
+		}
+		if ( $tech_items ) {
+			ob_start();
+			?>
+			<div class="qeema-portfolio-case-story__tech-grid">
+				<?php foreach ( $tech_items as $tech_index => $tech ) :
+					$accent_class = 'accent-' . ( ( $tech_index % 3 ) + 1 );
+					?>
+					<div class="qeema-tech-stack__item <?php echo esc_attr( $accent_class ); ?>">
+						<?php if ( $tech['icon_id'] ) : ?>
+							<div class="qeema-tech-stack__icon"><?php echo wp_get_attachment_image( $tech['icon_id'], 'thumbnail', false, array(
+								'loading' => 'lazy',
+								'alt'     => $tech['name'],
+							) ); ?></div>
+						<?php endif; ?>
+						<span class="qeema-tech-stack__label"><?php echo esc_html( $tech['name'] ); ?></span>
+					</div>
+				<?php endforeach; ?>
+			</div>
+			<?php
+			$content = ob_get_clean();
+			$sections[] = array(
+				'label'   => 'التقنيات',
+				'heading' => 'التقنيات المستخدمة',
+				'content' => $content,
+				'mod'     => 'technology',
+			);
+		}
+
 		$journey = get_field( 'idea_copy2', $post_id );
 		if ( $journey ) {
 			$sections[] = array(

@@ -77,6 +77,19 @@
 		}
 		update();
 		window.addEventListener( 'resize', update );
+		// On slow connections the logo may not have finished decoding by
+		// DOMContentLoaded, so offsetHeight is measured too small and the
+		// page's first section renders partly under the fixed header until
+		// something else triggers a resize (which may never happen on
+		// mobile). Re-measure on window load and on each logo image's own
+		// load event, matching the fallback pattern used elsewhere in this
+		// plugin (works-hero-slider.js, hero-section.js, stats-counter.js).
+		window.addEventListener( 'load', update );
+		root.querySelectorAll( 'img' ).forEach( function ( img ) {
+			if ( ! img.complete ) {
+				img.addEventListener( 'load', update, { once: true } );
+			}
+		} );
 	}
 
 	function qeemaInitAllHeaders() {

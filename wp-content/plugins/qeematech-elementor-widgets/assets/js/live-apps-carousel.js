@@ -21,7 +21,26 @@
 		var autoplayTimer = null;
 		var resumeTimer = null;
 
+		// On a narrow phone screen, showing up to 3 side phones on each side
+		// (7 phones at once) turns into a wall of overlapping slivers with
+		// unreadable edge text - only the immediate neighbor peeking in on
+		// each side reads clearly at that size.
+		function maxVisibleOffset() {
+			return window.innerWidth <= 600 ? 1 : 3;
+		}
+
+		// The outer stage is scaled way down on phones to fit the fanned
+		// layout at all (see style.css), which shrinks the focused phone too
+		// and makes its screen hard to read. Growing just the active phone's
+		// own scale (independent of the outer stage scale) compensates for
+		// that without affecting the side phones' size or spacing.
+		function activeScale() {
+			return window.innerWidth <= 600 ? 1.35 : 1;
+		}
+
 		function render() {
+			var maxOffset = maxVisibleOffset();
+			var focusScale = activeScale();
 			phones.forEach( function ( el, i ) {
 				var offset = i - active;
 				if ( offset > n / 2 ) {
@@ -33,10 +52,10 @@
 				var abs = Math.abs( offset );
 				var transform, opacity, z;
 				if ( 0 === abs ) {
-					transform = 'translateX(0) translateZ(0) rotateY(0) scale(1)';
+					transform = 'translateX(0) translateZ(0) rotateY(0) scale(' + focusScale + ')';
 					opacity = 1;
 					z = 10;
-				} else if ( abs <= 3 ) {
+				} else if ( abs <= maxOffset ) {
 					var dir = offset > 0 ? 1 : -1;
 					transform = 'translateX(' + ( dir * abs * 168 ) + 'px) translateZ(' + ( -abs * 110 ) + 'px) rotateY(' + ( -dir * 30 ) + 'deg) scale(' + ( 1 - abs * 0.13 ) + ')';
 					opacity = 1 - abs * 0.24;
@@ -121,6 +140,21 @@
 		root.addEventListener( 'mouseleave', startAutoplay );
 		root.addEventListener( 'touchstart', stopAutoplay, { passive: true } );
 		root.addEventListener( 'touchend', restartAutoplaySoon, { passive: true } );
+
+		// Re-render on resize/rotate so maxVisibleOffset/activeScale's
+		// phone/tablet/desktop switch takes effect immediately instead of
+		// only on the next goTo().
+		var lastMaxOffset = maxVisibleOffset();
+		var lastActiveScale = activeScale();
+		window.addEventListener( 'resize', function () {
+			var currentOffset = maxVisibleOffset();
+			var currentScale = activeScale();
+			if ( currentOffset !== lastMaxOffset || currentScale !== lastActiveScale ) {
+				lastMaxOffset = currentOffset;
+				lastActiveScale = currentScale;
+				render();
+			}
+		} );
 
 		render();
 		startAutoplay();

@@ -544,8 +544,8 @@ body::before{content:"";position:fixed;top:-140px;right:-140px;bottom:-140px;lef
 .qeema-stat-box::before{content:"";position:absolute;inset:0;border-radius:20px;background:linear-gradient(135deg,#22d3ee,#8b5cf6);opacity:.05;z-index:-1}
 .qeema-stat-box__num{font-size:42px;font-weight:800;color:#22d3ee;margin-bottom:10px}
 .qeema-stat-box__label{color:#ccc;font-size:16px}
-@media(max-width:992px){.qeema-stats-counter__wrap{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:576px){.qeema-stats-counter__wrap{grid-template-columns:1fr}}
+@media(max-width:1024px){.qeema-stats-counter__wrap{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.qeema-stats-counter__wrap{grid-template-columns:1fr}}
 
 /* === feature-grid.css === */
 .qeema-feature-grid{padding:80px 30px}
@@ -589,7 +589,7 @@ body::before{content:"";position:fixed;top:-140px;right:-140px;bottom:-140px;lef
 .qeema-feature-grid__btn.ghost{color:#fff!important;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12)}
 .qeema-feature-grid__btn:hover{transform:translateY(-3px)}
 @media(max-width:1024px){.qeema-feature-grid__grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:576px){.qeema-feature-grid__grid{grid-template-columns:1fr}}
+@media(max-width:600px){.qeema-feature-grid__grid{grid-template-columns:1fr}}
 
 /* === feature-grid.css — "glow" card style (values / mission-vision) === */
 .qeema-feature-grid--glow .qeema-feature-card{min-height:260px;padding:34px 26px;text-align:right;overflow:hidden;background:rgba(10,24,46,.55)}
@@ -641,7 +641,7 @@ body::before{content:"";position:fixed;top:-140px;right:-140px;bottom:-140px;lef
 .qeema-why-step p{margin:0;color:rgba(255,255,255,.78);font-size:15.5px;line-height:1.9;font-weight:500}
 @keyframes qeema-step-ring-spin{to{transform:rotate(360deg)}}
 @media(max-width:1024px){.qeema-why-steps__grid{grid-template-columns:repeat(2,1fr);gap:34px 18px}.qeema-why-steps__grid::before{display:none}.qeema-why-step::after{display:none}}
-@media(max-width:576px){.qeema-why-steps__grid{grid-template-columns:1fr}}
+@media(max-width:600px){.qeema-why-steps__grid{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){.qeema-why-step__num::before,.qeema-why-steps__grid::before,.qeema-why-step:not(:last-child)::after{animation:none!important}}
 
 /* === why-us-steps.css — "split" layout variant === */
@@ -711,7 +711,7 @@ body::before{content:"";position:fixed;top:-140px;right:-140px;bottom:-140px;lef
 .qeema-value-cards--vivid .qeema-value-card{counter-increment:qeema-vivid-num}
 .qeema-value-cards--vivid .qeema-value-card::after{content:counter(qeema-vivid-num,decimal-leading-zero);position:absolute;bottom:6px;inset-inline-end:18px;font-size:52px;font-weight:800;line-height:1;color:rgba(255,255,255,.05);font-family:ui-monospace,Menlo,Consolas,monospace;pointer-events:none;z-index:0}
 @media(max-width:1024px){.qeema-value-cards--vivid .qeema-value-cards__grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:640px){.qeema-value-cards--vivid .qeema-value-cards__grid{grid-template-columns:1fr}}
+@media(max-width:600px){.qeema-value-cards--vivid .qeema-value-cards__grid{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){.qeema-value-cards--vivid .qeema-value-card__icon::before{animation:none!important}}
 
 /* === tech-stack.css (technology/tools icon-tile grid) === */
@@ -815,7 +815,7 @@ body::before{content:"";position:fixed;top:-140px;right:-140px;bottom:-140px;lef
 .qeema-app-store-proof__chip--a{top:260px;left:calc(50% - 460px)}
 .qeema-app-store-proof__chip--b{bottom:6px;left:calc(50% - 60px)}
 .qeema-app-store-proof__chip--c{top:20px;left:calc(50% + 440px)}
-@media(max-width:1100px){
+@media(max-width:1024px){
 	.qeema-app-store-proof__stage{height:440px}
 	.app-mock-a{width:200px;left:calc(50% - 100px)}.app-mock-a .qeema-app-store-proof__art{height:250px}
 	.app-mock-b{width:160px;left:calc(50% - 300px)}.app-mock-b .qeema-app-store-proof__art{height:200px}
@@ -953,7 +953,7 @@ body::before{content:"";position:fixed;top:-140px;right:-140px;bottom:-140px;lef
 .qeema-contact-info-card span,.qeema-contact-info-card em{color:rgba(255,255,255,.75);font-size:13.5px;font-weight:600;font-style:normal;font-family:'Rubik',sans-serif}
 .qeema-contact-info-card:hover span,.qeema-contact-info-card:hover em{color:#19c8ff}
 @media(max-width:1024px){.qeema-contact-layout{flex-direction:column!important;padding:20px 20px 60px}.qeema-contact-info-col,.qeema-contact-form-col{padding:30px}}
-@media(max-width:480px){.qeema-contact-info-grid{grid-template-columns:1fr}}
+@media(max-width:600px){.qeema-contact-info-grid{grid-template-columns:1fr}}
 .qeema-footer h5{position:relative;z-index:1;display:flex;align-items:center;gap:9px;color:#fff;font-size:17px;margin:0 0 22px;font-weight:800;padding-bottom:13px}
 .qeema-footer h5 i{color:#00d4ff;font-size:14px}
 .qeema-footer h5::after{content:"";position:absolute;right:0;bottom:0;width:32px;height:3px;border-radius:3px;background:linear-gradient(90deg,#00d4ff,#8b5cf6)}
@@ -999,7 +999,7 @@ body::before{content:"";position:fixed;top:-140px;right:-140px;bottom:-140px;lef
 .qeema-portfolio-grid__item{transition:opacity .28s ease,transform .28s ease}
 .qeema-portfolio-grid__item--hide{opacity:0;transform:scale(.92);pointer-events:none}
 @media(max-width:1400px){.qeema-portfolio-grid__wrap{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:1000px){.qeema-portfolio-grid__wrap{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:1024px){.qeema-portfolio-grid__wrap{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.qeema-portfolio-grid__wrap{grid-template-columns:1fr}}
 
 /* Mockup-frame cards for both portfolio card types — website (browser-card:
@@ -1063,9 +1063,9 @@ body::before{content:"";position:fixed;top:-140px;right:-140px;bottom:-140px;lef
 }
 @media(max-width:1400px){.qeema-testimonials__track{--visible:4}}
 @media(max-width:1024px){.qeema-testimonials__track{--visible:3}}
-@media(max-width:767px){.qeema-testimonials__track{--visible:1}}
+@media(max-width:768px){.qeema-testimonials__track{--visible:1}}
 .qeema-testimonials__grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px;max-width:1600px;margin:-34px auto 0;padding:40px 6px 14px}
-@media(max-width:767px){.qeema-testimonials__grid{grid-template-columns:repeat(2,1fr);gap:14px}}
+@media(max-width:768px){.qeema-testimonials__grid{grid-template-columns:repeat(2,1fr);gap:14px}}
 .qeema-testimonials__progress{display:none;position:relative;max-width:220px;height:4px;margin:24px auto 0;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden}
 .qeema-testimonials__track.is-scrollable ~ .qeema-testimonials__progress{display:block}
 .qeema-testimonials__progress-bar{position:absolute;top:0;bottom:0;left:0;border-radius:999px;background:linear-gradient(90deg,#10cfff,#0066ff);box-shadow:0 0 12px rgba(16,207,255,.65)}
@@ -1114,7 +1114,7 @@ body.qeema-modal-lock{overflow:hidden}
 @media(prefers-reduced-motion:reduce){.qeema-blog-carousel__track{scroll-behavior:auto}.qeema-blog-card,.qeema-blog-card__media img{transition:none!important}}
 @media(max-width:1400px){.qeema-blog-carousel__track{--visible:4}}
 @media(max-width:1024px){.qeema-blog-carousel__track{--visible:3}.qeema-blog-card{min-height:315px}.qeema-blog-card__media img{height:170px}}
-@media(max-width:767px){.qeema-blog-carousel{padding:0 20px 30px}.qeema-blog-carousel__track{--visible:1}.qeema-blog-card{min-height:auto;border-radius:20px}.qeema-blog-card:hover{transform:translateY(-4px)}.qeema-blog-card__media img{height:190px;border-radius:16px}}
+@media(max-width:768px){.qeema-blog-carousel{padding:0 20px 30px}.qeema-blog-carousel__track{--visible:1}.qeema-blog-card{min-height:auto;border-radius:20px}.qeema-blog-card:hover{transform:translateY(-4px)}.qeema-blog-card__media img{height:190px;border-radius:16px}}
 
 /* === default WP template dark-theme normalization ===
    Pages without a custom Elementor design (single posts, archives, search,
@@ -1315,7 +1315,7 @@ span.ez-toc-js-icon-con{display:none!important}
 .qeema-trusted-by__grid-item:hover{border-color:rgba(34,211,238,.35);background:rgba(255,255,255,.06);box-shadow:0 14px 30px rgba(34,211,238,.16);transform:translateY(-5px) scale(1.04)!important;transition-delay:0s!important}
 .qeema-trusted-by__grid-logo{display:flex;align-items:center;justify-content:center;width:100%;height:100%}
 .qeema-trusted-by__grid-logo img{max-width:92%;max-height:86%;width:auto;height:auto;object-fit:contain}
-@media(max-width:640px){.qeema-trusted-by__grid{grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:10px}.qeema-trusted-by__grid-item{padding:8px}}
+@media(max-width:600px){.qeema-trusted-by__grid{grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:10px}.qeema-trusted-by__grid-item{padding:8px}}
 @media(prefers-reduced-motion:reduce){.qeema-trusted-by__track{animation:none;flex-wrap:wrap;width:auto}.qeema-trusted-by__track-dup{display:none}.qeema-trusted-by__grid-item{opacity:1!important;transform:none!important;transition:none!important}}
 
 /* === cta-banner.css === */
@@ -1432,7 +1432,7 @@ html.qeema-preloader-active{overflow:hidden}
 .qeema-browser-showcase__chip--a{top:260px;left:calc(50% - 430px)}
 .qeema-browser-showcase__chip--b{bottom:10px;left:calc(50% - 60px)}
 .qeema-browser-showcase__chip--c{top:20px;left:calc(50% + 420px)}
-@media(max-width:1100px){.qeema-browser-showcase__stage{height:420px}.browser-a{width:440px;left:calc(50% - 220px)}.browser-a .qeema-browser-mock__screen{height:260px}.browser-b{width:240px;left:calc(50% - 380px)}.browser-b .qeema-browser-mock__screen{height:150px}.browser-c{width:240px;left:calc(50% + 140px);top:120px}.browser-c .qeema-browser-mock__screen{height:150px}.qeema-browser-showcase__chip--a{top:210px;left:calc(50% - 380px)}.qeema-browser-showcase__chip--c{top:20px;left:calc(50% + 340px)}}
+@media(max-width:1024px){.qeema-browser-showcase__stage{height:420px}.browser-a{width:440px;left:calc(50% - 220px)}.browser-a .qeema-browser-mock__screen{height:260px}.browser-b{width:240px;left:calc(50% - 380px)}.browser-b .qeema-browser-mock__screen{height:150px}.browser-c{width:240px;left:calc(50% + 140px);top:120px}.browser-c .qeema-browser-mock__screen{height:150px}.qeema-browser-showcase__chip--a{top:210px;left:calc(50% - 380px)}.qeema-browser-showcase__chip--c{top:20px;left:calc(50% + 340px)}}
 @media(max-width:768px){.qeema-browser-showcase{padding:30px 20px 80px}.qeema-browser-showcase__head h2{font-size:28px}.qeema-browser-showcase__stage{height:300px}.browser-a{width:min(92vw,420px);left:0;right:0;margin:0 auto;top:30px}.browser-a .qeema-browser-mock__screen{height:240px}.browser-b,.browser-c,.qeema-browser-showcase__chip{display:none}}
 @media(prefers-reduced-motion:reduce){.qeema-browser-showcase__glow,.browser-a,.browser-b,.browser-c,.qeema-browser-showcase__chip{animation:none}}
 
@@ -1447,8 +1447,8 @@ html.qeema-preloader-active{overflow:hidden}
 .qeema-blog-archive__badge{position:absolute;top:12px;inset-inline-start:12px;z-index:2;background:rgba(8,16,32,.75);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:5px 14px;font-size:12px;font-weight:700;color:#fff;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
 .qeema-blog-archive__readmore{display:inline-flex;align-items:center;gap:4px;margin-top:auto;padding:0 4px;font-size:14px;font-weight:700;color:#22dcff;transition:color .22s ease}
 .qeema-blog-card:hover .qeema-blog-archive__readmore{color:#8feeff}
-@media(max-width:1200px){.qeema-blog-archive__grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:640px){.qeema-blog-archive__grid{grid-template-columns:1fr}}
+@media(max-width:1024px){.qeema-blog-archive__grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.qeema-blog-archive__grid{grid-template-columns:1fr}}
 
 .qeema-blog-pagination{display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap;margin:40px auto 0}
 .qeema-blog-pagination span,.qeema-blog-pagination a{min-width:40px;height:40px;padding:0 14px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);color:#fff;text-decoration:none;font-weight:700;font-size:14px;transition:background .2s ease,border-color .2s ease}
@@ -1691,7 +1691,7 @@ html.qeema-preloader-active{overflow:hidden}
 	.qeema-works-hero--single .qeema-works-hero__stage{min-height:auto}
 	.qeema-works-hero--single .qeema-works-hero__visual{flex-shrink:0}
 }
-@media(max-width:480px){
+@media(max-width:600px){
 	.qeema-store-col--apple{display:none}
 	.qeema-store-screens{transform:translate(-50%,-50%) scale(.75)}
 }
@@ -1949,13 +1949,13 @@ body.page-id-869 .qeema-category-showcase__grid{grid-template-columns:repeat(3,m
 .qeema-live-apps-carousel__about-label{font-size:11px;font-weight:800;color:#101010;margin-bottom:5px}
 .qeema-live-apps-carousel__about-text{font-size:10.8px;color:#5c5c5e;line-height:1.65}
 
-.qeema-live-apps-carousel__nav{display:flex;justify-content:center;gap:14px;margin-top:26px}
+.qeema-live-apps-carousel__nav{position:relative;z-index:2;display:flex;justify-content:center;gap:14px;margin-top:26px}
 .qeema-live-apps-carousel__nav button{
 	width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);
 	color:#fff;font-size:16px;cursor:pointer;transition:.2s;padding:0;
 }
 .qeema-live-apps-carousel__nav button:hover{background:linear-gradient(135deg,#10cfff,#0066ff);border-color:transparent}
-.qeema-live-apps-carousel__dots{display:flex;justify-content:center;gap:7px;margin-top:16px}
+.qeema-live-apps-carousel__dots{position:relative;z-index:2;display:flex;justify-content:center;gap:7px;margin-top:16px}
 .qeema-live-apps-carousel__dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.25);transition:.3s;cursor:pointer}
 .qeema-live-apps-carousel__dot.active{background:#8feeff;width:20px;border-radius:4px}
 
@@ -1963,7 +1963,7 @@ body.page-id-869 .qeema-category-showcase__grid{grid-template-columns:repeat(3,m
 	.qeema-live-apps-carousel__stage{transform:scale(.72)}
 	.qeema-live-apps-carousel__stage-wrap{margin:-80px 0}
 }
-@media(max-width:520px){
+@media(max-width:600px){
 	.qeema-live-apps-carousel{padding:60px 16px}
 	.qeema-live-apps-carousel__stage{transform:scale(.46)}
 	.qeema-live-apps-carousel__stage-wrap{margin:-160px 0}
@@ -2099,4 +2099,64 @@ body.page-id-869 .qeema-category-showcase__grid{grid-template-columns:repeat(3,m
    instead of a chip-plus-dot hybrid. */
 .qeema-testimonials__eyebrow::before,
 .qeema-portfolio-case-hero__eyebrow::before{display:none}
+
+/* Mega-menu (grouped nav dropdown) */
+/* Additive only — a dropdown only gets this markup when the widget detects
+   at least one child with a "group" value set; every other dropdown keeps
+   rendering the existing single-column .qeema-has-dropdown > ul above and is
+   untouched by these rules. Kept visually consistent with that dropdown
+   (same panel color, radius, shadow, blur), just wider and multi-column. */
+.qeema-header__nav .qeema-has-mega > .qeema-mega-panel{display:flex;align-items:flex-start;position:absolute;top:100%;left:50%;gap:36px;min-width:820px;max-width:960px;padding:28px 32px;margin:0;background:#0d2647;border:.8px solid rgba(255,255,255,.08);border-radius:18px;box-shadow:0 22px 55px rgba(0,0,0,.35);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);z-index:50;opacity:0;visibility:hidden;pointer-events:none;transform:translate(-50%,8px);transition:opacity .25s ease,transform .25s ease,visibility .25s}
+.qeema-header__nav .qeema-has-mega:hover > .qeema-mega-panel{opacity:1;visibility:visible;pointer-events:auto;transform:translate(-50%,0)}
+.qeema-mega-col{flex:1 1 0;min-width:180px;display:flex;flex-direction:column;gap:8px}
+.qeema-mega-col__heading{display:block;color:#00d4ff;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding-bottom:8px;margin-bottom:4px;border-bottom:.8px solid rgba(255,255,255,.08)}
+.qeema-mega-col ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.qeema-mega-col ul li a{display:flex;align-items:center;padding:10px 14px;color:#fff;text-decoration:none;font-size:14px;font-weight:600;background:rgba(255,255,255,.035);border:.8px solid rgba(255,255,255,.06);border-radius:12px;transition:border-color .25s ease,background-color .25s ease,transform .25s ease,box-shadow .25s ease}
+.qeema-mega-col ul li a:hover{border-color:#00d4ff;background:rgba(0,212,255,.14);transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,212,255,.25);color:#fff}
+
+/* Selected Work (homepage) */
+/* Small curated teaser fed by the featured_homepage ACF field (see
+   selected-work-widget.php) - card look matches the .qeema-blog-card /
+   .qeema-feature-card conventions (radius, glass background, hover lift)
+   rather than the mockup-frame cards used by the full portfolio grid, since
+   this is a lighter homepage-only section. Chip/cat class names are scoped
+   under __selected-work so they can't collide with the unrelated bare
+   .qt-chip/.chip-a-style names used elsewhere in this file. */
+.qeema-selected-work{padding:80px 30px}
+.qeema-selected-work *{box-sizing:border-box}
+.qeema-selected-work__wrap{max-width:1600px;margin:auto}
+.qeema-selected-work__head{text-align:center;max-width:760px;margin:0 auto 40px}
+.qeema-selected-work__head h2{color:#fff!important;font-size:40px;line-height:1.4;margin:0 0 14px;font-weight:800}
+.qeema-selected-work__head p{color:rgba(255,255,255,.78)!important;font-size:18px;line-height:1.9;margin:0}
+.qeema-selected-work__group{margin:0 0 44px}
+.qeema-selected-work__group:last-child{margin-bottom:0}
+.qeema-selected-work__group-title{color:#8feeff!important;font-size:20px;font-weight:800;margin:0 0 20px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.10)}
+.qeema-selected-work__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.qeema-selected-work__card{position:relative;display:flex;flex-direction:column;overflow:hidden;border-radius:22px;text-decoration:none!important;background:linear-gradient(180deg,rgba(10,24,46,.6),rgba(10,24,46,.5));backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.10);transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease}
+.qeema-selected-work__card:hover{transform:translateY(-8px);border-color:rgba(34,220,255,.35);box-shadow:0 20px 50px rgba(0,0,0,.3),0 0 28px rgba(34,220,255,.15)}
+.qeema-selected-work__media{display:block;width:100%;aspect-ratio:4/3;background-size:cover;background-position:top center;background-repeat:no-repeat;background-color:#0b1526}
+.qeema-selected-work__body{display:flex;flex-direction:column;gap:10px;padding:18px 20px 22px}
+.qeema-selected-work__cats{display:flex;flex-wrap:wrap;gap:8px}
+.qeema-selected-work__cat{padding:5px 13px;border-radius:999px;background:rgba(34,211,238,.14);border:1px solid rgba(34,211,238,.25);color:#8feeff!important;font-size:12px;font-weight:700}
+.qeema-selected-work__title{color:#fff!important;font-size:17px;line-height:1.6;font-weight:800;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.qeema-selected-work__actions{display:flex;justify-content:center;margin-top:36px}
+.qeema-selected-work__btn{text-decoration:none!important;padding:14px 26px;border-radius:14px;font-size:16px;font-weight:800;color:#fff!important;background:linear-gradient(135deg,#10cfff,#0066ff);transition:transform .3s ease,box-shadow .3s ease}
+.qeema-selected-work__btn:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(16,207,255,.3)}
+@media(max-width:1024px){.qeema-selected-work__grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.qeema-selected-work{padding:60px 20px}.qeema-selected-work__head h2{font-size:28px}.qeema-selected-work__grid{grid-template-columns:1fr}}
+
+/* Case study: Year/Services/Design Process/Key Features/Technology */
+/* Year + Services chips reuse .qeema-portfolio-case-hero__chip as-is (no new
+   CSS needed there); Industry likewise. Key Features reuses
+   .qeema-portfolio-case-story__bullets as-is. Only the new story-section dot
+   colors and the Technology tile grid need rules below - the tiles
+   themselves are the real .qeema-tech-stack__item/__icon/__label selectors
+   from tech-stack-widget.php so they render identically to that widget's
+   tiles instead of a new pattern; only the grid container and the
+   image-based icon (vs. that widget's font-icon) need overrides. */
+.qeema-portfolio-case-story__section--design-process .qeema-portfolio-case-story__dot{background:#fbbf24;box-shadow:0 0 10px rgba(251,191,36,.7)}
+.qeema-portfolio-case-story__section--key-features .qeema-portfolio-case-story__dot{background:#fb923c;box-shadow:0 0 10px rgba(251,146,60,.7)}
+.qeema-portfolio-case-story__section--technology .qeema-portfolio-case-story__dot{background:#818cf8;box-shadow:0 0 10px rgba(129,140,248,.7)}
+.qeema-portfolio-case-story__tech-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:14px}
+.qeema-portfolio-case-story__tech-grid .qeema-tech-stack__icon img{width:32px;height:32px;object-fit:contain;border-radius:50%}
 

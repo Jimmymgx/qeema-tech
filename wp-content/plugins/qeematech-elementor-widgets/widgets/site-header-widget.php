@@ -68,6 +68,7 @@ class Qeema_Site_Header_Widget extends \Elementor\Widget_Base {
 					'fields'  => array(
 						array( 'name' => 'label', 'label' => 'Label', 'type' => \Elementor\Controls_Manager::TEXT ),
 						array( 'name' => 'link', 'label' => 'Link', 'type' => \Elementor\Controls_Manager::URL ),
+						array( 'name' => 'group', 'label' => 'Column Group (optional — leave blank for a flat list)', 'type' => \Elementor\Controls_Manager::TEXT, 'default' => '' ),
 					),
 					'default' => array(),
 					'title_field' => '{{{ label }}}',
@@ -97,14 +98,57 @@ class Qeema_Site_Header_Widget extends \Elementor\Widget_Base {
 		if ( ! $is_mobile ) {
 			foreach ( $items as $item ) {
 				$has_children = ! empty( $item['children'] );
-				echo '<li' . ( $has_children ? ' class="qeema-has-dropdown"' : '' ) . '>';
-				echo '<a' . ( ! empty( $item['link']['url'] ) ? ' href="' . esc_url( $item['link']['url'] ) . '"' : '' ) . '>' . esc_html( $item['label'] ) . '</a>';
+
+				// A dropdown becomes a grouped mega-menu only when at least one
+				// child has a non-empty "group" value; otherwise it renders as
+				// the exact same flat <ul> as before, so every existing
+				// dropdown on the site is unaffected by this feature.
+				$has_groups = false;
 				if ( $has_children ) {
+					foreach ( $item['children'] as $child ) {
+						if ( ! empty( $child['group'] ) ) {
+							$has_groups = true;
+							break;
+						}
+					}
+				}
+
+				echo '<li' . ( $has_children ? ' class="qeema-has-dropdown' . ( $has_groups ? ' qeema-has-mega' : '' ) . '"' : '' ) . '>';
+				echo '<a' . ( ! empty( $item['link']['url'] ) ? ' href="' . esc_url( $item['link']['url'] ) . '"' : '' ) . '>' . esc_html( $item['label'] ) . '</a>';
+				if ( $has_children && ! $has_groups ) {
 					echo '<ul>';
 					foreach ( $item['children'] as $child ) {
 						echo '<li><a' . ( ! empty( $child['link']['url'] ) ? ' href="' . esc_url( $child['link']['url'] ) . '"' : '' ) . '>' . esc_html( $child['label'] ) . '</a></li>';
 					}
 					echo '</ul>';
+				} elseif ( $has_children && $has_groups ) {
+					// Group children by their "group" value, preserving the
+					// order in which each group name is first encountered.
+					// Children with an empty group land in an "" bucket that
+					// renders as an unlabeled/default column, so nothing that
+					// was already there silently disappears.
+					$columns = array();
+					foreach ( $item['children'] as $child ) {
+						$group_name = ! empty( $child['group'] ) ? $child['group'] : '';
+						if ( ! isset( $columns[ $group_name ] ) ) {
+							$columns[ $group_name ] = array();
+						}
+						$columns[ $group_name ][] = $child;
+					}
+					echo '<div class="qeema-mega-panel">';
+					foreach ( $columns as $group_name => $children ) {
+						echo '<div class="qeema-mega-col">';
+						if ( '' !== $group_name ) {
+							echo '<span class="qeema-mega-col__heading">' . esc_html( $group_name ) . '</span>';
+						}
+						echo '<ul>';
+						foreach ( $children as $child ) {
+							echo '<li><a' . ( ! empty( $child['link']['url'] ) ? ' href="' . esc_url( $child['link']['url'] ) . '"' : '' ) . '>' . esc_html( $child['label'] ) . '</a></li>';
+						}
+						echo '</ul>';
+						echo '</div>';
+					}
+					echo '</div>';
 				}
 				echo '</li>';
 			}

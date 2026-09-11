@@ -107,6 +107,7 @@ function qeema_register_widgets( $widgets_manager ) {
 	require_once __DIR__ . '/../widgets/portfolio-case-story-widget.php';
 	require_once __DIR__ . '/../widgets/live-apps-carousel-widget.php';
 	require_once __DIR__ . '/../widgets/live-apps-grid-widget.php';
+	require_once __DIR__ . '/../widgets/selected-work-widget.php';
 
 	$widgets_manager->register( new \Qeema_Hero_Section_Widget() );
 	$widgets_manager->register( new \Qeema_Stats_Counter_Widget() );
@@ -141,5 +142,6 @@ function qeema_register_widgets( $widgets_manager ) {
 	$widgets_manager->register( new \Qeema_Portfolio_Case_Story_Widget() );
 	$widgets_manager->register( new \Qeema_Live_Apps_Carousel_Widget() );
 	$widgets_manager->register( new \Qeema_Live_Apps_Grid_Widget() );
+	$widgets_manager->register( new \Qeema_Selected_Work_Widget() );
 }
 add_action( 'elementor/widgets/register', 'qeema_register_widgets' );

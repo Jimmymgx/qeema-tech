@@ -121,6 +121,11 @@
 
 		root.addEventListener( 'mouseenter', stopAutoplay );
 		root.addEventListener( 'mouseleave', startAutoplay );
+		// Without this, an autoplay tick can start scrolling mid-tap and the
+		// browser reads it as a scroll gesture, silently swallowing the click
+		// on a card link (see live-apps-carousel.js for the same fix).
+		root.addEventListener( 'touchstart', stopAutoplay, { passive: true } );
+		root.addEventListener( 'touchend', restartAutoplaySoon, { passive: true } );
 
 		// mouse click-and-drag to scroll, like a native swipe carousel
 		var isDown = false;
