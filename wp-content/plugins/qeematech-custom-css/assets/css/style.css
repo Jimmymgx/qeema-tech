@@ -873,10 +873,13 @@ body::before{content:"";position:fixed;top:-140px;right:-140px;bottom:-140px;lef
 }
 .qeema-has-dropdown:hover > .qeema-mini-drop{opacity:1;visibility:visible;pointer-events:auto;transform:translate(-50%,0)}
 .qeema-mini-drop a{
-  display:flex;align-items:flex-start;gap:12px;padding:12px;border-radius:22px;text-decoration:none;color:#fff;
-  border:1px solid transparent;transition:background .2s ease,border-color .2s ease,transform .2s ease;
+  display:flex;align-items:flex-start;gap:12px;padding:12px;border-radius:22px;text-decoration:none!important;color:#fff!important;
+  border:1px solid transparent;transition:background .2s ease,border-color .2s ease;
 }
-.qeema-mini-drop a:hover{background:rgba(56,189,248,.08);border-color:rgba(56,189,248,.22);transform:translateY(-1px)}
+.qeema-mini-drop a:hover,.qeema-mini-drop a:focus-visible{
+  background:rgba(56,189,248,.1);border-color:rgba(56,189,248,.28);color:#fff!important;
+}
+.qeema-mini-drop a:hover strong,.qeema-mini-drop a:focus-visible strong{color:#7dd3fc}
 .qeema-mini-drop__icon,.qeema-sub__icon{
   width:36px;height:36px;flex-shrink:0;border-radius:22px;display:grid;place-items:center;
   background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.2);color:#7dd3fc;
@@ -908,29 +911,44 @@ body::before{content:"";position:fixed;top:-140px;right:-140px;bottom:-140px;lef
 .qeema-mega.is-dense .qeema-mega__grid{grid-template-columns:repeat(3,minmax(280px,1fr))}
 .qeema-mega__card{
   display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:14px;align-items:center;
-  min-height:88px;padding:16px 16px;border-radius:22px;text-decoration:none;color:#fff;
+  min-height:88px;padding:16px 16px;border-radius:22px;text-decoration:none!important;color:#fff!important;
   background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);
-  transition:background .22s ease,border-color .22s ease,transform .22s ease,box-shadow .22s ease;
+  transition:background .22s ease,border-color .22s ease,box-shadow .22s ease;
 }
-.qeema-mega__card:hover{
-  background:rgba(56,189,248,.08);border-color:rgba(56,189,248,.3);
-  transform:translateY(-2px);box-shadow:0 12px 28px rgba(0,0,0,.25);
+.qeema-mega__card:hover,
+.qeema-mega__card:focus-visible{
+  background:rgba(56,189,248,.12);border-color:rgba(56,189,248,.4);
+  box-shadow:0 12px 28px rgba(0,0,0,.25);color:#fff!important;
+}
+.qeema-mega__card:hover .qeema-mega__title,
+.qeema-mega__card:focus-visible .qeema-mega__title{color:#7dd3fc}
+.qeema-mega__card:hover .qeema-mega__desc,
+.qeema-mega__card:focus-visible .qeema-mega__desc{color:#cbd5e1}
+.qeema-mega__card:hover .qeema-mega__icon,
+.qeema-mega__card:focus-visible .qeema-mega__icon{
+  background:linear-gradient(145deg,rgba(56,189,248,.28),rgba(14,165,233,.14));
+  border-color:rgba(56,189,248,.45);color:#38bdf8;
 }
 .qeema-mega__icon{
   width:44px;height:44px;border-radius:22px;display:grid;place-items:center;flex-shrink:0;
   background:linear-gradient(145deg,rgba(56,189,248,.18),rgba(14,165,233,.08));
   border:1px solid rgba(56,189,248,.25);color:#7dd3fc;
+  transition:background .22s ease,border-color .22s ease,color .22s ease;
 }
 .qeema-mega__copy{min-width:0;display:flex;flex-direction:column;gap:5px;text-align:start}
 .qeema-mega__title-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.qeema-mega__title{font-size:14.5px;font-weight:700;line-height:1.4}
+.qeema-mega__title{font-size:14.5px;font-weight:700;line-height:1.4;color:#fff;transition:color .2s ease}
 .qeema-mega__badge{
   display:inline-flex;padding:2px 8px;border-radius:22px;font-size:10px;font-weight:700;
   color:#7dd3fc;background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.2);
 }
-.qeema-mega__desc{font-size:12.5px;line-height:1.6;color:#94a3b8}
-.qeema-mega__go{color:#38bdf8;opacity:0;transform:translateX(4px);transition:opacity .2s ease,transform .2s ease;font-size:14px}
-.qeema-mega__card:hover .qeema-mega__go{opacity:1;transform:translateX(0)}
+.qeema-mega__desc{font-size:12.5px;line-height:1.6;color:#94a3b8;transition:color .2s ease}
+.qeema-mega__go{
+  color:#38bdf8;opacity:0;transform:translateX(4px);transition:opacity .2s ease,transform .2s ease;font-size:14px;
+}
+[dir="rtl"] .qeema-mega__go{transform:translateX(-4px)}
+.qeema-mega__card:hover .qeema-mega__go,
+.qeema-mega__card:focus-visible .qeema-mega__go{opacity:1;transform:translateX(0)}
 .qeema-mega__aside{
   padding:28px 24px;border-inline-start:1px solid rgba(255,255,255,.06);
   background:linear-gradient(180deg,rgba(56,189,248,.1),rgba(8,16,32,.2));
@@ -955,8 +973,8 @@ body::before{content:"";position:fixed;top:-140px;right:-140px;bottom:-140px;lef
   margin-top:10px;padding:12px 16px;border-radius:22px;
   background:rgba(8,16,32,.85);border:1px solid rgba(255,255,255,.06);color:#94a3b8;font-size:12px;
 }
-.qeema-mega__foot a{color:#7dd3fc;text-decoration:none;font-weight:700}
-.qeema-mega__foot a:hover{color:#fff}
+.qeema-mega__foot a{color:#7dd3fc;text-decoration:none!important;font-weight:700;transition:color .2s ease}
+.qeema-mega__foot a:hover,.qeema-mega__foot a:focus-visible{color:#fff!important}
 
 .qeema-header__cta{background:transparent;border:1px solid #00e5ff;color:#00e5ff;padding:15px 32px;border-radius:22px;font-weight:700;text-decoration:none;font-size:14px;white-space:nowrap;text-shadow:0 0 8px rgba(0,229,255,.9),0 0 18px rgba(0,229,255,.6);box-shadow:0 0 8px rgba(0,229,255,.55),0 0 20px rgba(0,229,255,.4),0 0 40px rgba(0,229,255,.22),inset 0 0 10px rgba(0,229,255,.2);animation:qeema-neon-pulse 2.4s ease-in-out infinite;transition:background .25s ease,color .25s ease,border-color .25s ease,transform .25s ease}
 .qeema-header__cta:hover{background:linear-gradient(135deg,#8b5cf6,#2f7cff);border-color:transparent;color:#fff;text-shadow:0 0 10px rgba(255,255,255,.8);transform:translateY(-2px);animation:none;box-shadow:0 0 16px rgba(0,212,255,.7),0 0 36px rgba(139,92,246,.55),0 0 60px rgba(0,212,255,.35)}
@@ -1077,13 +1095,10 @@ body::before{content:"";position:fixed;top:-140px;right:-140px;bottom:-140px;lef
 .qeema-footer__totop:hover{background:rgba(0,212,255,.22);transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,212,255,.3)}
 @media(max-width:600px){.qeema-footer{padding:64px 20px 0}.qeema-footer__cards{gap:16px}.qeema-footer__brand,.qeema-footer__column{flex:1 1 100%;padding:24px 22px}.qeema-footer__bottom{justify-content:center;text-align:center}}
 
-/* === portfolio-teaser + portfolio-grid � approved homepage mockup === */
+/* === portfolio-teaser + portfolio-grid — homepage section uses page aurora bg === */
 .qeema-portfolio-teaser{
-  position:relative;isolation:isolate;padding:88px 24px 72px;text-align:center;
-  background:
-    radial-gradient(circle at 50% 0%,rgba(56,189,248,.14) 0%,transparent 42%),
-    radial-gradient(circle at 15% 70%,rgba(14,165,233,.08) 0%,transparent 40%),
-    #050a12;
+  position:relative;isolation:auto;padding:88px 24px 72px;text-align:center;
+  background:transparent;
   font-family:"Readex Pro",Rubik,sans-serif;
 }
 .qeema-portfolio-teaser__wrap{max-width:1240px;margin:0 auto}
@@ -1946,13 +1961,10 @@ html.qeema-preloader-active{overflow:hidden}
 	.case-spot,.case-particle,.facet-glow,.facet-ring--outer,.facet-ring--inner,.facet-sheen,.facet-glint{animation:none}
 }
 
-/* === portfolio archive (???????) � aligned with homepage teaser language === */
+/* === portfolio archive — same transparent page-bg treatment === */
 .qeema-portfolio-archive{
-  position:relative;isolation:isolate;padding:56px 24px 80px;text-align:center;
-  background:
-    radial-gradient(circle at 50% 0%,rgba(56,189,248,.14) 0%,transparent 42%),
-    radial-gradient(circle at 15% 70%,rgba(14,165,233,.08) 0%,transparent 40%),
-    #050a12;
+  position:relative;isolation:auto;padding:56px 24px 80px;text-align:center;
+  background:transparent;
   font-family:"Readex Pro",Rubik,sans-serif;
 }
 .qeema-portfolio-archive__wrap{max-width:1240px;margin:0 auto}
