@@ -33,7 +33,6 @@
 		var section = grid.closest( '.qeema-portfolio-teaser' ) || document;
 		var tabs = section.querySelectorAll( '.qeema-portfolio-teaser__cat' );
 		var items = grid.querySelectorAll( '.qeema-portfolio-grid__item' );
-		var counter = grid.querySelector( '.qeema-portfolio-grid__count' );
 		var showMoreBtn = grid.querySelector( '.qeema-portfolio-grid__show-more' );
 		var initialCount = parseInt( grid.dataset.initialCount || '0', 10 );
 		var expanded = false;
@@ -89,10 +88,6 @@
 					}, 260 );
 				}
 			} );
-
-			if ( counter ) {
-				counter.textContent = matchedIndex + ' مشروع';
-			}
 
 			if ( showMoreBtn ) {
 				showMoreBtn.style.display = ( initialCount && ! expanded && matchedIndex > initialCount ) ? '' : 'none';

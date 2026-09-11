@@ -48,11 +48,6 @@ class Qeema_Portfolio_Teaser_Widget extends \Elementor\Widget_Base {
 			'type'    => \Elementor\Controls_Manager::TEXTAREA,
 			'default' => 'تقدم شركة قيمة تك أفضل الحلول والعروض المتاحة لـ تصميم المواقع والمتاجر الإلكترونية وتطبيقات الهاتف وفق المعايير العالمية',
 		) );
-		$this->add_control( 'meta_note', array(
-			'label'   => __( 'Grid Meta Note', 'qeematech-elementor-widgets' ),
-			'type'    => \Elementor\Controls_Manager::TEXT,
-			'default' => 'أحدث إصدارات التطبيقات لعام 2024',
-		) );
 		$this->add_control( 'footer_note', array(
 			'label'   => __( 'Footer Note', 'qeematech-elementor-widgets' ),
 			'type'    => \Elementor\Controls_Manager::TEXTAREA,
@@ -175,7 +170,6 @@ class Qeema_Portfolio_Teaser_Widget extends \Elementor\Widget_Base {
 		$filter_categories = $settings['filter_categories'] ?? '';
 		$initial_count     = (int) ( $settings['initial_visible_count'] ?? 0 );
 		$show_more_text    = $settings['show_more_text'] ?? 'عرض المزيد';
-		$meta_note         = $settings['meta_note'] ?? '';
 
 		$query_args = array(
 			'post_type'      => 'portfolio',
@@ -204,15 +198,6 @@ class Qeema_Portfolio_Teaser_Widget extends \Elementor\Widget_Base {
 		$show_more = $initial_count > 0 && $query->post_count > $initial_count;
 		?>
 		<div class="qeema-portfolio-grid"<?php echo $initial_count > 0 ? ' data-initial-count="' . esc_attr( $initial_count ) . '"' : ''; ?>>
-			<div class="qeema-portfolio-grid__meta">
-				<p class="qeema-portfolio-grid__count" aria-live="polite"></p>
-				<?php if ( $meta_note ) : ?>
-					<p class="qeema-portfolio-grid__meta-note">
-						<span class="qeema-portfolio-grid__meta-dot" aria-hidden="true"></span>
-						<?php echo esc_html( $meta_note ); ?>
-					</p>
-				<?php endif; ?>
-			</div>
 			<div class="qeema-portfolio-grid__wrap">
 				<?php
 				while ( $query->have_posts() ) :

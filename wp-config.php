@@ -3,7 +3,7 @@ define( 'WP_CACHE', true );
 
 define( 'DB_NAME', 'qeematech_new' );
 define( 'DB_USER', 'root' );
-define( 'DB_PASSWORD', 'root' );
+define( 'DB_PASSWORD', '' );
 define( 'DB_HOST', 'localhost' );
 define( 'DB_CHARSET', 'utf8mb4' );
 define( 'DB_COLLATE', '' );
@@ -60,7 +60,7 @@ if ( ! empty( $_SERVER['HTTP_X_FORWARDED_HOST'] ) ) {
 
 $qeema_host   = $_SERVER['HTTP_HOST'] ?? 'localhost';
 $qeema_scheme = ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) ? 'https' : 'http';
-define( 'WP_HOME', "$qeema_scheme://$qeema_host/qeema-tech" );
-define( 'WP_SITEURL', "$qeema_scheme://$qeema_host/qeema-tech" );
+define( 'WP_HOME', "$qeema_scheme://$qeema_host/qeematech-new" );
+define( 'WP_SITEURL', "$qeema_scheme://$qeema_host/qeematech-new" );
 
 require_once ABSPATH . 'wp-settings.php';
