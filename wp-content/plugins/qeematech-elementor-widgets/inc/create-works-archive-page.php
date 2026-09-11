@@ -141,8 +141,13 @@ function qeema_maybe_create_works_archive_page() {
 		),
 		'elements' => array(
 			qeema_works_archive_page_widget( 'qeema-portfolio-archive', array(
-				'posts_per_page' => 12,
+				'posts_per_page' => 8,
 				'all_label'      => 'الكل',
+				'badge'          => 'معرض الأعمال',
+				'heading'        => 'مشاريع نفّذناها بفخر',
+				'subheading'     => 'تصفّح أعمالنا حسب النوع، وكل ما سكرولت لتحت هنظهر لك مشاريع أكتر.',
+				'meta_note'      => 'أعمال حقيقية قيد التشغيل',
+				'load_more_text' => 'عرض المزيد',
 			) ),
 		),
 	);

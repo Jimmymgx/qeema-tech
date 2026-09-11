@@ -34,12 +34,46 @@ function qeema_portfolio_archive_ajax_fetch() {
 	// Clamped server-side regardless of what the client sends — this is a
 	// public unauthenticated endpoint, so the requested page size shouldn't
 	// be trusted as-is.
-	$posts_per_page  = isset( $_POST['posts_per_page'] ) ? max( 1, min( 48, absint( $_POST['posts_per_page'] ) ) ) : 12;
+	$posts_per_page  = isset( $_POST['posts_per_page'] ) ? max( 1, min( 48, absint( $_POST['posts_per_page'] ) ) ) : 8;
 	$all_label       = ! empty( $_POST['all_label'] ) ? sanitize_text_field( wp_unslash( $_POST['all_label'] ) ) : 'الكل';
 	$locked_category = ! empty( $_POST['locked_category'] ) ? sanitize_title( wp_unslash( $_POST['locked_category'] ) ) : '';
+	$mode            = ! empty( $_POST['mode'] ) ? sanitize_key( wp_unslash( $_POST['mode'] ) ) : 'replace';
 
 	$widget = new \Qeema_Portfolio_Archive_Widget();
-	$html   = $widget->render_archive_content( $posts_per_page, $all_label, $paged, $current_cat, $page_permalink, $locked_category );
+
+	// Infinite-scroll append: return only the next batch of cards so the
+	// client can append without wiping filters / already-visible items.
+	if ( 'append' === $mode ) {
+		$batch = $widget->render_archive_items( $posts_per_page, $paged, $current_cat, $locked_category );
+		$has_more = $paged < (int) $batch['max_pages'];
+		$next_url = '';
+		if ( $has_more ) {
+			$next_url = trailingslashit( $page_permalink ) . 'page/' . ( $paged + 1 ) . '/';
+			if ( ! $locked_category && $current_cat ) {
+				$next_url = add_query_arg( 'cat', urldecode( $current_cat ), $next_url );
+			}
+		}
+		wp_send_json_success( array(
+			'items_html' => $batch['html'],
+			'found'      => $batch['found'],
+			'max_pages'  => $batch['max_pages'],
+			'paged'      => $paged,
+			'has_more'   => $has_more,
+			'next_url'   => $next_url,
+			'next_page'  => $paged + 1,
+		) );
+	}
+
+	$meta = array(
+		'show_head'      => true,
+		'badge'          => ! empty( $_POST['badge'] ) ? sanitize_text_field( wp_unslash( $_POST['badge'] ) ) : '',
+		'heading'        => ! empty( $_POST['heading'] ) ? sanitize_text_field( wp_unslash( $_POST['heading'] ) ) : '',
+		'subheading'     => ! empty( $_POST['subheading'] ) ? sanitize_text_field( wp_unslash( $_POST['subheading'] ) ) : '',
+		'meta_note'      => ! empty( $_POST['meta_note'] ) ? sanitize_text_field( wp_unslash( $_POST['meta_note'] ) ) : '',
+		'load_more_text' => ! empty( $_POST['load_more_text'] ) ? sanitize_text_field( wp_unslash( $_POST['load_more_text'] ) ) : 'عرض المزيد',
+	);
+
+	$html = $widget->render_archive_content( $posts_per_page, $all_label, $paged, $current_cat, $page_permalink, $locked_category, $meta );
 
 	wp_send_json_success( array( 'html' => $html ) );
 }
