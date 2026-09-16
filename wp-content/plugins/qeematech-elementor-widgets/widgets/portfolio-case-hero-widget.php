@@ -106,30 +106,12 @@ class Qeema_Portfolio_Case_Hero_Widget extends \Elementor\Widget_Base {
 		$device_id = ( $is_app && $thumb_id ) ? $thumb_id : ( $banner_id ? $banner_id : $thumb_id );
 		$lead     = $this->first_non_empty_excerpt( array( $idea, $challenge, $journey ), 42 );
 
-		$works_url   = home_url( '/أعمالنا/' );
 		$contact_url = home_url( '/أتصل-بنا/' );
 		$mod         = $is_app ? ' qeema-cs-hero--app' : ' qeema-cs-hero--web';
 		?>
 		<section class="qeema-cs-hero<?php echo esc_attr( $mod ); ?>" id="qeema-cs-top">
-			<div class="qeema-cs-bar">
-				<div class="qeema-cs-bar__inner">
-					<a class="qeema-cs-bar__back" href="<?php echo esc_url( $works_url ); ?>">
-						<span aria-hidden="true">→</span>
-						كل الأعمال
-					</a>
-					<div class="qeema-cs-bar__badge">
-						<span class="qeema-cs-bar__dot" aria-hidden="true"></span>
-						<span>دراسة حالة متكاملة</span>
-						<?php if ( $industry ) : ?>
-							<span class="qeema-cs-bar__sep" aria-hidden="true">•</span>
-							<span class="qeema-cs-bar__cat"><?php echo esc_html( $industry ); ?></span>
-						<?php endif; ?>
-					</div>
-					<a class="qeema-cs-btn qeema-cs-btn--solid qeema-cs-btn--sm" href="<?php echo esc_url( $quote_url ? $quote_url : $contact_url ); ?>">ابدأ مشروعك</a>
-				</div>
-			</div>
-
 			<div class="qeema-cs-hero__stage">
+				<div class="qeema-cs-hero__glow" aria-hidden="true"></div>
 				<div class="qeema-cs-hero__copy qeema-reveal">
 					<?php if ( $industry || $service ) : ?>
 						<span class="qeema-cs-chip"><?php echo esc_html( $industry ? $industry : $service ); ?></span>
@@ -165,7 +147,6 @@ class Qeema_Portfolio_Case_Hero_Widget extends \Elementor\Widget_Base {
 
 				<?php if ( $device_id ) : ?>
 					<div class="qeema-cs-hero__visual qeema-reveal" style="--reveal-delay:.12s">
-						<div class="qeema-cs-hero__glow" aria-hidden="true"></div>
 						<?php if ( $is_app ) : ?>
 							<figure class="qeema-cs-shot">
 								<?php

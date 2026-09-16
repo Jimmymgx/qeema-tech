@@ -41,6 +41,33 @@
 			return;
 		}
 
+		// The "all" tab's href is whatever the site owner set as its link (often
+		// the portfolio archive or home URL) - its last path segment depends on
+		// the install (e.g. a local "/qeematech-new/" vs. a live domain root), so
+		// it can't be recognized by a fixed list of expected segment names. Build
+		// the real set of category slugs from the cards themselves instead: a
+		// resolved slug that matches none of them isn't a real category tab, so
+		// treat it as "show all" rather than filtering everything out.
+		var knownSlugs = {};
+		items.forEach( function ( item ) {
+			( item.dataset.cats || '' ).split( ' ' ).forEach( function ( cat ) {
+				if ( cat ) {
+					knownSlugs[ cat ] = true;
+				}
+			} );
+		} );
+
+		function resolveSlug( href ) {
+			var slug = slugFromHref( href );
+			if ( ! slug ) {
+				return '';
+			}
+			var isKnown = slug.split( ',' ).some( function ( part ) {
+				return knownSlugs[ part ];
+			} );
+			return isKnown ? slug : '';
+		}
+
 		// Cards not matching the active filter fade out first, THEN drop out of
 		// flow (display:none) so the grid reflows only once the fade finishes -
 		// matching cards fade back in with a small stagger instead of snapping
@@ -101,7 +128,7 @@
 					activeTab = t;
 				}
 			} );
-			return activeTab ? slugFromHref( activeTab.getAttribute( 'href' ) || '' ) : '';
+			return activeTab ? resolveSlug( activeTab.getAttribute( 'href' ) || '' ) : '';
 		}
 
 		tabs.forEach( function ( tab ) {
@@ -112,7 +139,7 @@
 				} );
 				tab.classList.add( 'active' );
 				expanded = false;
-				applyFilter( slugFromHref( tab.getAttribute( 'href' ) || '' ) );
+				applyFilter( resolveSlug( tab.getAttribute( 'href' ) || '' ) );
 			} );
 		} );
 

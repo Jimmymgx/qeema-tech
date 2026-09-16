@@ -48,7 +48,7 @@ class Qeema_Live_Apps_Carousel_Widget extends \Elementor\Widget_Base {
 		$this->add_control( 'heading', array(
 			'label'   => __( 'Heading', 'qeematech-elementor-widgets' ),
 			'type'    => \Elementor\Controls_Manager::TEXT,
-			'default' => 'تطبيقات حقيقية شغّالة على المتاجر دلوقتي',
+			'default' => 'تطبيقات جوال احترافية طوّرناها بشغف.. وتعمل الآن بنجاح على هواتف عملائنا',
 		) );
 
 		$this->add_control( 'subheading', array(

@@ -30,7 +30,7 @@ class Qeema_About_Hero_Widget extends \Elementor\Widget_Base {
 	}
 
 	public function get_script_depends() {
-		return array( 'qeema-hero-section' );
+		return array( 'qeema-hero-section', 'qeema-stats-counter' );
 	}
 
 	protected function register_controls() {
@@ -74,6 +74,7 @@ class Qeema_About_Hero_Widget extends \Elementor\Widget_Base {
 			'default' => 'phone_mockups',
 			'options' => array(
 				'none'           => __( 'None', 'qeematech-elementor-widgets' ),
+				'company_hub'    => __( 'Animated Company Hub (Stats Orbit)', 'qeematech-elementor-widgets' ),
 				'phone_mockups'  => __( 'Floating Phone Mockups', 'qeematech-elementor-widgets' ),
 				'service_orbit'  => __( 'Animated Service Orbit', 'qeematech-elementor-widgets' ),
 				'client_reviews' => __( 'Animated Client Reviews Reel', 'qeematech-elementor-widgets' ),
@@ -152,7 +153,11 @@ class Qeema_About_Hero_Widget extends \Elementor\Widget_Base {
 					<?php endif; ?>
 				</div>
 
-				<?php if ( 'phone_mockups' === $settings['visual_variant'] ) : ?>
+				<?php if ( 'company_hub' === $settings['visual_variant'] ) : ?>
+					<div class="qeema-hero-section__visual">
+						<?php echo $this->render_company_hub(); // phpcs:ignore WordPress.Security.EscapeOutput -- static, trusted markup ?>
+					</div>
+				<?php elseif ( 'phone_mockups' === $settings['visual_variant'] ) : ?>
 					<div class="qeema-hero-section__visual">
 						<?php echo $this->render_phone_mockups(); // phpcs:ignore WordPress.Security.EscapeOutput -- static, trusted markup ?>
 					</div>
@@ -217,6 +222,60 @@ class Qeema_About_Hero_Widget extends \Elementor\Widget_Base {
 			<div class="qt-float-chip chip-a">واجهات احترافية</div>
 			<div class="qt-float-chip chip-b">تطوير قوي</div>
 			<div class="qt-float-chip chip-c">جاهز للنمو</div>
+		';
+	}
+
+	/**
+	 * About-page hero visual: a "company at a glance" hub — a central QT mark
+	 * with four proof-point nodes orbiting it (spokes drawn with rotated
+	 * divs, not an SVG, to stay consistent with every other visual here).
+	 * The four numbers are the exact same real, already-published company
+	 * figures used by stats-counter-widget.php's own defaults (6500+
+	 * projects, 24/7 support, 99% readiness, 80+ engineers) — nothing new is
+	 * invented for this widget. Three of the four numbers reuse the
+	 * `.qeema-stat-box__num[data-target]` contract that stats-counter.js
+	 * already listens for sitewide, so the count-up animation comes for free
+	 * with no JS changes; the "24/7" node is static text, matching how the
+	 * Stats Counter widget itself renders a non-numeric stat.
+	 */
+	private function render_company_hub() {
+		$logo_url = trailingslashit( wp_upload_dir()['baseurl'] ) . '2026/08/qt-icon-only.png';
+		return '
+			<div class="qt-hub-glow"></div>
+			<div class="qt-hub-widget">
+				<span class="qt-hub-spoke qt-hub-spoke--n" style="--i:0"></span>
+				<span class="qt-hub-spoke qt-hub-spoke--e" style="--i:1"></span>
+				<span class="qt-hub-spoke qt-hub-spoke--s" style="--i:2"></span>
+				<span class="qt-hub-spoke qt-hub-spoke--w" style="--i:3"></span>
+
+				<div class="qt-hub-center">
+					<span class="qt-hub-center__ring"></span>
+					<span class="qt-hub-center__mark"><img src="' . esc_url( $logo_url ) . '" alt="' . esc_attr__( 'Qeema Tech', 'qeematech-elementor-widgets' ) . '"></span>
+				</div>
+
+				<div class="qt-hub-node qt-hub-node--n" style="--i:0">
+					<span class="qt-hub-node__icon"><i class="fas fa-project-diagram"></i></span>
+					<span class="qt-hub-node__num qeema-stat-box__num" data-target="6500" data-prefix="+" data-suffix="">0</span>
+					<span class="qt-hub-node__label">مشروع</span>
+				</div>
+				<div class="qt-hub-node qt-hub-node--e" style="--i:1">
+					<span class="qt-hub-node__icon"><i class="fas fa-headset"></i></span>
+					<span class="qt-hub-node__num">24/7</span>
+					<span class="qt-hub-node__label">دعم مستمر</span>
+				</div>
+				<div class="qt-hub-node qt-hub-node--s" style="--i:2">
+					<span class="qt-hub-node__icon"><i class="fas fa-bolt"></i></span>
+					<span class="qt-hub-node__num qeema-stat-box__num" data-target="99" data-prefix="" data-suffix="%">0</span>
+					<span class="qt-hub-node__label">جاهزية</span>
+				</div>
+				<div class="qt-hub-node qt-hub-node--w" style="--i:3">
+					<span class="qt-hub-node__icon"><i class="fas fa-user-cog"></i></span>
+					<span class="qt-hub-node__num qeema-stat-box__num" data-target="80" data-prefix="+" data-suffix="">0</span>
+					<span class="qt-hub-node__label">مهندس</span>
+				</div>
+			</div>
+			<div class="qt-float-chip chip-hub-a">فريق واحد</div>
+			<div class="qt-float-chip chip-hub-b">هدف واحد</div>
 		';
 	}
 

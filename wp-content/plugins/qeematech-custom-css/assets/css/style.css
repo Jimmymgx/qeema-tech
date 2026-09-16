@@ -506,6 +506,45 @@ body::before{content:"";position:fixed;top:-140px;right:-140px;bottom:-140px;lef
 @media(max-width:1024px){.qt-build-widget{max-width:380px}.qt-build-crane{right:20px}.chip-build-a,.chip-build-b,.chip-build-c{display:none}}
 @media(prefers-reduced-motion:reduce){.qt-build-glow,.qt-build-floor,.qt-build-floor i,.qt-build-crane__jib,.qt-build-crane__counterjib,.qt-build-crane__counterweight,.qt-build-crane__cable,.qt-build-crane__hook,.qt-build-crane__flag{animation:none!important}.qt-build-floor{opacity:1!important;transform:none!important}.qt-build-floor i{background:#ffd166!important;box-shadow:0 0 8px rgba(255,209,102,.7)!important}}
 
+/* About-page hero visual: "Company Hub" — a central QT mark with four real
+   proof-point stats orbiting it (project count, support, readiness, team
+   size), connected by thin spokes. Nodes/spokes play a single staggered
+   entrance (no looping motion on them - only the center ring pulses
+   continuously) per the "animate 1-2 key elements max" rule used everywhere
+   else in this file. */
+.qt-hub-glow{position:absolute;top:50%;left:50%;width:380px;height:380px;border-radius:50%;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(34,211,238,.24),transparent 70%);filter:blur(54px);z-index:0;animation:qtPhonesGlowMove 6s ease-in-out infinite}
+.qt-hub-widget{position:relative;z-index:1;width:100%;max-width:400px;aspect-ratio:1/1;margin:0 auto}
+.qt-hub-spoke{position:absolute;top:50%;left:50%;width:34%;height:2px;background:linear-gradient(90deg,rgba(34,211,238,.5),transparent);transform-origin:0 50%;opacity:0;animation:qtHubSpokeIn .5s ease forwards;animation-delay:calc(.2s + var(--i) * .12s)}
+.qt-hub-spoke--n{transform:rotate(-90deg)}
+.qt-hub-spoke--e{transform:rotate(0deg)}
+.qt-hub-spoke--s{transform:rotate(90deg)}
+.qt-hub-spoke--w{transform:rotate(180deg)}
+@keyframes qtHubSpokeIn{from{opacity:0;transform:scaleX(0) rotate(var(--r,0))}to{opacity:1}}
+.qt-hub-spoke--n{--r:-90deg}.qt-hub-spoke--e{--r:0deg}.qt-hub-spoke--s{--r:90deg}.qt-hub-spoke--w{--r:180deg}
+.qt-hub-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:88px;height:88px;z-index:3}
+.qt-hub-center__ring{position:absolute;inset:0;border-radius:50%;background:linear-gradient(135deg,#22d3ee,#8b5cf6);opacity:.9;box-shadow:0 0 0 6px rgba(34,211,238,.12),0 0 40px rgba(34,211,238,.35);animation:qtHubPulse 2.6s ease-in-out infinite}
+.qt-hub-center__mark{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;border-radius:50%;background:#0a1830;margin:5px}
+.qt-hub-center__mark img{width:56%;height:56%;object-fit:contain;filter:brightness(0) invert(1)}
+@keyframes qtHubPulse{0%,100%{box-shadow:0 0 0 6px rgba(34,211,238,.12),0 0 40px rgba(34,211,238,.35)}50%{box-shadow:0 0 0 10px rgba(34,211,238,.06),0 0 54px rgba(139,92,246,.4)}}
+.qt-hub-node{position:absolute;display:flex;flex-direction:column;align-items:center;gap:4px;width:118px;padding:14px 10px;border-radius:22px;background:rgba(10,24,46,.65);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 14px 30px rgba(0,0,0,.3);text-align:center;z-index:2;opacity:0;transform:var(--center,none) translateY(10px) scale(.92);animation:qtHubNodeIn .5s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(.35s + var(--i) * .12s)}
+@keyframes qtHubNodeIn{to{opacity:1;transform:var(--center,none) translateY(0) scale(1)}}
+.qt-hub-node--n{top:0;left:50%;--center:translateX(-50%)}
+.qt-hub-node--e{top:50%;right:0;--center:translateY(-50%)}
+.qt-hub-node--s{bottom:0;left:50%;--center:translateX(-50%)}
+.qt-hub-node--w{top:50%;left:0;--center:translateY(-50%)}
+.qt-hub-node__icon{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;font-size:14px;color:#fff}
+.qt-hub-node--n .qt-hub-node__icon{background:linear-gradient(135deg,#22d3ee,#0ea5e9)}
+.qt-hub-node--e .qt-hub-node__icon{background:linear-gradient(135deg,#8b5cf6,#6d28d9)}
+.qt-hub-node--s .qt-hub-node__icon{background:linear-gradient(135deg,#3b82f6,#1d4ed8)}
+.qt-hub-node--w .qt-hub-node__icon{background:linear-gradient(135deg,#22d3ee,#8b5cf6)}
+.qt-hub-node .qt-hub-node__num{margin:0;font-size:18px;font-weight:800;color:#fff}
+.qt-hub-node__label{font-size:11px;color:rgba(255,255,255,.65)}
+.chip-hub-a{top:6%;left:calc(50% - 240px);animation-delay:.9s}
+.chip-hub-b{bottom:8%;left:calc(50% + 190px);animation-delay:1.3s}
+@media(max-width:1024px){.qt-hub-widget{max-width:340px}.qt-hub-node{width:100px;padding:12px 8px}.qt-hub-node__num{font-size:16px}.chip-hub-a,.chip-hub-b{display:none}}
+@media(max-width:480px){.qt-hub-widget{max-width:280px}.qt-hub-center{width:70px;height:70px}.qt-hub-node{width:84px;padding:10px 6px}.qt-hub-node__icon{width:26px;height:26px;font-size:12px}.qt-hub-node__num{font-size:14px}.qt-hub-node__label{font-size:9.5px}}
+@media(prefers-reduced-motion:reduce){.qt-hub-glow,.qt-hub-center__ring{animation:none!important}.qt-hub-spoke,.qt-hub-node{animation:none!important;opacity:1!important}.qt-hub-spoke--n{transform:rotate(-90deg)!important}.qt-hub-spoke--s{transform:rotate(90deg)!important}.qt-hub-spoke--w{transform:rotate(180deg)!important}.qt-hub-node{transform:var(--center,none)!important}}
+
 .qeema-hero-section{position:relative;overflow:hidden;padding:70px 70px 90px}
 .qeema-hero-section__wrap{max-width:1600px;margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:center;position:relative;z-index:1}
 .qeema-hero-section__wrap.qeema-hero--no-visual{grid-template-columns:1fr;text-align:center}
@@ -773,11 +812,11 @@ body::before{content:"";position:fixed;top:-140px;right:-140px;bottom:-140px;lef
 @media(max-width:1024px){.qeema-category-showcase__grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:600px){.qeema-category-showcase{padding:56px 20px}.qeema-category-showcase__head h2{font-size:28px}.qeema-category-showcase__grid{grid-template-columns:repeat(1,minmax(0,1fr))}}
 
-/* === app-store-proof.css � real-app proof cards for mobile app dev pages:
+/* === app-store-proof.css - real-app proof cards for mobile app dev pages:
    each card shows the app's own real store logo (fetched from its Google
-   Play / App Store listing � see inc/import-portfolio-endpoint.php-adjacent
+   Play / App Store listing - see inc/import-portfolio-endpoint.php-adjacent
    enrichment script), real app name, and real store links. No fabricated
-   star-rating/download numbers � the credibility comes from real,
+   star-rating/download numbers - the credibility comes from real,
    verifiable apps, same trust principle as browser-showcase's real website
    screenshots. Each card's --ax/--ay/--az accent channels are set at
    runtime by assets/js/app-logo-accent.js from the logo's own colors. ===*/
@@ -845,7 +884,6 @@ body::before{content:"";position:fixed;top:-140px;right:-140px;bottom:-140px;lef
 	.qeema-app-store-proof__card{transition:none}
 	.qeema-app-store-proof__card:hover .qeema-app-store-proof__shine{transition:none;transform:translateX(-140%)}
 }
-
 /* === site-header.css === */
 .qeema-progress-bar{position:fixed;top:0;left:0;right:0;width:100%;height:4px;background:rgba(255,255,255,.08);z-index:300}
 .qeema-progress-bar__fill{height:100%;width:0%;background:linear-gradient(90deg,#00d4ff,#8b5cf6,#00d4ff);box-shadow:0 0 10px rgba(0,212,255,.6)}
@@ -970,10 +1008,6 @@ body::before{content:"";position:fixed;top:-140px;right:-140px;bottom:-140px;lef
   transition:transform .2s ease,box-shadow .2s ease;
 }
 .qeema-mega__aside-btn:hover{transform:translateY(-2px);box-shadow:0 14px 28px rgba(14,165,233,.38)}
-.qeema-mega__aside-meta{list-style:none;margin:14px 0 0;padding:14px 0 0;border-top:1px solid rgba(255,255,255,.08);display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.qeema-mega__aside-meta li{display:flex;flex-direction:column;gap:2px}
-.qeema-mega__aside-meta strong{font-size:16px;color:#fff}
-.qeema-mega__aside-meta span{font-size:11px;color:#94a3b8}
 .qeema-mega__foot{
   display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
   margin-top:10px;padding:12px 16px;border-radius:22px;
@@ -1085,6 +1119,99 @@ body::before{content:"";position:fixed;top:-140px;right:-140px;bottom:-140px;lef
 .qeema-contact-info-card:hover span,.qeema-contact-info-card:hover em{color:#19c8ff}
 @media(max-width:1024px){.qeema-contact-layout{flex-direction:column!important;padding:20px 20px 60px}.qeema-contact-info-col,.qeema-contact-form-col{padding:30px}}
 @media(max-width:600px){.qeema-contact-info-grid{grid-template-columns:1fr}}
+
+/* === contact form — modernized fields, scoped to this page only so the
+   sitewide input[type=...]/select fallback (WP comment form etc.) stays
+   untouched. Elementor already renders a real caret icon per select
+   (.select-caret-down-wrapper > .eicon-caret-down in form-base.php), so
+   we only need appearance:none on the <select> itself + recolor that
+   icon, not a hand-rolled background-image arrow. === */
+.qeema-contact-form-col .elementor-field-group{margin-bottom:18px}
+.qeema-contact-form-col .elementor-field:not(.elementor-select-wrapper),
+.qeema-contact-form-col .elementor-select-wrapper select{
+	background:rgba(255,255,255,.04)!important;
+	border:1px solid rgba(255,255,255,.14)!important;
+	border-radius:14px!important;
+	padding:13px 16px!important;
+	color:#fff!important;
+	transition:border-color .2s ease,box-shadow .2s ease,background .2s ease;
+}
+.qeema-contact-form-col .elementor-select-wrapper select{appearance:none;-webkit-appearance:none;padding-inline-end:40px!important}
+.qeema-contact-form-col .elementor-field-group:focus-within .elementor-field:not(.elementor-select-wrapper),
+.qeema-contact-form-col .elementor-select-wrapper:focus-within select,
+.qeema-contact-form-col .elementor-field:not(.elementor-select-wrapper):focus,
+.qeema-contact-form-col .elementor-select-wrapper select:focus{
+	border-color:rgba(34,211,238,.55)!important;
+	background:rgba(255,255,255,.07)!important;
+	box-shadow:0 0 0 3px rgba(34,211,238,.14);
+	outline:none;
+}
+.qeema-contact-form-col .select-caret-down-wrapper{color:#38bdf8;pointer-events:none}
+.qeema-contact-form-col .select-caret-down-wrapper svg{fill:#38bdf8}
+.qeema-contact-form-col ::placeholder{color:rgba(255,255,255,.4)!important}
+.qeema-contact-form-col textarea.elementor-field{resize:vertical}
+@media(prefers-reduced-motion:reduce){
+	.qeema-contact-form-col .elementor-field,
+	.qeema-contact-form-col .elementor-select-wrapper select{transition:none}
+}
+
+/* Custom listbox replacing the OS-native open dropdown (which CSS can't
+   restyle for a real <select>) — see contact-modern-select.js. The real
+   <select> stays functional/in the form, just visually hidden. */
+.qeema-select{position:relative;display:block;width:100%;box-sizing:border-box}
+.qeema-select select{
+	position:absolute!important;inset:0;width:100%;height:100%;
+	opacity:0;pointer-events:none;
+}
+.qeema-select__trigger{
+	position:relative;display:flex;align-items:center;width:100%;min-height:48px;
+	padding:13px 40px 13px 16px;border-radius:14px;cursor:pointer;box-sizing:border-box;
+	background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.14);
+	color:#fff;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+	transition:border-color .2s ease,box-shadow .2s ease,background .2s ease;
+}
+.qeema-select__trigger:hover{border-color:rgba(56,189,248,.35)}
+.qeema-select__trigger.is-placeholder{color:rgba(255,255,255,.4)}
+.qeema-select__trigger:focus-visible{
+	outline:none;border-color:rgba(34,211,238,.55);
+	box-shadow:0 0 0 3px rgba(34,211,238,.14);
+}
+.qeema-select.is-open .qeema-select__trigger{border-color:rgba(34,211,238,.55);box-shadow:0 0 0 3px rgba(34,211,238,.14)}
+.qeema-select.is-open .select-caret-down-wrapper{transform:translateY(-50%) rotate(180deg)}
+.qeema-select__panel{
+	position:absolute;left:0;right:0;top:calc(100% + 8px);z-index:20;
+	max-height:280px;overflow-y:auto;padding:8px;
+	background:rgba(10,20,38,.98);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+	border:1px solid rgba(56,189,248,.25);border-radius:14px;
+	box-shadow:0 20px 45px rgba(0,0,0,.45);
+	opacity:0;visibility:hidden;transform:translateY(-6px) scale(.98);transform-origin:top center;
+	transition:opacity .18s ease,transform .18s ease,visibility .18s;
+}
+.qeema-select.is-open .qeema-select__panel{opacity:1;visibility:visible;transform:translateY(0) scale(1)}
+.qeema-select__panel::-webkit-scrollbar{width:8px}
+.qeema-select__panel::-webkit-scrollbar-thumb{background:rgba(56,189,248,.25);border-radius:8px}
+.qeema-select__panel::-webkit-scrollbar-track{background:transparent}
+.qeema-select__option{
+	padding:11px 14px;border-radius:10px;color:rgba(255,255,255,.82);
+	font-size:14px;cursor:pointer;transition:background .12s ease,color .12s ease;
+}
+.qeema-select__option.is-highlighted{background:rgba(56,189,248,.14);color:#fff}
+.qeema-select__option.is-selected{color:#38bdf8;font-weight:700}
+.qeema-select__option.is-selected::after{content:"✓";float:left;color:#38bdf8}
+
+/* Elementor's own reCAPTCHA "setup incomplete" reminder — only ever shown to
+   logged-in admins (never real visitors), but should still fit the form's
+   dark theme instead of Elementor's default light alert box. */
+.qeema-contact-form-col .elementor-alert{
+	background:rgba(56,189,248,.08)!important;border:1px solid rgba(56,189,248,.25)!important;
+	border-radius:14px;padding:14px 16px;color:rgba(255,255,255,.75)!important;
+	font-size:13px;line-height:1.7;font-family:'Rubik',sans-serif!important;
+}
+.qeema-contact-form-col .elementor-alert *{font-family:'Rubik',sans-serif!important}
+@media(prefers-reduced-motion:reduce){
+	.qeema-select__trigger,.qeema-select__panel,.select-caret-down-wrapper{transition:none}
+}
+
 .qeema-footer h5{position:relative;z-index:1;display:flex;align-items:center;gap:9px;color:#fff;font-size:17px;margin:0 0 22px;font-weight:800;padding-bottom:13px}
 .qeema-footer h5 i{color:#00d4ff;font-size:14px}
 .qeema-footer h5::after{content:"";position:absolute;right:0;bottom:0;width:32px;height:3px;border-radius:3px;background:linear-gradient(90deg,#00d4ff,#8b5cf6)}
@@ -1190,8 +1317,17 @@ body::before{content:"";position:fixed;top:-140px;right:-140px;bottom:-140px;lef
     radial-gradient(circle at 50% 18%,rgba(56,189,248,.14),transparent 55%),
     linear-gradient(180deg,rgba(255,255,255,.02),transparent 40%);
 }
+/* Website (browser-mockup) cards: the screenshot should fill the whole card
+   frame edge-to-edge, not sit inset inside the shared stage padding/glow
+   that the phone cards use. */
+.qeema-portfolio-grid__browser-card > .qeema-portfolio-grid__stage{
+  padding:0;background:none;
+}
+.qeema-portfolio-grid__browser-card .qeema-portfolio-grid__browser{
+  border-radius:0;box-shadow:none;
+}
 .qeema-portfolio-grid__shot{
-  display:block;width:min(68%,200px);line-height:0;margin:12px auto 8px;
+  display:block;width:min(88%,270px);line-height:0;margin:12px auto 8px;
   filter:drop-shadow(0 22px 28px rgba(0,0,0,.45));
   transition:transform .35s cubic-bezier(.2,.8,.2,1);
 }
@@ -1261,7 +1397,7 @@ body::before{content:"";position:fixed;top:-140px;right:-140px;bottom:-140px;lef
 .qeema-portfolio-grid__browser-btn.primary{background:linear-gradient(135deg,#38bdf8,#0284c7);color:#fff}
 .qeema-portfolio-grid__browser-btn.primary:hover{box-shadow:0 8px 20px rgba(14,165,233,.35)}
 .qeema-portfolio-grid__browser-btn.ghost{background:transparent;border:1px solid rgba(56,189,248,.35);color:#e2e8f0}
-.qeema-portfolio-grid__browser-btn.ghost:hover{background:rgba(56,189,248,.08);border-color:rgba(56,189,248,.55)}
+.qeema-portfolio-grid__browser-btn.ghost:hover{background:rgba(56,189,248,.08);border-color:rgba(56,189,248,.55);color:#fff}
 @media (prefers-reduced-motion:reduce){
   .qeema-portfolio-grid__card,.qeema-portfolio-grid__browser-card,.qeema-portfolio-grid__phone-card,
   .qeema-portfolio-grid__shot,.qeema-portfolio-grid__browser-btn,.qeema-portfolio-teaser__btn{transition:none}
@@ -1411,9 +1547,9 @@ input[type=text]::placeholder,input[type=email]::placeholder,textarea::placehold
 	.qeema-post-sidebar{margin-top:40px;position:static!important}
 }
 
-/* === main content column: boxed panel with a translucent background so it
-   reads as a distinct card next to the sidebar === */
-.qeema-post-main{background:rgba(10,24,46,.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.08);border-radius:22px;padding:40px;box-shadow:0 20px 50px rgba(0,0,0,.15)}
+/* === main content column: sits directly on the shared aurora background
+   (unified with the homepage) instead of its own translucent card === */
+.qeema-post-main{border-radius:22px;padding:40px}
 @media(max-width:600px){.qeema-post-main{padding:24px}}
 
 /* === single-post prose typography (Elementor Pro's Post Content widget �
@@ -1460,7 +1596,7 @@ input[type=text]::placeholder,input[type=email]::placeholder,textarea::placehold
    elsewhere on this template: fighting Elementor's own flex/container CSS
    vars with flex-direction!important has previously corrupted rendering
    outright, whereas block children just stack vertically without issue. */
-.qeema-post-hero{display:block!important;max-width:1140px!important;margin:60px auto 0!important;padding:60px 45px;background:rgba(10,24,46,.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-radius:22px}
+.qeema-post-hero{display:block!important;max-width:1140px!important;margin:60px auto 0!important;padding:60px 45px}
 .qeema-post-hero .rank-math-breadcrumb{margin:0 0 16px}
 .qeema-post-hero .elementor-widget-theme-post-title{margin:0}
 @media(max-width:600px){.qeema-post-hero{margin-top:30px;padding:30px 24px;border-radius:22px}}
@@ -1737,11 +1873,9 @@ html.qeema-preloader-active{overflow:hidden}
    those ARE safe, confirmed by direct read: no bare per-slot position
    classes, sizing driven by the real CSS Grid wrapper, not a fixed stage. */
 .qeema-works-hero{
+  /* unified with the shared aurora background (body::before) instead of
+     this widget's own separate gradient/solid fallback */
   position:relative;overflow:hidden;padding:70px 48px 72px;
-  background:
-    radial-gradient(circle at 18% 20%,rgba(56,189,248,.16),transparent 42%),
-    radial-gradient(circle at 88% 12%,rgba(14,165,233,.1),transparent 40%),
-    #050a12;
   font-family:"Readex Pro",Rubik,sans-serif;
 }
 .qeema-works-hero__stage{position:relative;max-width:1240px;margin:0 auto;min-height:440px}
@@ -2032,7 +2166,7 @@ html.qeema-preloader-active{overflow:hidden}
    actually fits in one viewport instead of needing 105px of scroll to see
    the bottom of the card. */
 .qeema-thank-you-hero{position:relative;overflow:hidden;padding:40px 30px;text-align:center;min-height:calc(100vh - 105px);display:flex;align-items:center;justify-content:center;box-sizing:border-box}
-.qeema-thank-you-hero__wrap{max-width:720px;width:100%;margin:auto;position:relative;overflow:hidden;z-index:1;display:flex;flex-direction:column;align-items:center;background:rgba(10,24,46,.55);border:1px solid rgba(255,255,255,.12);border-radius:22px;padding:56px 46px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease;box-sizing:border-box}
+.qeema-thank-you-hero__wrap{max-width:720px;width:100%;margin:auto;position:relative;overflow:hidden;z-index:1;display:flex;flex-direction:column;align-items:center;border:1px solid rgba(255,255,255,.12);border-radius:22px;padding:56px 46px;transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease;box-sizing:border-box}
 .qeema-thank-you-hero__wrap::before{content:"";position:absolute;z-index:-1;top:-40%;inset-inline-end:-30%;width:70%;height:90%;background:radial-gradient(circle,rgba(34,211,238,.16),transparent 70%);pointer-events:none}
 .qeema-thank-you-hero__wrap:hover{border-color:rgba(34,211,238,.4);box-shadow:0 16px 50px rgba(34,211,238,.14),inset 0 1px 0 rgba(255,255,255,.1)}
 .qeema-thank-you-hero__mark{position:relative;width:110px;height:110px;margin-bottom:30px;display:flex;align-items:center;justify-content:center}
@@ -2110,21 +2244,17 @@ body.page-id-869 .qeema-category-showcase__grid{grid-template-columns:repeat(3,m
 
 /* === qeema-cs-* � ??????-approved case study system (cyan/gold glass). === */
 body.single-portfolio{
-  background-color:#060c16;
   color:#e2e8f0;
 }
 body.single-portfolio .qeema-cs-hero,
 body.single-portfolio .qeema-cs-story,
 .qeema-cs-hero,.qeema-cs-story{font-family:"Readex Pro",Rubik,sans-serif}
+/* unified with the shared aurora background (body::before) instead of this
+   case-study system's own dark navy + cyan/gold gradient background */
 .qeema-cs-hero,.qeema-cs-story{
   --cs-dark:#060c16;--cs-night:#080f1d;--cs-surface:#0e1726;--cs-card:#131f33;
-  --cs-cyan:#38bdf8;--cs-gold:#c5a869;--cs-text:#e2e8f0;--cs-muted:#94a3b8;
+  --cs-cyan:#38bdf8;--cs-gold:#8b5cf6;--cs-text:#e2e8f0;--cs-muted:#94a3b8;
   color:var(--cs-text);
-  background:
-    radial-gradient(circle at 15% 15%,rgba(56,189,248,.08) 0%,transparent 40%),
-    radial-gradient(circle at 85% 60%,rgba(197,168,105,.06) 0%,transparent 45%),
-    radial-gradient(circle at 50% 100%,rgba(14,165,233,.07) 0%,transparent 50%),
-    var(--cs-dark);
 }
 /* Keep Elementor parent sections from washing out the mockup wash */
 body.single-portfolio .elementor-top-section.elementor-section-boxed > .elementor-container,
@@ -2150,11 +2280,11 @@ body.single-portfolio .elementor-widget-qeema-cta-banner{display:none!important}
 .qeema-cs-chip{display:inline-flex;align-items:center;gap:8px;padding:5px 11px;margin-bottom:14px;border-radius:22px;background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.22);color:var(--cs-cyan);font-size:11px;font-weight:600}
 .qeema-cs-glass{background:linear-gradient(135deg,rgba(19,31,51,.72),rgba(10,18,32,.85));backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.08);border-radius:22px;transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .35s ease,box-shadow .35s ease}
 .qeema-cs-glass:hover{border-color:rgba(56,189,248,.35);transform:translateY(-4px);box-shadow:0 16px 36px -10px rgba(0,0,0,.5),0 0 24px rgba(56,189,248,.12)}
-.qeema-cs-btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 28px;border-radius:22px;font-size:14px;font-weight:800;text-decoration:none;border:1px solid transparent;transition:transform .2s ease,background .2s ease,box-shadow .2s ease,border-color .2s ease}
-.qeema-cs-btn--solid{background:#fff;color:#0f172a}
-.qeema-cs-btn--solid:hover{background:#e2e8f0;transform:translateY(-2px);box-shadow:0 12px 28px rgba(255,255,255,.12)}
-.qeema-cs-btn--ghost{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.15);color:#fff}
-.qeema-cs-btn--ghost:hover{background:rgba(255,255,255,.12);transform:translateY(-2px)}
+.qeema-cs-btn,.qeema-cs-btn:visited{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 28px;border-radius:22px;font-size:14px;font-weight:800;text-decoration:none;border:1px solid transparent;transition:transform .2s ease,background .2s ease,box-shadow .2s ease,border-color .2s ease}
+.qeema-cs-btn--solid,.qeema-cs-btn--solid:visited{background:#fff;color:#0f172a}
+.qeema-cs-btn--solid:hover,.qeema-cs-btn--solid:visited:hover{background:#e2e8f0;color:#0f172a;transform:translateY(-2px);box-shadow:0 12px 28px rgba(255,255,255,.12)}
+.qeema-cs-btn--ghost,.qeema-cs-btn--ghost:visited{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.15);color:#fff}
+.qeema-cs-btn--ghost:hover,.qeema-cs-btn--ghost:visited:hover{background:rgba(255,255,255,.12);color:#fff;transform:translateY(-2px)}
 .qeema-cs-btn--sm{min-height:40px;padding:8px 18px;font-size:12px}
 
 .qeema-cs-bar{position:sticky;top:0;z-index:40;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:rgba(6,12,22,.82);border-bottom:1px solid rgba(255,255,255,.05)}
@@ -2170,7 +2300,7 @@ body.single-portfolio .elementor-widget-qeema-cta-banner{display:none!important}
 @keyframes qeema-cs-pulse{0%,100%{opacity:1}50%{opacity:.35}}
 
 .qeema-cs-hero{padding:24px 0 56px;overflow:hidden}
-.qeema-cs-hero__stage{width:min(1200px,100%);margin:0 auto;padding:24px 24px 0;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);gap:40px;align-items:center}
+.qeema-cs-hero__stage{position:relative;width:min(1200px,100%);margin:0 auto;padding:24px 24px 0;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);gap:40px;align-items:center}
 .qeema-cs-hero__title{margin:0 0 14px;font-size:clamp(26px,3.6vw,36px);font-weight:700;line-height:1.25;color:#fff;letter-spacing:-.01em;text-wrap:balance}
 .qeema-cs-hero__lead{margin:0 0 22px;font-size:clamp(14px,1.3vw,16px);line-height:1.85;color:#cbd5e1;font-weight:300;max-width:46ch}
 .qeema-cs-facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin:0 0 24px;padding:18px 0;border-block:1px solid rgba(255,255,255,.1);max-width:640px}
@@ -2180,7 +2310,8 @@ body.single-portfolio .elementor-widget-qeema-cta-banner{display:none!important}
 .qeema-cs-facts__item.is-accent dd{color:#fff}
 .qeema-cs-hero__ctas{display:flex;flex-wrap:wrap;gap:12px}
 .qeema-cs-hero__visual{position:relative;display:flex;justify-content:center;align-items:center}
-.qeema-cs-hero__glow{position:absolute;inset:-18%;border-radius:22px;background:linear-gradient(135deg,rgba(56,189,248,.22),rgba(197,168,105,.14));filter:blur(42px);opacity:.65;pointer-events:none}
+.qeema-cs-hero__glow{position:absolute;inset:-25% -10%;background:radial-gradient(ellipse 60% 70% at 30% 40%,rgba(34,211,238,.22),transparent 70%),radial-gradient(ellipse 55% 65% at 78% 55%,rgba(0,102,255,.16),transparent 70%);filter:blur(70px);opacity:.8;pointer-events:none;z-index:0}
+.qeema-cs-hero__copy,.qeema-cs-hero__visual{position:relative;z-index:1}
 
 .qeema-cs-phone{position:relative;z-index:1;width:min(330px,78vw)}
 .qeema-cs-phone__bezel{padding:11px;border-radius:22px;background:linear-gradient(180deg,#2b3545,#141c2b 45%,#0a101d);border:3px solid rgba(62,77,100,.55);box-shadow:0 25px 50px -12px rgba(0,0,0,.75),0 0 40px rgba(56,189,248,.12)}
@@ -2202,9 +2333,8 @@ body.single-portfolio .elementor-widget-qeema-cta-banner{display:none!important}
 .qeema-cs-webframe{margin:0;width:min(100%,520px);border-radius:22px;overflow:hidden;background:#0a1220;border:1px solid rgba(255,255,255,.12);box-shadow:0 30px 70px rgba(0,0,0,.45)}
 .qeema-cs-webframe__chrome{display:flex;gap:7px;padding:12px 14px;background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.08)}
 .qeema-cs-webframe__chrome span{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.22)}
-.qeema-cs-webframe__chrome span:nth-child(1){background:#ff5f57}
-.qeema-cs-webframe__chrome span:nth-child(2){background:#febc2e}
-.qeema-cs-webframe__chrome span:nth-child(3){background:#28c840}
+.qeema-cs-webframe__chrome span:nth-child(1){background:rgba(59,130,246,.65)}
+.qeema-cs-webframe__chrome span:nth-child(2){background:rgba(34,211,238,.65)}
 .qeema-cs-webframe__screen img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top center}
 
 .qeema-cs-band{padding:56px 0}
@@ -2214,7 +2344,7 @@ body.single-portfolio .elementor-widget-qeema-cta-banner{display:none!important}
 .qeema-cs-story-lead p{margin:0 0 14px}
 .qeema-cs-checks{list-style:none;margin:18px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:10px}
 .qeema-cs-checks li{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:22px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);color:#cbd5e1;font-size:12.5px}
-.qeema-cs-checks li span{color:#34d399;font-weight:700}
+.qeema-cs-checks li span{color:var(--cs-cyan);font-weight:700}
 .qeema-cs-aside{padding:22px}
 .qeema-cs-aside__kicker{margin:0 0 8px;font-size:11px;color:#94a3b8}
 .qeema-cs-aside h3{margin:0 0 10px;font-size:15px;font-weight:700;color:#fff;line-height:1.45}
@@ -2228,10 +2358,10 @@ body.single-portfolio .elementor-widget-qeema-cta-banner{display:none!important}
 .qeema-cs-panel__ico{font-size:18px;opacity:.7}
 .qeema-cs-panel h2{margin:0 0 12px;font-size:clamp(16px,1.8vw,18px);font-weight:700;color:#fff}
 .qeema-cs-panel p{margin:0;font-size:14px;line-height:1.8;color:#cbd5e1;font-weight:300}
-.qeema-cs-panel--challenge{border-top:2px solid rgba(251,113,133,.4)}
+.qeema-cs-panel--challenge{border-top:2px solid rgba(139,92,246,.4)}
 .qeema-cs-panel--solution{border-top:2px solid rgba(56,189,248,.7)}
 .qeema-cs-tag{display:inline-flex;padding:4px 9px;border-radius:22px;font-size:10px;font-weight:700;letter-spacing:.04em}
-.qeema-cs-tag--rose{color:#fda4af;background:rgba(244,63,94,.1);border:1px solid rgba(244,63,94,.22)}
+.qeema-cs-tag--rose{color:#c4b5fd;background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.22)}
 .qeema-cs-tag--cyan{color:var(--cs-cyan);background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.22)}
 
 .qeema-cs-features{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
@@ -2301,7 +2431,7 @@ body.single-portfolio .elementor-widget-qeema-cta-banner{display:none!important}
 .qeema-live-apps-carousel__stage{position:relative;height:600px;display:flex;align-items:center;justify-content:center;perspective:1800px}
 
 .qeema-live-apps-carousel__phone{
-	position:absolute;width:236px;height:484px;border-radius:22px;
+	position:absolute;width:236px;height:484px;border-radius:33px;
 	background:linear-gradient(155deg,#3d3d40,#1c1c1e 45%,#0a0a0b);
 	padding:12px;box-shadow:0 34px 70px rgba(0,0,0,.5),inset 0 0 0 2px rgba(255,255,255,.06);
 	transition:transform .6s cubic-bezier(.25,1.4,.5,1),opacity .6s ease,box-shadow .4s ease;

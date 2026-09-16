@@ -234,10 +234,6 @@ class Qeema_Site_Header_Widget extends \Elementor\Widget_Base {
 							<?php echo esc_html( $cta_text ); ?>
 						</a>
 					<?php endif; ?>
-					<ul class="qeema-mega__aside-meta">
-						<li><strong>+50</strong><span>مشروع منجز</span></li>
-						<li><strong>10+</strong><span>سنوات خبرة</span></li>
-					</ul>
 				</aside>
 			</div>
 			<div class="qeema-mega__foot">

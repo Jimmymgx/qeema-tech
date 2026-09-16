@@ -290,9 +290,6 @@ class Qeema_Portfolio_Teaser_Widget extends \Elementor\Widget_Base {
 				<?php endif; ?>
 				<div class="qeema-portfolio-grid__browser-actions">
 					<a class="qeema-portfolio-grid__browser-btn ghost" href="<?php echo esc_url( $permalink ); ?>"><?php esc_html_e( 'عرض المشروع', 'qeematech-elementor-widgets' ); ?></a>
-					<?php if ( $external ) : ?>
-						<a class="qeema-portfolio-grid__browser-btn primary" href="<?php echo esc_url( $external ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'زيارة الموقع', 'qeematech-elementor-widgets' ); ?></a>
-					<?php endif; ?>
 				</div>
 			</div>
 		</article>
@@ -329,9 +326,6 @@ class Qeema_Portfolio_Teaser_Widget extends \Elementor\Widget_Base {
 				<?php endif; ?>
 				<div class="qeema-portfolio-grid__browser-actions">
 					<a class="qeema-portfolio-grid__browser-btn ghost" href="<?php echo esc_url( $permalink ); ?>"><?php esc_html_e( 'عرض المشروع', 'qeematech-elementor-widgets' ); ?></a>
-					<?php if ( $store_url ) : ?>
-						<a class="qeema-portfolio-grid__browser-btn primary" href="<?php echo esc_url( $store_url ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'تحميل التطبيق', 'qeematech-elementor-widgets' ); ?></a>
-					<?php endif; ?>
 				</div>
 			</div>
 		</article>
