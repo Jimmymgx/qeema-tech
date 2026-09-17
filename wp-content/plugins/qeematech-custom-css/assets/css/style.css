@@ -873,11 +873,12 @@ body::before{content:"";position:fixed;top:-140px;right:-140px;bottom:-140px;lef
 @media(max-width:768px){
 	.qeema-app-store-proof{padding:56px 20px}
 	.qeema-app-store-proof__head h2{font-size:28px}
-	.qeema-app-store-proof__stage{height:340px}
-	.qeema-app-store-proof__halo{width:420px;height:420px;margin:-210px 0 0 -210px}
-	.app-mock-a{width:min(64vw,230px);left:0;right:0;margin:0 auto;top:20px;--tilt:0deg}
-	.app-mock-a .qeema-app-store-proof__art{height:290px}
-	.app-mock-b,.app-mock-c,.qeema-app-store-proof__chip{display:none}
+	.qeema-app-store-proof__stage{height:auto;display:flex;gap:16px;overflow-x:auto;overflow-y:visible;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scroll-behavior:smooth;scrollbar-width:none;-ms-overflow-style:none;padding:20px 4px 16px}
+	.qeema-app-store-proof__stage::-webkit-scrollbar{display:none}
+	.qeema-app-store-proof__halo,.qeema-app-store-proof__glow{display:none}
+	.app-mock-a,.app-mock-b,.app-mock-c{position:static;flex:0 0 min(64vw,230px);width:auto;top:auto;left:auto;right:auto;margin:0;opacity:1;z-index:auto;--tilt:0deg;scroll-snap-align:center}
+	.app-mock-a .qeema-app-store-proof__art,.app-mock-b .qeema-app-store-proof__art,.app-mock-c .qeema-app-store-proof__art{height:290px}
+	.qeema-app-store-proof__chip{display:none}
 }
 @media(prefers-reduced-motion:reduce){
 	.qeema-app-store-proof__glow,.qeema-app-store-proof__halo,.qeema-app-store-proof__float,.qeema-app-store-proof__chip{animation:none}
@@ -1230,7 +1231,7 @@ body::before{content:"";position:fixed;top:-140px;right:-140px;bottom:-140px;lef
 
 /* === portfolio-teaser + portfolio-grid — homepage section uses page aurora bg === */
 .qeema-portfolio-teaser{
-  position:relative;isolation:auto;padding:88px 24px 72px;text-align:center;
+  position:relative;isolation:auto;padding:88px 24px 44px;text-align:center;
   background:transparent;
   font-family:"Readex Pro",Rubik,sans-serif;
 }
@@ -1826,7 +1827,7 @@ html.qeema-preloader-active{overflow:hidden}
 .qeema-browser-showcase__chip--b{bottom:10px;left:calc(50% - 60px)}
 .qeema-browser-showcase__chip--c{top:20px;left:calc(50% + 420px)}
 @media(max-width:1024px){.qeema-browser-showcase__stage{height:420px}.browser-a{width:440px;left:calc(50% - 220px)}.browser-a .qeema-browser-mock__screen{height:260px}.browser-b{width:240px;left:calc(50% - 380px)}.browser-b .qeema-browser-mock__screen{height:150px}.browser-c{width:240px;left:calc(50% + 140px);top:120px}.browser-c .qeema-browser-mock__screen{height:150px}.qeema-browser-showcase__chip--a{top:210px;left:calc(50% - 380px)}.qeema-browser-showcase__chip--c{top:20px;left:calc(50% + 340px)}}
-@media(max-width:768px){.qeema-browser-showcase{padding:30px 20px 80px}.qeema-browser-showcase__head h2{font-size:28px}.qeema-browser-showcase__stage{height:300px}.browser-a{width:min(92vw,420px);left:0;right:0;margin:0 auto;top:30px}.browser-a .qeema-browser-mock__screen{height:240px}.browser-b,.browser-c,.qeema-browser-showcase__chip{display:none}}
+@media(max-width:768px){.qeema-browser-showcase{padding:30px 20px 80px}.qeema-browser-showcase__head h2{font-size:28px}.qeema-browser-showcase__stage{height:auto;display:flex;gap:16px;overflow-x:auto;overflow-y:visible;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scroll-behavior:smooth;scrollbar-width:none;-ms-overflow-style:none;padding:20px 4px 16px}.qeema-browser-showcase__stage::-webkit-scrollbar{display:none}.qeema-browser-showcase__glow{display:none}.browser-a,.browser-b,.browser-c{position:static;flex:0 0 min(88vw,420px);width:auto;top:auto;left:auto;right:auto;margin:0;opacity:1;z-index:auto;scroll-snap-align:center;animation:none}.browser-a .qeema-browser-mock__screen,.browser-b .qeema-browser-mock__screen,.browser-c .qeema-browser-mock__screen{height:240px}.qeema-browser-showcase__chip{display:none}}
 @media(prefers-reduced-motion:reduce){.qeema-browser-showcase__glow,.browser-a,.browser-b,.browser-c,.qeema-browser-showcase__chip{animation:none}}
 
 /* === blog-archive.css � Blog page's paginated grid + sticky sidebar ===
@@ -1983,6 +1984,16 @@ html.qeema-preloader-active{overflow:hidden}
 	.qeema-works-hero__ctas{justify-content:center}
 	.qeema-works-hero__visual{width:100%;flex:0 0 260px;height:260px}
 	.qeema-works-hero__phone--a,.qeema-works-hero__phone--b,.qeema-works-hero__phone--c{transform:scale(.78)}
+	/* Desktop's +150px/-90px offsets only fit a wide stage; on the shrunk
+	   mobile/tablet visual box they push .qeema-works-hero__phone--c (and
+	   its neighbours) past the container edge. Recenter into a tighter
+	   cluster, matching about-hero-widget.php's own phone-mockups precedent
+	   (.phone-a/b/c, ~line 88) of tightening offsets and hiding the floating
+	   chip labels once the stage shrinks below its designed width. */
+	.qeema-works-hero__phone--a{top:8%;left:calc(50% - 70px)}
+	.qeema-works-hero__phone--b{top:22%;left:calc(50% + 4px)}
+	.qeema-works-hero__phone--c{top:4%;left:calc(50% + 68px)}
+	.qeema-works-hero__chip--a,.qeema-works-hero__chip--b,.qeema-works-hero__chip--c{display:none}
 	.qt-catcard-widget{max-width:340px}
 	.qt-catcard-icon-tile{flex-basis:76px;width:76px;height:76px}
 	.qt-catcard-icon-tile i{font-size:30px}
@@ -1991,6 +2002,12 @@ html.qeema-preloader-active{overflow:hidden}
 }
 @media(max-width:600px){
 	.qeema-works-hero{padding:60px 20px 70px}
+	/* Narrower still (≤600px, matching about-hero's own 600px tier): tighten
+	   phone-a/b further and drop phone-c entirely, same "hide the least
+	   essential mockup" pattern about-hero already uses for .phone-c. */
+	.qeema-works-hero__phone--a{top:10%;left:calc(50% - 80px)}
+	.qeema-works-hero__phone--b{top:30%;left:calc(50% + 10px)}
+	.qeema-works-hero__phone--c{display:none}
 }
 @media(prefers-reduced-motion:reduce){
 	.qeema-works-hero__phone--a,.qeema-works-hero__phone--b,.qeema-works-hero__phone--c{animation:none}
@@ -2383,7 +2400,8 @@ body.single-portfolio .elementor-widget-qeema-cta-banner{display:none!important}
 .qeema-cs-screens{display:grid;gap:18px}
 .qeema-cs-screens.is-app{grid-template-columns:repeat(4,minmax(0,1fr));justify-items:center;align-items:start}
 .qeema-cs-screens.is-web{grid-template-columns:repeat(2,minmax(0,1fr))}
-.qeema-cs-screen{margin:0;width:100%;display:flex;justify-content:center}
+.qeema-cs-screen{margin:0;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:10px}
+.qeema-cs-shot__caption{margin:0;width:100%;text-align:center;font-size:12.5px;line-height:1.6;color:rgba(255,255,255,.6)}
 .qeema-cs-screens.is-app .qeema-cs-phone--sm{width:min(100%,240px)}
 .qeema-cs-screens.is-app .qeema-cs-shot--sm{width:min(100%,220px)}
 .qeema-cs-screens.is-web .qeema-cs-webframe{width:100%}
@@ -2418,7 +2436,7 @@ body.single-portfolio .elementor-widget-qeema-cta-banner{display:none!important}
    Every phone is a real link (project case-study page, or the app's real
    store link as a fallback) � see live-apps-carousel.js for the click vs
    bring-to-front logic. ===*/
-.qeema-live-apps-carousel{padding:90px 30px;text-align:center}
+.qeema-live-apps-carousel{padding:56px 30px 90px;text-align:center}
 .qeema-live-apps-carousel__wrap{max-width:1680px;margin:0 auto}
 .qeema-live-apps-carousel__head{max-width:680px;margin:0 auto 10px}
 .qeema-live-apps-carousel__badge{display:inline-block;padding:10px 16px;border-radius:22px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.10);color:#8feeff;font-size:14px;font-weight:700;margin-bottom:18px}
@@ -2428,15 +2446,17 @@ body.single-portfolio .elementor-widget-qeema-cta-banner{display:none!important}
 .qeema-live-apps-carousel__stage-wrap{overflow:hidden;position:relative}
 .qeema-live-apps-carousel__glow{position:absolute;top:50%;left:50%;width:640px;height:640px;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(34,211,238,.16),transparent 68%);filter:blur(10px);animation:qeemaLiveAppsGlowPulse 5s ease-in-out infinite;pointer-events:none}
 @keyframes qeemaLiveAppsGlowPulse{0%,100%{opacity:.7;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}}
-.qeema-live-apps-carousel__stage{position:relative;height:600px;display:flex;align-items:center;justify-content:center;perspective:1800px}
+.qeema-live-apps-carousel__stage{position:relative;height:600px;display:flex;align-items:center;justify-content:center;perspective:1800px;cursor:grab;-webkit-user-select:none;user-select:none}
+.qeema-live-apps-carousel.is-dragging .qeema-live-apps-carousel__stage{cursor:grabbing}
 
 .qeema-live-apps-carousel__phone{
 	position:absolute;width:236px;height:484px;border-radius:33px;
 	background:linear-gradient(155deg,#3d3d40,#1c1c1e 45%,#0a0a0b);
 	padding:12px;box-shadow:0 34px 70px rgba(0,0,0,.5),inset 0 0 0 2px rgba(255,255,255,.06);
 	transition:transform .6s cubic-bezier(.25,1.4,.5,1),opacity .6s ease,box-shadow .4s ease;
-	cursor:pointer;
+	cursor:grab;-webkit-user-drag:none;
 }
+.qeema-live-apps-carousel.is-dragging .qeema-live-apps-carousel__phone{cursor:grabbing;transition:opacity .6s ease,box-shadow .4s ease}
 .qeema-live-apps-carousel__phone::before{
 	content:"";position:absolute;top:20px;left:50%;transform:translateX(-50%);
 	width:84px;height:26px;background:#000;border-radius:22px;z-index:5;
@@ -2511,7 +2531,7 @@ body.single-portfolio .elementor-widget-qeema-cta-banner{display:none!important}
 	.qeema-live-apps-carousel__stage-wrap{margin:-80px 0}
 }
 @media(max-width:600px){
-	.qeema-live-apps-carousel{padding:60px 16px}
+	.qeema-live-apps-carousel{padding:40px 16px 60px}
 	.qeema-live-apps-carousel__stage{transform:scale(.46)}
 	.qeema-live-apps-carousel__stage-wrap{margin:-160px 0}
 }

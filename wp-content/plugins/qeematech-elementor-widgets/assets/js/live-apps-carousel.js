@@ -2,6 +2,14 @@
 	var AUTOPLAY_DELAY = 4000;
 	var RESUME_DELAY = 2600;
 
+	// How far (px) a drag has to travel before it counts as one "step" to
+	// the next/previous phone - crossing it again mid-drag steps again, so a
+	// single long drag can flip through several phones in one gesture.
+	var DRAG_STEP_PX = 90;
+	// Below this, a press+release is treated as a plain click (e.g. tapping
+	// a side phone to bring it forward) rather than a drag.
+	var DRAG_CLICK_THRESHOLD_PX = 6;
+
 	function qeemaInitLiveAppsCarousel( root ) {
 		var stage = root.querySelector( '.qeema-live-apps-carousel__stage' );
 		if ( ! stage ) {
@@ -20,6 +28,11 @@
 		var active = 0;
 		var autoplayTimer = null;
 		var resumeTimer = null;
+		var isDragging = false;
+		var dragMoved = false;
+		var dragPointerId = null;
+		var dragStartX = 0;
+		var dragBaselineX = 0;
 
 		// On a narrow phone screen, showing up to 3 side phones on each side
 		// (7 phones at once) turns into a wall of overlapping slivers with
@@ -128,6 +141,14 @@
 		// leave the page instead of bringing it into view first.
 		phones.forEach( function ( el, i ) {
 			el.addEventListener( 'click', function ( e ) {
+				// A drag gesture ends with a native "click" on whatever's under
+				// the pointer - without this guard, releasing a drag over a
+				// phone's link would immediately navigate away.
+				if ( dragMoved ) {
+					e.preventDefault();
+					dragMoved = false;
+					return;
+				}
 				if ( i !== active ) {
 					e.preventDefault();
 					goTo( i );
@@ -140,6 +161,63 @@
 		root.addEventListener( 'mouseleave', startAutoplay );
 		root.addEventListener( 'touchstart', stopAutoplay, { passive: true } );
 		root.addEventListener( 'touchend', restartAutoplaySoon, { passive: true } );
+
+		// Click-and-drag / swipe support: Pointer Events cover mouse, touch,
+		// and pen with one code path. Dragging follows the pointer like
+		// pulling a physical stack of cards - moving left brings the next
+		// phone into focus, moving right brings the previous one back.
+		function onDragStart( e ) {
+			if ( ! e.isPrimary || null !== dragPointerId ) {
+				return;
+			}
+			dragPointerId = e.pointerId;
+			dragStartX = e.clientX;
+			dragBaselineX = e.clientX;
+			dragMoved = false;
+			isDragging = true;
+			stopAutoplay();
+			root.classList.add( 'is-dragging' );
+			try {
+				stage.setPointerCapture( e.pointerId );
+			} catch ( err ) {
+				// Ignore - pointer capture is a progressive enhancement here.
+			}
+		}
+
+		function onDragMove( e ) {
+			if ( ! isDragging || e.pointerId !== dragPointerId ) {
+				return;
+			}
+			if ( Math.abs( e.clientX - dragStartX ) > DRAG_CLICK_THRESHOLD_PX ) {
+				dragMoved = true;
+			}
+			var delta = e.clientX - dragBaselineX;
+			if ( Math.abs( delta ) >= DRAG_STEP_PX ) {
+				goTo( active + ( delta < 0 ? 1 : -1 ) );
+				dragBaselineX = e.clientX;
+			}
+		}
+
+		function onDragEnd( e ) {
+			if ( ! isDragging || e.pointerId !== dragPointerId ) {
+				return;
+			}
+			isDragging = false;
+			dragPointerId = null;
+			root.classList.remove( 'is-dragging' );
+			try {
+				stage.releasePointerCapture( e.pointerId );
+			} catch ( err ) {
+				// Already released or never captured - nothing to clean up.
+			}
+			restartAutoplaySoon();
+		}
+
+		stage.style.touchAction = 'pan-y';
+		stage.addEventListener( 'pointerdown', onDragStart );
+		stage.addEventListener( 'pointermove', onDragMove );
+		stage.addEventListener( 'pointerup', onDragEnd );
+		stage.addEventListener( 'pointercancel', onDragEnd );
 
 		// Re-render on resize/rotate so maxVisibleOffset/activeScale's
 		// phone/tablet/desktop switch takes effect immediately instead of

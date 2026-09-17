@@ -331,6 +331,13 @@ class Qeema_Portfolio_Case_Story_Widget extends \Elementor\Widget_Base {
 		}
 		/* Keep the showcase tight like the approved mockup (4 device frames). */
 		$images = array_slice( $images, 0, 4 );
+
+		/* Generic, non-project-specific captions cycling by image position — applies
+		 * identically across all portfolio posts sharing this template, so wording
+		 * must stay sensible for any project rather than describing a specific one. */
+		$captions = $is_app
+			? array( 'الشاشة الرئيسية', 'تجربة الاستخدام', 'لوحة التحكم', 'متابعة الأداء' )
+			: array( 'الصفحة الرئيسية', 'تفاصيل الخدمة', 'لوحة التحكم', 'تجربة الموبايل' );
 		?>
 		<section class="qeema-cs-band qeema-cs-band--screens" id="qeema-cs-screens">
 			<div class="qeema-cs-wrap qeema-reveal">
@@ -358,6 +365,9 @@ class Qeema_Portfolio_Case_Story_Widget extends \Elementor\Widget_Base {
 										<?php echo wp_get_attachment_image( $image_id, 'large', false, array( 'loading' => 'lazy', 'decoding' => 'async' ) ); ?>
 									</div>
 								</div>
+							<?php endif; ?>
+							<?php if ( isset( $captions[ $i ] ) ) : ?>
+								<figcaption class="qeema-cs-shot__caption"><?php echo esc_html( $captions[ $i ] ); ?></figcaption>
 							<?php endif; ?>
 						</figure>
 					<?php endforeach; ?>

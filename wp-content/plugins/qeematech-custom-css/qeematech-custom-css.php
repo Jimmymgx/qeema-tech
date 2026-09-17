@@ -45,15 +45,20 @@ function qeema_custom_css_enqueue() {
 		);
 	}
 
-	$preloader_js_path = __DIR__ . '/assets/js/preloader.js';
-	if ( file_exists( $preloader_js_path ) ) {
-		wp_enqueue_script(
-			'qeematech-preloader',
-			plugin_dir_url( __FILE__ ) . 'assets/js/preloader.js',
-			array(),
-			filemtime( $preloader_js_path ),
-			true
-		);
+	// Preloader JS is only needed on the homepage — its markup (below) is
+	// gated the same way, so loading this everywhere else would just be a
+	// dead script tag for markup that no longer exists on the page.
+	if ( is_front_page() ) {
+		$preloader_js_path = __DIR__ . '/assets/js/preloader.js';
+		if ( file_exists( $preloader_js_path ) ) {
+			wp_enqueue_script(
+				'qeematech-preloader',
+				plugin_dir_url( __FILE__ ) . 'assets/js/preloader.js',
+				array(),
+				filemtime( $preloader_js_path ),
+				true
+			);
+		}
 	}
 }
 add_action( 'wp_enqueue_scripts', 'qeema_custom_css_enqueue', 999 );
@@ -87,6 +92,13 @@ add_action( 'wp_head', 'qeema_preload_google_font', 1 );
  * minimum-display/fade-out timing lives entirely in preloader.js.
  */
 function qeema_print_preloader_markup() {
+	// is_front_page() isn't reliably populated this early on every hook, but
+	// wp_body_open fires well after the main query is resolved, so it's safe
+	// here. Sitewide preloader was overkill — only the homepage needs it.
+	if ( ! is_front_page() ) {
+		return;
+	}
+
 	$icon_url = trailingslashit( wp_upload_dir()['baseurl'] ) . '2026/08/qt-icon-only.png';
 	?>
 	<div id="qeema-preloader" role="status" aria-live="polite">
