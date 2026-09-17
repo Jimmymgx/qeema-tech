@@ -46,13 +46,13 @@ class Qeema_Portfolio_Archive_Widget extends \Elementor\Widget_Base {
 		$this->add_control( 'heading', array(
 			'label'   => __( 'Heading', 'qeematech-elementor-widgets' ),
 			'type'    => \Elementor\Controls_Manager::TEXT,
-			'default' => 'مشاريع نفّذناها بفخر',
+			'default' => 'قصص نجاح تقنية صنعناها لشركائنا',
 		) );
 
 		$this->add_control( 'subheading', array(
 			'label'   => __( 'Subheading', 'qeematech-elementor-widgets' ),
 			'type'    => \Elementor\Controls_Manager::TEXTAREA,
-			'default' => 'تصفّح أعمالنا حسب النوع، وكل ما سكرولت لتحت هنظهر لك مشاريع أكتر.',
+			'default' => 'استكشف سابقة أعمالنا وتعرف على كيفية تحويل أفكار عملائنا إلى منصات رقمية تتصدر المنافسة في مختلف القطاعات.',
 		) );
 
 		$this->add_control( 'posts_per_page', array(
@@ -257,12 +257,10 @@ class Qeema_Portfolio_Archive_Widget extends \Elementor\Widget_Base {
 			return ob_get_clean();
 		}
 
-		$found     = (int) $query->found_posts;
 		$max_pages = (int) $query->max_num_pages;
 		?>
 		<div class="qeema-portfolio-grid" data-qeema-archive-grid data-page="<?php echo esc_attr( (string) $paged ); ?>" data-max-pages="<?php echo esc_attr( (string) $max_pages ); ?>">
 			<div class="qeema-portfolio-grid__meta">
-				<p class="qeema-portfolio-grid__count" aria-live="polite"><?php echo esc_html( sprintf( /* translators: %d: project count */ _n( '%d مشروع', '%d مشروع', $found, 'qeematech-elementor-widgets' ), $found ) ); ?></p>
 				<?php if ( $meta_note ) : ?>
 					<p class="qeema-portfolio-grid__meta-note">
 						<span class="qeema-portfolio-grid__meta-dot" aria-hidden="true"></span>

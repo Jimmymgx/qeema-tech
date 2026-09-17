@@ -2,10 +2,11 @@
 	var AUTOPLAY_DELAY = 4000;
 	var RESUME_DELAY = 2600;
 
-	// How far (px) a drag has to travel before it counts as one "step" to
-	// the next/previous phone - crossing it again mid-drag steps again, so a
-	// single long drag can flip through several phones in one gesture.
-	var DRAG_STEP_PX = 90;
+	// How far (px) a drag has to travel to move the stack by exactly one
+	// phone's worth of position - the stack tracks the pointer continuously
+	// at this rate rather than jumping in fixed steps (matches a real
+	// Swiper coverflow drag: 1:1 with the pointer, not stepped).
+	var DRAG_PX_PER_INDEX = 220;
 	// Below this, a press+release is treated as a plain click (e.g. tapping
 	// a side phone to bring it forward) rather than a drag.
 	var DRAG_CLICK_THRESHOLD_PX = 6;
@@ -32,7 +33,6 @@
 		var dragMoved = false;
 		var dragPointerId = null;
 		var dragStartX = 0;
-		var dragBaselineX = 0;
 
 		// On a narrow phone screen, showing up to 3 side phones on each side
 		// (7 phones at once) turns into a wall of overlapping slivers with
@@ -51,11 +51,19 @@
 			return window.innerWidth <= 600 ? 1.35 : 1;
 		}
 
-		function render() {
+		// pos may be a fractional index (e.g. mid-drag, "1.4 phones toward
+		// next") - every transform below is already a plain linear function
+		// of abs(offset), so feeding it a fractional offset makes the whole
+		// stack track the pointer continuously instead of only snapping
+		// between whole phones, matching a real Swiper coverflow drag.
+		function render( pos ) {
+			if ( 'number' !== typeof pos ) {
+				pos = active;
+			}
 			var maxOffset = maxVisibleOffset();
 			var focusScale = activeScale();
 			phones.forEach( function ( el, i ) {
-				var offset = i - active;
+				var offset = i - pos;
 				if ( offset > n / 2 ) {
 					offset -= n;
 				}
@@ -64,15 +72,18 @@
 				}
 				var abs = Math.abs( offset );
 				var transform, opacity, z;
-				if ( 0 === abs ) {
-					transform = 'translateX(0) translateZ(0) rotateY(0) scale(' + focusScale + ')';
-					opacity = 1;
-					z = 10;
-				} else if ( abs <= maxOffset ) {
-					var dir = offset > 0 ? 1 : -1;
-					transform = 'translateX(' + ( dir * abs * 168 ) + 'px) translateZ(' + ( -abs * 110 ) + 'px) rotateY(' + ( -dir * 30 ) + 'deg) scale(' + ( 1 - abs * 0.13 ) + ')';
+				if ( abs <= maxOffset ) {
+					var dir = offset >= 0 ? 1 : -1;
+					// rotateY ramps in over the first unit of drag instead of
+					// snapping straight to its full tilt, and the mobile
+					// focus-scale boost fades out the same way - both stay
+					// continuous while abs passes through fractional values
+					// mid-drag instead of only ever being an integer.
+					var tilt = Math.min( abs, 1 );
+					var scale = ( 1 - abs * 0.13 ) + ( focusScale - 1 ) * Math.max( 0, 1 - abs );
+					transform = 'translateX(' + ( dir * abs * 168 ) + 'px) translateZ(' + ( -abs * 110 ) + 'px) rotateY(' + ( -dir * 30 * tilt ) + 'deg) scale(' + scale + ')';
 					opacity = 1 - abs * 0.24;
-					z = 10 - abs;
+					z = Math.round( 10 - abs );
 				} else {
 					transform = 'translateX(0) scale(.4)';
 					opacity = 0;
@@ -81,7 +92,7 @@
 				el.style.transform = transform;
 				el.style.opacity = opacity;
 				el.style.zIndex = z;
-				el.classList.toggle( 'is-active', 0 === abs );
+				el.classList.toggle( 'is-active', abs < 0.5 );
 			} );
 			dots.forEach( function ( d, i ) {
 				d.classList.toggle( 'active', i === active );
@@ -163,16 +174,24 @@
 		root.addEventListener( 'touchend', restartAutoplaySoon, { passive: true } );
 
 		// Click-and-drag / swipe support: Pointer Events cover mouse, touch,
-		// and pen with one code path. Dragging follows the pointer like
-		// pulling a physical stack of cards - moving left brings the next
-		// phone into focus, moving right brings the previous one back.
+		// and pen with one code path. The stack tracks the pointer in real
+		// time (one "phone" of travel per DRAG_PX_PER_INDEX px dragged) -
+		// like a real Swiper coverflow drag - rather than only snapping
+		// after crossing a fixed step distance; releasing eases to the
+		// nearest phone via the existing CSS transform transition. Moving
+		// left brings the next phone into focus, moving right brings the
+		// previous one back.
+		var dragStartActive = 0;
+		var dragCurrentPos = 0;
+
 		function onDragStart( e ) {
 			if ( ! e.isPrimary || null !== dragPointerId ) {
 				return;
 			}
 			dragPointerId = e.pointerId;
 			dragStartX = e.clientX;
-			dragBaselineX = e.clientX;
+			dragStartActive = active;
+			dragCurrentPos = active;
 			dragMoved = false;
 			isDragging = true;
 			stopAutoplay();
@@ -188,14 +207,12 @@
 			if ( ! isDragging || e.pointerId !== dragPointerId ) {
 				return;
 			}
-			if ( Math.abs( e.clientX - dragStartX ) > DRAG_CLICK_THRESHOLD_PX ) {
+			var delta = e.clientX - dragStartX;
+			if ( Math.abs( delta ) > DRAG_CLICK_THRESHOLD_PX ) {
 				dragMoved = true;
 			}
-			var delta = e.clientX - dragBaselineX;
-			if ( Math.abs( delta ) >= DRAG_STEP_PX ) {
-				goTo( active + ( delta < 0 ? 1 : -1 ) );
-				dragBaselineX = e.clientX;
-			}
+			dragCurrentPos = dragStartActive - delta / DRAG_PX_PER_INDEX;
+			render( dragCurrentPos );
 		}
 
 		function onDragEnd( e ) {
@@ -210,6 +227,10 @@
 			} catch ( err ) {
 				// Already released or never captured - nothing to clean up.
 			}
+			// goTo() sets the integer `active` and calls the transition-
+			// backed render() - the CSS transform transition takes it from
+			// wherever the drag left off to a clean rest position.
+			goTo( Math.round( dragCurrentPos ) );
 			restartAutoplaySoon();
 		}
 

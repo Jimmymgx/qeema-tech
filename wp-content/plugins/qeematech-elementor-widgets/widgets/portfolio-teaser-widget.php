@@ -9,6 +9,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Qeema_Portfolio_Teaser_Widget extends \Elementor\Widget_Base {
 
+	// Set by render_grid() and printed inside .qeema-portfolio-teaser__actions
+	// instead of inside the grid itself, so the "show more" button sits on
+	// the same row as the "see all work" CTA(s) rather than stacked above them.
+	private $show_more_markup = '';
+
 	public function get_name() {
 		return 'qeema-portfolio-teaser';
 	}
@@ -148,8 +153,9 @@ class Qeema_Portfolio_Teaser_Widget extends \Elementor\Widget_Base {
 
 				<?php $this->render_grid( $settings ); ?>
 
-				<?php if ( ! empty( $settings['buttons'] ) ) : ?>
+				<?php if ( ! empty( $settings['buttons'] ) || $this->show_more_markup ) : ?>
 					<div class="qeema-portfolio-teaser__actions">
+						<?php echo $this->show_more_markup; // phpcs:ignore -- already escaped when built in render_grid(). ?>
 						<?php foreach ( $settings['buttons'] as $button ) : ?>
 							<a class="qeema-portfolio-teaser__btn <?php echo esc_attr( $button['style'] ); ?>" <?php echo ! empty( $button['link']['url'] ) ? 'href="' . esc_url( $button['link']['url'] ) . '"' : ''; ?>>
 								<?php echo esc_html( $button['text'] ); ?>
@@ -224,14 +230,18 @@ class Qeema_Portfolio_Teaser_Widget extends \Elementor\Widget_Base {
 					</div>
 				<?php endwhile; ?>
 			</div>
-			<?php if ( $show_more ) : ?>
-				<button type="button" class="qeema-portfolio-teaser__btn primary qeema-portfolio-grid__show-more">
-					<?php echo esc_html( $show_more_text ); ?>
-					<span aria-hidden="true">←</span>
-				</button>
-			<?php endif; ?>
 		</div>
 		<?php
+		if ( $show_more ) {
+			ob_start();
+			?>
+			<button type="button" class="qeema-portfolio-teaser__btn primary qeema-portfolio-grid__show-more">
+				<?php echo esc_html( $show_more_text ); ?>
+				<span aria-hidden="true">←</span>
+			</button>
+			<?php
+			$this->show_more_markup = ob_get_clean();
+		}
 		wp_reset_postdata();
 	}
 

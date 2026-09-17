@@ -103,19 +103,6 @@ class Qeema_Live_Apps_Carousel_Widget extends \Elementor\Widget_Base {
 						'apple' => __( 'App Store', 'qeematech-elementor-widgets' ),
 					),
 				),
-				array(
-					'name'    => 'link',
-					'label'   => __( 'Link (project page or store link)', 'qeematech-elementor-widgets' ),
-					'type'    => \Elementor\Controls_Manager::URL,
-					'default' => array( 'url' => '' ),
-				),
-				array(
-					'name'         => 'link_external',
-					'label'        => __( 'Link leaves the site (opens in a new tab)', 'qeematech-elementor-widgets' ),
-					'type'         => \Elementor\Controls_Manager::SWITCHER,
-					'default'      => '',
-					'return_value' => 'yes',
-				),
 			),
 			'default'     => array(),
 			'title_field' => '{{{ name }}}',
@@ -125,8 +112,10 @@ class Qeema_Live_Apps_Carousel_Widget extends \Elementor\Widget_Base {
 	}
 
 	private function render_phone( $app ) {
-		$link        = $app['link']['url'] ?? '';
-		$tag         = $link ? 'a' : 'div';
+		// Always a plain <div>, never a real <a> - a real link would trigger
+		// the browser's own native "drag this link out" affordance on
+		// mousedown, fighting with our custom Pointer Events carousel drag
+		// no matter where on the card the gesture starts.
 		$is_play     = 'apple' !== ( $app['store_type'] ?? 'play' );
 		$dev_class   = $is_play ? 'qeema-live-apps-carousel__dev--play' : 'qeema-live-apps-carousel__dev--apple';
 		$install_cls = $is_play ? 'qeema-live-apps-carousel__install--play' : 'qeema-live-apps-carousel__install--apple';
@@ -135,15 +124,7 @@ class Qeema_Live_Apps_Carousel_Widget extends \Elementor\Widget_Base {
 		ob_start();
 		?>
 		<div class="qeema-live-apps-carousel__phone">
-			<<?php echo $tag; ?>
-				class="qeema-live-apps-carousel__screen"
-				<?php if ( $link ) : ?>
-					href="<?php echo esc_url( $link ); ?>"
-					<?php if ( 'yes' === ( $app['link_external'] ?? '' ) ) : ?>
-						target="_blank" rel="noopener"
-					<?php endif; ?>
-				<?php endif; ?>
-			>
+			<div class="qeema-live-apps-carousel__screen">
 				<div class="qeema-live-apps-carousel__statusbar">
 					<span>9:41</span>
 					<div class="qeema-live-apps-carousel__statusbar-icons">
@@ -182,7 +163,7 @@ class Qeema_Live_Apps_Carousel_Widget extends \Elementor\Widget_Base {
 						<div class="qeema-live-apps-carousel__about-text"><?php echo esc_html( $app['description'] ); ?></div>
 					</div>
 				<?php endif; ?>
-			</<?php echo $tag; ?>>
+			</div>
 		</div>
 		<?php
 		return ob_get_clean();

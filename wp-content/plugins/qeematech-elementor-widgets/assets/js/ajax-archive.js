@@ -200,11 +200,6 @@
 					} );
 					qeemaRevealItems( nodes );
 
-					var countEl = root.querySelector( '.qeema-portfolio-grid__count' );
-					if ( countEl && typeof data.found === 'number' ) {
-						countEl.textContent = data.found + ' مشروع';
-					}
-
 					var grid = root.querySelector( '[data-qeema-archive-grid]' );
 					if ( grid ) {
 						grid.dataset.page = String( data.paged || '' );
