@@ -887,11 +887,11 @@ body::before{content:"";position:fixed;top:-140px;right:-140px;bottom:-140px;lef
 }
 /* === site-header.css === */
 .qeema-progress-bar{position:fixed;top:0;left:0;right:0;width:100%;height:4px;background:rgba(255,255,255,.08);z-index:300}
-.qeema-progress-bar__fill{height:100%;width:0%;background:linear-gradient(90deg,#00d4ff,#8b5cf6,#00d4ff);box-shadow:0 0 10px rgba(0,212,255,.6)}
+.qeema-progress-bar__fill{height:100%;width:100%;transform-origin:left;transform:scaleX(0);background:linear-gradient(90deg,#00d4ff,#8b5cf6,#00d4ff);box-shadow:0 0 10px rgba(0,212,255,.6)}
 .qeema-header{position:fixed;top:0;left:0;right:0;width:100%;z-index:200;background:rgba(10,24,48,0);border-bottom:1px solid rgba(255,255,255,0);box-shadow:0 10px 30px rgba(0,0,0,0);transition:background-color .35s ease,border-color .35s ease,box-shadow .35s ease,backdrop-filter .35s ease}
 .qeema-header.qeema-scrolled{background:rgba(10,24,48,.55);border-bottom-color:rgba(255,255,255,.08);box-shadow:0 10px 30px rgba(0,0,0,.35);backdrop-filter:blur(20px) saturate(150%);-webkit-backdrop-filter:blur(20px) saturate(150%)}
-.qeema-header__main{padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px;transition:padding .35s ease}
-.qeema-header.qeema-scrolled .qeema-header__main{padding:10px 24px}
+.qeema-header__main{padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px;transition:padding .35s ease;min-height:78px}
+.qeema-header.qeema-scrolled .qeema-header__main{padding:10px 24px;min-height:70px}
 .qeema-header__logo{display:inline-flex;align-items:center;transition:transform .25s ease}
 .qeema-header__logo:hover{transform:translateY(-2px)}
 .qeema-header__logo img{max-height:50px;width:auto;display:block;filter:brightness(0) invert(1)}
@@ -1000,7 +1000,7 @@ body::before{content:"";position:fixed;top:-140px;right:-140px;bottom:-140px;lef
   display:flex;flex-direction:column;gap:12px;
 }
 .qeema-mega__aside-kicker{font-size:11px;font-weight:700;color:#7dd3fc;letter-spacing:.04em}
-.qeema-mega__aside h4{margin:0;font-size:18px;line-height:1.4;color:#fff;font-weight:700}
+.qeema-mega__aside-title{margin:0;font-size:18px;line-height:1.4;color:#fff;font-weight:700}
 .qeema-mega__aside p{margin:0;font-size:13px;line-height:1.7;color:#cbd5e1}
 .qeema-mega__aside-btn{
   display:inline-flex;align-items:center;justify-content:center;margin-top:6px;min-height:42px;padding:10px 16px;
@@ -1017,9 +1017,11 @@ body::before{content:"";position:fixed;top:-140px;right:-140px;bottom:-140px;lef
 .qeema-mega__foot a{color:#7dd3fc;text-decoration:none!important;font-weight:700;transition:color .2s ease}
 .qeema-mega__foot a:hover,.qeema-mega__foot a:focus-visible{color:#fff!important}
 
-.qeema-header__cta{background:transparent;border:1px solid #00e5ff;color:#00e5ff;padding:15px 32px;border-radius:22px;font-weight:700;text-decoration:none;font-size:14px;white-space:nowrap;text-shadow:0 0 8px rgba(0,229,255,.9),0 0 18px rgba(0,229,255,.6);box-shadow:0 0 8px rgba(0,229,255,.55),0 0 20px rgba(0,229,255,.4),0 0 40px rgba(0,229,255,.22),inset 0 0 10px rgba(0,229,255,.2);animation:qeema-neon-pulse 2.4s ease-in-out infinite;transition:background .25s ease,color .25s ease,border-color .25s ease,transform .25s ease}
+.qeema-header__cta{position:relative;background:transparent;border:1px solid #00e5ff;color:#00e5ff;padding:15px 32px;border-radius:22px;font-weight:700;text-decoration:none;font-size:14px;white-space:nowrap;text-shadow:0 0 8px rgba(0,229,255,.9),0 0 18px rgba(0,229,255,.6);box-shadow:0 0 8px rgba(0,229,255,.55),0 0 20px rgba(0,229,255,.4),0 0 40px rgba(0,229,255,.22),inset 0 0 10px rgba(0,229,255,.2)!important;transition:background .25s ease,color .25s ease,border-color .25s ease,transform .25s ease}
+.qeema-header__cta::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;box-shadow:0 0 14px rgba(0,229,255,.9),0 0 32px rgba(0,229,255,.65),0 0 60px rgba(0,229,255,.35),inset 0 0 14px rgba(0,229,255,.35);opacity:0;animation:qeema-neon-pulse-opacity 2.4s ease-in-out infinite}
 .qeema-header__cta:hover{background:linear-gradient(135deg,#8b5cf6,#2f7cff);border-color:transparent;color:#fff;text-shadow:0 0 10px rgba(255,255,255,.8);transform:translateY(-2px);animation:none;box-shadow:0 0 16px rgba(0,212,255,.7),0 0 36px rgba(139,92,246,.55),0 0 60px rgba(0,212,255,.35)}
-@keyframes qeema-neon-pulse{0%,100%{box-shadow:0 0 8px rgba(0,229,255,.55),0 0 20px rgba(0,229,255,.4),0 0 40px rgba(0,229,255,.22),inset 0 0 10px rgba(0,229,255,.2)}50%{box-shadow:0 0 14px rgba(0,229,255,.9),0 0 32px rgba(0,229,255,.65),0 0 60px rgba(0,229,255,.35),inset 0 0 14px rgba(0,229,255,.35)}}
+.qeema-header__cta:hover::after{opacity:0;animation:none}
+@keyframes qeema-neon-pulse-opacity{0%,100%{opacity:0}50%{opacity:1}}
 .qeema-header__toggle{display:none;align-items:center;justify-content:center;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);border-radius:22px;width:42px;height:42px;padding:0;cursor:pointer;transition:border-color .25s ease,background-color .25s ease}
 .qeema-header__toggle:hover{border-color:#00d4ff;background:rgba(0,212,255,.1)}
 .qeema-burger{position:relative;width:20px;height:14px;display:inline-block}
@@ -1071,6 +1073,53 @@ body::before{content:"";position:fixed;top:-140px;right:-140px;bottom:-140px;lef
   .qeema-mega__aside{border-inline-start:0;border-top:1px solid rgba(255,255,255,.06)}
 }
 @media(max-width:1024px){.qeema-header__nav{display:none}.qeema-header__toggle{display:flex}.qeema-header__logo img.qeema-header__logo-full{display:none}.qeema-header__logo img.qeema-header__logo-mobile{display:block}}
+
+/* === mobile-tabbar.css — fixed bottom action bar, mobile/tablet only (same
+   ≤1024px breakpoint the header itself switches to hamburger mode at).
+   Hidden by default (desktop-first); only shown + given layout via the
+   media query below, so it never affects desktop at all. body padding is
+   added in the same query so fixed positioning never covers page content
+   (footer buttons, CTA banners, etc.) sitting at the bottom of any page. */
+.qeema-mobile-tabbar{display:none}
+@media(max-width:1024px){
+	body{padding-bottom:calc(64px + env(safe-area-inset-bottom))}
+	.qeema-mobile-tabbar{
+		display:flex;position:fixed;left:0;right:0;bottom:0;z-index:250;
+		background:rgba(8,17,36,.9);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+		border-top:1px solid rgba(255,255,255,.1);
+		padding:8px 10px calc(8px + env(safe-area-inset-bottom));gap:10px;
+	}
+	.qeema-mobile-tabbar__btn,
+	.qeema-mobile-tabbar__btn:link,
+	.qeema-mobile-tabbar__btn:visited{
+		flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+		padding:8px 6px;border-radius:16px;color:rgba(255,255,255,.75);text-decoration:none!important;
+		font-size:12px;font-weight:700;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+		transition:background-color .2s ease,border-color .2s ease,transform .2s ease;
+	}
+	/* Text color never changes on hover/active/focus/visited — only the
+	   button's own background/border does, so the label stays legible
+	   instead of fading into the dark bar (a real bug: the browser's default
+	   :visited link color was taking over and washing the text out). */
+	.qeema-mobile-tabbar__btn:hover,
+	.qeema-mobile-tabbar__btn:focus-visible{
+		color:rgba(255,255,255,.75);background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.22);
+	}
+	.qeema-mobile-tabbar__btn i{font-size:17px}
+	.qeema-mobile-tabbar__btn:active{transform:scale(.96)}
+	.qeema-mobile-tabbar__btn--primary,
+	.qeema-mobile-tabbar__btn--primary:link,
+	.qeema-mobile-tabbar__btn--primary:visited{
+		color:#fff;background:linear-gradient(135deg,#10cfff,#0066ff);border-color:transparent;
+		box-shadow:0 8px 20px rgba(16,207,255,.3);
+	}
+	.qeema-mobile-tabbar__btn--primary:hover,
+	.qeema-mobile-tabbar__btn--primary:focus-visible{
+		color:#fff;background:linear-gradient(135deg,#3ddbff,#1a7dff);border-color:transparent;
+		box-shadow:0 10px 24px rgba(16,207,255,.42);
+	}
+}
+@media(prefers-reduced-motion:reduce){.qeema-mobile-tabbar__btn{transition:none}}
 
 /* === site-footer.css === */
 .qeema-footer{position:relative;color:#fff;padding:90px 24px 0;overflow:hidden;background-image:radial-gradient(circle,rgba(255,255,255,.05) 1px,transparent 1.5px),linear-gradient(180deg,rgba(7,14,30,0) 0%,rgba(7,14,30,.7) 18%,rgba(8,17,36,.98) 100%);background-size:28px 28px,auto;background-repeat:repeat,no-repeat;border-top:1px solid rgba(255,255,255,.07)}
@@ -1213,9 +1262,9 @@ body::before{content:"";position:fixed;top:-140px;right:-140px;bottom:-140px;lef
 	.qeema-select__trigger,.qeema-select__panel,.select-caret-down-wrapper{transition:none}
 }
 
-.qeema-footer h5{position:relative;z-index:1;display:flex;align-items:center;gap:9px;color:#fff;font-size:17px;margin:0 0 22px;font-weight:800;padding-bottom:13px}
-.qeema-footer h5 i{color:#00d4ff;font-size:14px}
-.qeema-footer h5::after{content:"";position:absolute;right:0;bottom:0;width:32px;height:3px;border-radius:3px;background:linear-gradient(90deg,#00d4ff,#8b5cf6)}
+.qeema-footer h4{position:relative;z-index:1;display:flex;align-items:center;gap:9px;color:#fff;font-size:17px;margin:0 0 22px;font-weight:800;padding-bottom:13px}
+.qeema-footer h4 i{color:#00d4ff;font-size:14px}
+.qeema-footer h4::after{content:"";position:absolute;right:0;bottom:0;width:32px;height:3px;border-radius:3px;background:linear-gradient(90deg,#00d4ff,#8b5cf6)}
 .qeema-footer__links{position:relative;z-index:1;list-style:none;margin:0;padding:0}
 .qeema-footer__links li{margin-bottom:13px}
 .qeema-footer__links a{display:flex;align-items:center;gap:9px;color:rgba(255,255,255,.66);text-decoration:none;font-size:14.5px;transition:color .25s ease,gap .25s ease}
@@ -1645,7 +1694,7 @@ input[type=text]::placeholder,input[type=email]::placeholder,textarea::placehold
 
 /* === sidebar categories widget (single post) === */
 .qeema-post-categories{padding:24px;border-radius:22px;background:rgba(10,24,46,.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.10);margin-top:24px}
-.qeema-post-categories h5{color:#fff;font-size:18px;font-weight:800;margin:0 0 16px}
+.qeema-post-categories h4{color:#fff;font-size:18px;font-weight:800;margin:0 0 16px}
 .qeema-post-categories ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
 .qeema-post-categories li a{color:rgba(255,255,255,.78);text-decoration:none;font-size:14px;font-weight:600;transition:color .25s ease}
 .qeema-post-categories li a:hover{color:#22dcff}
@@ -1671,7 +1720,7 @@ input[type=text]::placeholder,input[type=email]::placeholder,textarea::placehold
 span.ez-toc-js-icon-con{display:none!important}
 
 /* === custom cursor � label reveal only; default OS cursor stays visible === */
-.qeema-cursor-label{position:fixed;top:0;left:0;transform:translate(16px,16px);padding:7px 16px;border-radius:22px;background:linear-gradient(135deg,#10cfff,#0066ff);color:#02131f;font-family:'Rubik',sans-serif;font-size:12.5px;font-weight:800;white-space:nowrap;pointer-events:none;opacity:0;z-index:2147483647;transition:opacity .18s ease,transform .18s ease}
+.qeema-cursor-label{position:fixed;top:0;left:0;transform:translate3d(0,0,0) translate(16px,16px);padding:7px 16px;border-radius:22px;background:linear-gradient(135deg,#10cfff,#0066ff);color:#02131f;font-family:'Rubik',sans-serif;font-size:12.5px;font-weight:800;white-space:nowrap;pointer-events:none;opacity:0;z-index:2147483647;transition:opacity .18s ease}
 .qeema-cursor-label.is-active{opacity:1}
 @media(pointer:coarse),(prefers-reduced-motion:reduce){.qeema-cursor-label{display:none!important}}
 
@@ -1851,7 +1900,7 @@ html.qeema-preloader-active{overflow:hidden}
 .qeema-blog-pagination span.dots{background:none;border:none}
 
 .qeema-blog-sidebar-latest{padding:24px;border-radius:22px;background:rgba(10,24,46,.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.10)}
-.qeema-blog-sidebar-latest h5{color:#fff;font-size:18px;font-weight:800;margin:0 0 16px}
+.qeema-blog-sidebar-latest h4{color:#fff;font-size:18px;font-weight:800;margin:0 0 16px}
 .qeema-blog-sidebar-latest__list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:16px}
 .qeema-blog-sidebar-latest__link{display:flex;align-items:center;gap:12px;text-decoration:none}
 .qeema-blog-sidebar-latest__thumb{width:64px;height:64px;flex-shrink:0;border-radius:22px;overflow:hidden}
@@ -2216,9 +2265,15 @@ html.qeema-preloader-active{overflow:hidden}
 
 /* Post 869 only: category-showcase is reused twice on the thank-you page
    with 3 items each, but its shared grid is repeat(5) above 1024px for the
-   catalog's usual 5-item sections � override scoped to this page's body
-   class so every other category-showcase usage (e.g. post 849) is untouched. */
-body.page-id-869 .qeema-category-showcase__grid{grid-template-columns:repeat(3,minmax(0,1fr));max-width:900px;margin:0 auto}
+   catalog own 5-item sections - override scoped to this page own body
+   class so every other category-showcase usage (e.g. post 849) is untouched.
+   Wrapped to min-width:601px - an unguarded version of this rule outranks
+   the sitewide @media(max-width:600px) 1-column mobile rule by specificity
+   (body.class + class beats a single class), forcing 3 columns on phones
+   and overflowing the page horizontally. */
+@media(min-width:601px){
+	body.page-id-869 .qeema-category-showcase__grid{grid-template-columns:repeat(3,minmax(0,1fr));max-width:900px;margin:0 auto}
+}
 
 /* === bank-details.css � labeled-row card for wiring-instruction pages.
    Values are monospace + forced ltr (set in the widget markup) so IBAN/SWIFT
@@ -2453,10 +2508,10 @@ body.single-portfolio .elementor-widget-qeema-cta-banner{display:none!important}
 	position:absolute;width:236px;height:484px;border-radius:33px;
 	background:linear-gradient(155deg,#3d3d40,#1c1c1e 45%,#0a0a0b);
 	padding:12px;box-shadow:0 34px 70px rgba(0,0,0,.5),inset 0 0 0 2px rgba(255,255,255,.06);
-	transition:transform .6s cubic-bezier(.25,1.4,.5,1),opacity .6s ease,box-shadow .4s ease;
+	transition:transform .6s cubic-bezier(.25,1.4,.5,1),opacity .6s ease;
 	cursor:grab;-webkit-user-drag:none;
 }
-.qeema-live-apps-carousel.is-dragging .qeema-live-apps-carousel__phone{cursor:grabbing;transition:opacity .6s ease,box-shadow .4s ease}
+.qeema-live-apps-carousel.is-dragging .qeema-live-apps-carousel__phone{cursor:grabbing;transition:opacity .6s ease}
 .qeema-live-apps-carousel__phone::before{
 	content:"";position:absolute;top:20px;left:50%;transform:translateX(-50%);
 	width:84px;height:26px;background:#000;border-radius:22px;z-index:5;

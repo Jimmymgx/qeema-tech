@@ -152,7 +152,11 @@ class Qeema_Bank_Details_Widget extends \Elementor\Widget_Base {
 							<div class="qeema-bank-details__account-head">
 								<?php if ( ! empty( $account['account_logo']['url'] ) && \Elementor\Utils::get_placeholder_image_src() !== $account['account_logo']['url'] ) : ?>
 									<span class="qeema-bank-details__account-logo">
-										<img src="<?php echo esc_url( $account['account_logo']['url'] ); ?>" alt="">
+										<?php if ( ! empty( $account['account_logo']['id'] ) ) : ?>
+											<?php echo wp_get_attachment_image( $account['account_logo']['id'], 'thumbnail', false, array( 'alt' => '' ) ); ?>
+										<?php else : ?>
+											<img src="<?php echo esc_url( $account['account_logo']['url'] ); ?>" alt="">
+										<?php endif; ?>
 									</span>
 								<?php endif; ?>
 								<span class="qeema-bank-details__account-title"><?php echo esc_html( $account['account_title'] ); ?></span>

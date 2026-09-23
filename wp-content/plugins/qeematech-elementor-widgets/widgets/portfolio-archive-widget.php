@@ -383,7 +383,7 @@ class Qeema_Portfolio_Archive_Widget extends \Elementor\Widget_Base {
 					<p class="qeema-portfolio-grid__browser-desc"><?php echo esc_html( $desc ); ?></p>
 				<?php endif; ?>
 				<div class="qeema-portfolio-grid__browser-actions">
-					<a class="qeema-portfolio-grid__browser-btn ghost" href="<?php echo esc_url( $permalink ); ?>"><?php esc_html_e( 'عرض المشروع', 'qeematech-elementor-widgets' ); ?></a>
+					<a class="qeema-portfolio-grid__browser-btn ghost" href="<?php echo esc_url( $permalink ); ?>" aria-label="<?php echo esc_attr( sprintf( __( 'عرض مشروع %s', 'qeematech-elementor-widgets' ), get_the_title( $post_id ) ) ); ?>"><?php esc_html_e( 'عرض المشروع', 'qeematech-elementor-widgets' ); ?></a>
 				</div>
 			</div>
 		</article>
@@ -403,7 +403,7 @@ class Qeema_Portfolio_Archive_Widget extends \Elementor\Widget_Base {
 			<div class="qeema-portfolio-grid__stage">
 				<a class="qeema-portfolio-grid__shot" href="<?php echo esc_url( $permalink ); ?>" aria-label="<?php echo esc_attr( get_the_title( $post_id ) ); ?>">
 					<?php
-					echo wp_get_attachment_image( $image_id, 'full', false, array(
+					echo wp_get_attachment_image( $image_id, 'large', false, array(
 						'class'    => 'qeema-portfolio-grid__media',
 						'loading'  => 'lazy',
 						'decoding' => 'async',
@@ -418,7 +418,7 @@ class Qeema_Portfolio_Archive_Widget extends \Elementor\Widget_Base {
 					<p class="qeema-portfolio-grid__browser-desc"><?php echo esc_html( $desc ); ?></p>
 				<?php endif; ?>
 				<div class="qeema-portfolio-grid__browser-actions">
-					<a class="qeema-portfolio-grid__browser-btn ghost" href="<?php echo esc_url( $permalink ); ?>"><?php esc_html_e( 'عرض المشروع', 'qeematech-elementor-widgets' ); ?></a>
+					<a class="qeema-portfolio-grid__browser-btn ghost" href="<?php echo esc_url( $permalink ); ?>" aria-label="<?php echo esc_attr( sprintf( __( 'عرض مشروع %s', 'qeematech-elementor-widgets' ), get_the_title( $post_id ) ) ); ?>"><?php esc_html_e( 'عرض المشروع', 'qeematech-elementor-widgets' ); ?></a>
 				</div>
 			</div>
 		</article>

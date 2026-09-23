@@ -148,7 +148,8 @@ class Qeema_Hero_Section_Widget extends \Elementor\Widget_Base {
 			$style .= 'background-color:' . esc_attr( $settings['background_color'] ) . ';';
 		}
 		if ( ! empty( $settings['background_image']['url'] ) && \Elementor\Utils::get_placeholder_image_src() !== $settings['background_image']['url'] ) {
-			$style .= 'background-image:url(' . esc_url( $settings['background_image']['url'] ) . ');background-size:cover;background-position:center;';
+			$bg_image_url = ! empty( $settings['background_image']['id'] ) ? wp_get_attachment_image_url( $settings['background_image']['id'], 'large' ) : $settings['background_image']['url'];
+			$style       .= 'background-image:url(' . esc_url( $bg_image_url ) . ');background-size:cover;background-position:center;';
 		}
 
 		$has_visual   = 'none' !== $settings['visual_variant'];

@@ -124,6 +124,7 @@ class Qeema_Browser_Showcase_Widget extends \Elementor\Widget_Base {
 					if ( empty( $shot['image']['url'] ) || \Elementor\Utils::get_placeholder_image_src() === $shot['image']['url'] ) {
 						continue;
 					}
+					$shot_image_url = ! empty( $shot['image']['id'] ) ? wp_get_attachment_image_url( $shot['image']['id'], 'large' ) : $shot['image']['url'];
 					?>
 					<div class="qeema-browser-mock browser-<?php echo esc_attr( $slot ); ?>">
 						<div class="qeema-browser-mock__bar">
@@ -132,7 +133,7 @@ class Qeema_Browser_Showcase_Widget extends \Elementor\Widget_Base {
 							<span class="qt-dot g"></span>
 							<span class="qeema-browser-mock__url"><?php echo esc_html( $shot['url_label'] ); ?></span>
 						</div>
-						<div class="qeema-browser-mock__screen" style="background-image:url('<?php echo esc_url( $shot['image']['url'] ); ?>')"></div>
+						<div class="qeema-browser-mock__screen" style="background-image:url('<?php echo esc_url( $shot_image_url ); ?>')"></div>
 					</div>
 				<?php endforeach; ?>
 

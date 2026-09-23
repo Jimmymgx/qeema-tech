@@ -227,7 +227,7 @@ class Qeema_Site_Header_Widget extends \Elementor\Widget_Base {
 				</div>
 				<aside class="qeema-mega__aside">
 					<span class="qeema-mega__aside-kicker">قيمة تك</span>
-					<h4><?php echo esc_html( $aside_t ); ?></h4>
+					<span class="qeema-mega__aside-title"><?php echo esc_html( $aside_t ); ?></span>
 					<p><?php echo esc_html( $aside_p ); ?></p>
 					<?php if ( ! empty( $cta_text ) ) : ?>
 						<a class="qeema-mega__aside-btn" <?php echo ! empty( $cta_link ) ? 'href="' . esc_url( $cta_link ) . '"' : ''; ?>>
@@ -318,6 +318,7 @@ class Qeema_Site_Header_Widget extends \Elementor\Widget_Base {
 	protected function render() {
 		$settings        = $this->get_settings_for_display();
 		$logo_mobile_url = trailingslashit( wp_upload_dir()['baseurl'] ) . '2026/08/qt-icon-only.png';
+		$logo_mobile_id  = attachment_url_to_postid( $logo_mobile_url );
 		$cta_text        = $settings['cta_text'] ?? '';
 		$cta_link        = $settings['cta_link']['url'] ?? '';
 		?>
@@ -326,8 +327,16 @@ class Qeema_Site_Header_Widget extends \Elementor\Widget_Base {
 			<div class="qeema-header__main">
 				<a class="qeema-header__logo" href="<?php echo esc_url( $settings['logo_link']['url'] ?? home_url( '/' ) ); ?>">
 					<?php if ( ! empty( $settings['logo']['url'] ) && \Elementor\Utils::get_placeholder_image_src() !== $settings['logo']['url'] ) : ?>
-						<img class="qeema-header__logo-full" src="<?php echo esc_url( $settings['logo']['url'] ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
-						<img class="qeema-header__logo-mobile" src="<?php echo esc_url( $logo_mobile_url ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
+						<?php if ( ! empty( $settings['logo']['id'] ) ) : ?>
+							<?php echo wp_get_attachment_image( $settings['logo']['id'], 'medium', false, array( 'class' => 'qeema-header__logo-full', 'alt' => get_bloginfo( 'name' ), 'loading' => 'eager' ) ); ?>
+						<?php else : ?>
+							<img class="qeema-header__logo-full" src="<?php echo esc_url( $settings['logo']['url'] ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
+						<?php endif; ?>
+						<?php if ( $logo_mobile_id ) : ?>
+							<?php echo wp_get_attachment_image( $logo_mobile_id, 'medium', false, array( 'class' => 'qeema-header__logo-mobile', 'alt' => get_bloginfo( 'name' ), 'loading' => 'eager' ) ); ?>
+						<?php else : ?>
+							<img class="qeema-header__logo-mobile" src="<?php echo esc_url( $logo_mobile_url ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
+						<?php endif; ?>
 					<?php endif; ?>
 				</a>
 
@@ -353,8 +362,16 @@ class Qeema_Site_Header_Widget extends \Elementor\Widget_Base {
 				<div class="qeema-header__mobile-top">
 					<a class="qeema-header__logo" href="<?php echo esc_url( $settings['logo_link']['url'] ?? home_url( '/' ) ); ?>">
 						<?php if ( ! empty( $settings['logo']['url'] ) && \Elementor\Utils::get_placeholder_image_src() !== $settings['logo']['url'] ) : ?>
-							<img class="qeema-header__logo-full" src="<?php echo esc_url( $settings['logo']['url'] ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
-							<img class="qeema-header__logo-mobile" src="<?php echo esc_url( $logo_mobile_url ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
+							<?php if ( ! empty( $settings['logo']['id'] ) ) : ?>
+								<?php echo wp_get_attachment_image( $settings['logo']['id'], 'medium', false, array( 'class' => 'qeema-header__logo-full', 'alt' => get_bloginfo( 'name' ), 'loading' => 'eager' ) ); ?>
+							<?php else : ?>
+								<img class="qeema-header__logo-full" src="<?php echo esc_url( $settings['logo']['url'] ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
+							<?php endif; ?>
+							<?php if ( $logo_mobile_id ) : ?>
+								<?php echo wp_get_attachment_image( $logo_mobile_id, 'medium', false, array( 'class' => 'qeema-header__logo-mobile', 'alt' => get_bloginfo( 'name' ), 'loading' => 'eager' ) ); ?>
+							<?php else : ?>
+								<img class="qeema-header__logo-mobile" src="<?php echo esc_url( $logo_mobile_url ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
+							<?php endif; ?>
 						<?php endif; ?>
 					</a>
 					<button class="qeema-header__mobile-close" aria-label="<?php esc_attr_e( 'Close menu', 'qeematech-elementor-widgets' ); ?>">
@@ -371,6 +388,26 @@ class Qeema_Site_Header_Widget extends \Elementor\Widget_Base {
 				<?php endif; ?>
 			</div>
 		</header>
+
+		<?php
+		/**
+		 * Fixed bottom tab bar — mobile/tablet only (same ≤1024px breakpoint
+		 * the header already switches to hamburger mode at). Sits outside
+		 * <header> since it's independent, always-visible chrome rather than
+		 * part of the scrolling top bar. Two real destinations only (no more
+		 * — a tab bar with too many targets stops reading as quick actions).
+		 */
+		?>
+		<nav class="qeema-mobile-tabbar" aria-label="<?php esc_attr_e( 'تنقل سريع', 'qeematech-elementor-widgets' ); ?>">
+			<a class="qeema-mobile-tabbar__btn" href="<?php echo esc_url( home_url( '/أعمالنا/' ) ); ?>">
+				<i class="fas fa-briefcase" aria-hidden="true"></i>
+				<span><?php esc_html_e( 'أعمالنا', 'qeematech-elementor-widgets' ); ?></span>
+			</a>
+			<a class="qeema-mobile-tabbar__btn qeema-mobile-tabbar__btn--primary" href="<?php echo esc_url( home_url( '/أتصل-بنا/' ) ); ?>">
+				<i class="fas fa-comment-dots" aria-hidden="true"></i>
+				<span><?php esc_html_e( 'اتصل بنا', 'qeematech-elementor-widgets' ); ?></span>
+			</a>
+		</nav>
 		<?php
 	}
 }

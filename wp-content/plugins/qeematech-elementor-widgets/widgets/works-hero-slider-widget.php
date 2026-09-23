@@ -331,8 +331,11 @@ class Qeema_Works_Hero_Slider_Widget extends \Elementor\Widget_Base {
 			$tag   = $link ? 'a' : 'div';
 			$href  = $link ? ' href="' . esc_url( $link ) . '" target="_blank" rel="noopener"' : '';
 			$label = $is_apple ? 'احصل عليه' : 'تثبيت';
+			$logo_html = ! empty( $app['logo']['id'] )
+				? wp_get_attachment_image( $app['logo']['id'], 'thumbnail', false, array( 'alt' => '' ) )
+				: '<img src="' . esc_url( $app['logo']['url'] ) . '" alt="" loading="lazy">';
 			return '<' . $tag . ' class="qeema-store-row"' . $href . '>'
-				. '<div class="qeema-store-row__plate"><img src="' . esc_url( $app['logo']['url'] ) . '" alt="" loading="lazy"></div>'
+				. '<div class="qeema-store-row__plate">' . $logo_html . '</div>'
 				. '<div class="qeema-store-row__meta"><div class="qeema-store-row__name">' . esc_html( $app['name'] ) . '</div>'
 				. ( ! empty( $app['description'] ) ? '<div class="qeema-store-row__sub">' . esc_html( $app['description'] ) . '</div>' : '' )
 				. '</div>'
@@ -413,7 +416,13 @@ class Qeema_Works_Hero_Slider_Widget extends \Elementor\Widget_Base {
 					<div class="qeema-apple-feature">
 						<?php foreach ( array_slice( $apple_apps, 0, 2 ) as $featured ) : ?>
 							<div class="qeema-apple-feature__slide">
-								<div class="qeema-apple-feature__plate"><img src="<?php echo esc_url( $featured['logo']['url'] ); ?>" alt=""></div>
+								<div class="qeema-apple-feature__plate">
+								<?php if ( ! empty( $featured['logo']['id'] ) ) : ?>
+									<?php echo wp_get_attachment_image( $featured['logo']['id'], 'thumbnail', false, array( 'alt' => '', 'loading' => false ) ); ?>
+								<?php else : ?>
+									<img src="<?php echo esc_url( $featured['logo']['url'] ); ?>" alt="">
+								<?php endif; ?>
+							</div>
 								<div>
 									<div class="qeema-apple-feature__eyebrow">تطبيق اليوم</div>
 									<div class="qeema-apple-feature__title"><?php echo esc_html( $featured['name'] ); ?></div>

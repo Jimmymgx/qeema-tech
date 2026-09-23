@@ -143,7 +143,13 @@ class Qeema_Live_Apps_Carousel_Widget extends \Elementor\Widget_Base {
 
 				<div class="qeema-live-apps-carousel__apphead">
 					<?php if ( ! empty( $app['logo']['url'] ) && \Elementor\Utils::get_placeholder_image_src() !== $app['logo']['url'] ) : ?>
-						<div class="qeema-live-apps-carousel__apphead-icon"><img src="<?php echo esc_url( $app['logo']['url'] ); ?>" alt="" loading="lazy"></div>
+						<div class="qeema-live-apps-carousel__apphead-icon">
+							<?php if ( ! empty( $app['logo']['id'] ) ) : ?>
+								<?php echo wp_get_attachment_image( $app['logo']['id'], 'thumbnail', false, array( 'alt' => '' ) ); ?>
+							<?php else : ?>
+								<img src="<?php echo esc_url( $app['logo']['url'] ); ?>" alt="" loading="lazy">
+							<?php endif; ?>
+						</div>
 					<?php endif; ?>
 					<div class="qeema-live-apps-carousel__apphead-meta">
 						<div class="qeema-live-apps-carousel__apphead-name"><?php echo esc_html( $app['name'] ?? '' ); ?></div>

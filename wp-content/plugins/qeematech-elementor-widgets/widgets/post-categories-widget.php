@@ -56,7 +56,7 @@ class Qeema_Post_Categories_Widget extends \Elementor\Widget_Base {
 		?>
 		<div class="qeema-post-categories">
 			<?php if ( ! empty( $settings['heading'] ) ) : ?>
-				<h5><?php echo esc_html( $settings['heading'] ); ?></h5>
+				<h4><?php echo esc_html( $settings['heading'] ); ?></h4>
 			<?php endif; ?>
 			<ul>
 				<?php foreach ( $categories as $cat ) : ?>

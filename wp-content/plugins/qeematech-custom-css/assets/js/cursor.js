@@ -18,9 +18,20 @@
 		document.addEventListener('DOMContentLoaded', mount);
 	}
 
+	var cursorTicking = false;
+	var mouseX = 0;
+	var mouseY = 0;
+	function updateCursorLabel() {
+		label.style.transform = 'translate3d(' + mouseX + 'px,' + mouseY + 'px,0) translate(16px,16px)';
+		cursorTicking = false;
+	}
 	window.addEventListener('mousemove', function (e) {
-		label.style.left = e.clientX + 'px';
-		label.style.top = e.clientY + 'px';
+		mouseX = e.clientX;
+		mouseY = e.clientY;
+		if (!cursorTicking) {
+			cursorTicking = true;
+			window.requestAnimationFrame(updateCursorLabel);
+		}
 	});
 
 	document.addEventListener('mouseover', function (e) {

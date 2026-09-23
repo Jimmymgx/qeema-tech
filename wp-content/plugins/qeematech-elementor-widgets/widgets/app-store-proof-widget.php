@@ -164,7 +164,11 @@ class Qeema_App_Store_Proof_Widget extends \Elementor\Widget_Base {
 						<a class="qeema-app-store-proof__card app-mock-<?php echo esc_attr( $slot ); ?>" href="<?php echo esc_url( $app['store_url'] ); ?>" target="_blank" rel="noopener noreferrer">
 							<span class="qeema-app-store-proof__float">
 								<span class="qeema-app-store-proof__art">
-									<img src="<?php echo esc_url( $app['logo']['url'] ); ?>" alt="<?php echo esc_attr( $app['app_name'] ); ?>" loading="lazy">
+									<?php if ( ! empty( $app['logo']['id'] ) ) : ?>
+										<?php echo wp_get_attachment_image( $app['logo']['id'], 'thumbnail', false, array( 'alt' => $app['app_name'] ) ); ?>
+									<?php else : ?>
+										<img src="<?php echo esc_url( $app['logo']['url'] ); ?>" alt="<?php echo esc_attr( $app['app_name'] ); ?>" loading="lazy">
+									<?php endif; ?>
 									<span class="qeema-app-store-proof__shine"></span>
 								</span>
 								<span class="qeema-app-store-proof__caption">

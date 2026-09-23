@@ -69,6 +69,10 @@ class Qeema_Site_Footer_Widget extends \Elementor\Widget_Base {
 			'fields'  => array(
 				array( 'name' => 'icon_class', 'label' => 'Font Awesome class', 'type' => \Elementor\Controls_Manager::TEXT ),
 				array( 'name' => 'link', 'label' => 'Link', 'type' => \Elementor\Controls_Manager::URL ),
+				// Human-readable platform name for the anchor's aria-label — the icon
+				// class alone (e.g. "fab fa-facebook-f") isn't something a screen
+				// reader should speak, so this exists purely for accessibility.
+				array( 'name' => 'label', 'label' => 'Platform Name (accessibility label, e.g. Facebook)', 'type' => \Elementor\Controls_Manager::TEXT ),
 			),
 			'default' => array(),
 			'title_field' => '{{{ icon_class }}}',
@@ -130,10 +134,10 @@ class Qeema_Site_Footer_Widget extends \Elementor\Widget_Base {
 			?>
 			<div class="qeema-footer__column">
 				<?php if ( ! empty( $col['heading'] ) ) : ?>
-					<h5>
+					<h4>
 						<?php if ( $icon_class ) : ?><i class="<?php echo esc_attr( $icon_class ); ?>" aria-hidden="true"></i><?php endif; ?>
 						<?php echo esc_html( $col['heading'] ); ?>
-					</h5>
+					</h4>
 				<?php endif; ?>
 				<ul class="qeema-footer__links">
 					<?php foreach ( $col['links'] as $link ) : ?>
@@ -154,7 +158,11 @@ class Qeema_Site_Footer_Widget extends \Elementor\Widget_Base {
 				<div class="qeema-footer__cards">
 					<div class="qeema-footer__brand">
 						<?php if ( ! empty( $settings['logo']['url'] ) && \Elementor\Utils::get_placeholder_image_src() !== $settings['logo']['url'] ) : ?>
-							<img src="<?php echo esc_url( $settings['logo']['url'] ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
+							<?php if ( ! empty( $settings['logo']['id'] ) ) : ?>
+								<?php echo wp_get_attachment_image( $settings['logo']['id'], 'medium', false, array( 'alt' => get_bloginfo( 'name' ) ) ); ?>
+							<?php else : ?>
+								<img src="<?php echo esc_url( $settings['logo']['url'] ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
+							<?php endif; ?>
 						<?php endif; ?>
 						<?php if ( ! empty( $settings['about_text'] ) ) : ?>
 							<p><?php echo esc_html( $settings['about_text'] ); ?></p>
@@ -166,7 +174,15 @@ class Qeema_Site_Footer_Widget extends \Elementor\Widget_Base {
 						</div>
 						<div class="qeema-footer__social">
 							<?php foreach ( $settings['social_icons'] as $s ) : ?>
-								<a <?php echo ! empty( $s['link']['url'] ) ? 'href="' . esc_url( $s['link']['url'] ) . '"' : ''; ?> target="_blank" rel="noopener"><i class="<?php echo esc_attr( $s['icon_class'] ); ?>"></i></a>
+								<?php
+								// Elementor pre-fills every repeater item with the control's
+								// default ('') for fields not present when the item was first
+								// saved, so `label` is always set but often empty — `??` alone
+								// would never fall through, leaving a blank aria-label (still no
+								// accessible name). Must check emptiness, not just isset().
+								$social_label = ! empty( $s['label'] ) ? $s['label'] : 'رابط تواصل اجتماعي';
+								?>
+								<a <?php echo ! empty( $s['link']['url'] ) ? 'href="' . esc_url( $s['link']['url'] ) . '"' : ''; ?> target="_blank" rel="noopener" aria-label="<?php echo esc_attr( $social_label ); ?>"><i class="<?php echo esc_attr( $s['icon_class'] ); ?>" aria-hidden="true"></i></a>
 							<?php endforeach; ?>
 						</div>
 					</div>

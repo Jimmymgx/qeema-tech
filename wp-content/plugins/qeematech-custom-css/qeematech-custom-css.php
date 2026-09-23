@@ -113,3 +113,35 @@ function qeema_print_preloader_markup() {
 	<?php
 }
 add_action( 'wp_body_open', 'qeema_print_preloader_markup' );
+
+/**
+ * Elementor's "header-footer" full-width page template bypasses the theme's
+ * normal template-parts/single.php entirely — which is the only place
+ * <main id="content"> normally gets printed — so any Elementor-built page
+ * (confirmed: the homepage) ends up with no <main> landmark at all, and the
+ * theme's skip-link (href="#content" in hello-elementor/header.php) points
+ * at an element that doesn't exist. These two hooks, fired by Elementor core
+ * right before/after it renders the page content on that template, wrap the
+ * content in a real <main id="content"> so the landmark exists and the
+ * skip-link target actually resolves.
+ */
+add_action( 'elementor/page_templates/header-footer/before_content', 'qeema_open_main_landmark' );
+function qeema_open_main_landmark() {
+	echo '<main id="content" class="qeema-main" role="main">';
+}
+
+add_action( 'elementor/page_templates/header-footer/after_content', 'qeema_close_main_landmark' );
+function qeema_close_main_landmark() {
+	echo '</main>';
+}
+
+/**
+ * Singular posts (blog posts, portfolio items) don't go through the
+ * header-footer page template above at all - Elementor Pro's Theme Builder
+ * renders them via its own location system (locations-manager.php's
+ * do_location('single')), which fires elementor/theme/before_do_single and
+ * elementor/theme/after_do_single around just the main-content area. Same
+ * missing-<main>-landmark problem, same fix, different hook pair.
+ */
+add_action( 'elementor/theme/before_do_single', 'qeema_open_main_landmark' );
+add_action( 'elementor/theme/after_do_single', 'qeema_close_main_landmark' );

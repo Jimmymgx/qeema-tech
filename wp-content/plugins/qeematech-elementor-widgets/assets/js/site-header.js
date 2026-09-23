@@ -57,12 +57,20 @@
 		if ( ! fill ) {
 			return;
 		}
+		var ticking = false;
 		function update() {
 			var scrollable = document.documentElement.scrollHeight - window.innerHeight;
 			var pct = scrollable > 0 ? ( window.scrollY / scrollable ) * 100 : 0;
-			fill.style.width = pct + '%';
+			fill.style.transform = 'scaleX(' + ( pct / 100 ) + ')';
+			ticking = false;
 		}
-		window.addEventListener( 'scroll', update, { passive: true } );
+		function onScroll() {
+			if ( ! ticking ) {
+				ticking = true;
+				window.requestAnimationFrame( update );
+			}
+		}
+		window.addEventListener( 'scroll', onScroll, { passive: true } );
 		window.addEventListener( 'resize', update );
 		update();
 	}

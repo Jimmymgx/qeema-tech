@@ -115,7 +115,11 @@ class Qeema_Live_Apps_Grid_Widget extends \Elementor\Widget_Base {
 				<span class="qeema-live-apps-grid__shine" aria-hidden="true"></span>
 				<?php if ( $has_logo ) : ?>
 					<div class="qeema-live-apps-grid__icon">
-						<img src="<?php echo esc_url( $app['logo']['url'] ); ?>" alt="<?php echo esc_attr( $app['app_name'] ?? '' ); ?>" loading="lazy">
+						<?php if ( ! empty( $app['logo']['id'] ) ) : ?>
+							<?php echo wp_get_attachment_image( $app['logo']['id'], 'thumbnail', false, array( 'alt' => $app['app_name'] ?? '' ) ); ?>
+						<?php else : ?>
+							<img src="<?php echo esc_url( $app['logo']['url'] ); ?>" alt="<?php echo esc_attr( $app['app_name'] ?? '' ); ?>" loading="lazy">
+						<?php endif; ?>
 						<span class="qeema-live-apps-grid__live-dot" title="<?php esc_attr_e( 'متاح الآن على المتجر', 'qeematech-elementor-widgets' ); ?>"></span>
 					</div>
 				<?php endif; ?>

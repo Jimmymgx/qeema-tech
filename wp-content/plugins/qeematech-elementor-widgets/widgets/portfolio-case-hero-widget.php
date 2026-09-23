@@ -150,7 +150,7 @@ class Qeema_Portfolio_Case_Hero_Widget extends \Elementor\Widget_Base {
 						<?php if ( $is_app ) : ?>
 							<figure class="qeema-cs-shot">
 								<?php
-								echo wp_get_attachment_image( $device_id, 'full', false, array(
+								echo wp_get_attachment_image( $device_id, 'large', false, array(
 									'alt'           => get_the_title( $post_id ),
 									'loading'       => 'eager',
 									'fetchpriority' => 'high',
