@@ -51,6 +51,18 @@
 			return window.innerWidth <= 600 ? 1.35 : 1;
 		}
 
+		// PERF-7: render() runs on every single pointermove while dragging
+		// (potentially 60-120+ times/sec) as well as on autoplay ticks and
+		// resize - maxVisibleOffset()/activeScale() were being re-read from
+		// window.innerWidth on every one of those calls even though the
+		// value only ever actually changes when the viewport crosses the
+		// 600px breakpoint. Same fix shape as cursor.js/site-footer.js:
+		// cache the read once and only refresh it on the event that can
+		// actually invalidate it (here, 'resize' - see below) instead of on
+		// every frame/move.
+		var cachedMaxOffset = maxVisibleOffset();
+		var cachedFocusScale = activeScale();
+
 		// pos may be a fractional index (e.g. mid-drag, "1.4 phones toward
 		// next") - every transform below is already a plain linear function
 		// of abs(offset), so feeding it a fractional offset makes the whole
@@ -60,8 +72,8 @@
 			if ( 'number' !== typeof pos ) {
 				pos = active;
 			}
-			var maxOffset = maxVisibleOffset();
-			var focusScale = activeScale();
+			var maxOffset = cachedMaxOffset;
+			var focusScale = cachedFocusScale;
 			phones.forEach( function ( el, i ) {
 				var offset = i - pos;
 				if ( offset > n / 2 ) {
@@ -242,15 +254,14 @@
 
 		// Re-render on resize/rotate so maxVisibleOffset/activeScale's
 		// phone/tablet/desktop switch takes effect immediately instead of
-		// only on the next goTo().
-		var lastMaxOffset = maxVisibleOffset();
-		var lastActiveScale = activeScale();
+		// only on the next goTo(). This is also the only place the cached
+		// values above get refreshed.
 		window.addEventListener( 'resize', function () {
 			var currentOffset = maxVisibleOffset();
 			var currentScale = activeScale();
-			if ( currentOffset !== lastMaxOffset || currentScale !== lastActiveScale ) {
-				lastMaxOffset = currentOffset;
-				lastActiveScale = currentScale;
+			if ( currentOffset !== cachedMaxOffset || currentScale !== cachedFocusScale ) {
+				cachedMaxOffset = currentOffset;
+				cachedFocusScale = currentScale;
 				render();
 			}
 		} );

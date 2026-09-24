@@ -329,6 +329,12 @@ function qeema_register_acf_options_fields() {
 						'type'  => 'image',
 						'return_format' => 'id',
 					),
+					array(
+						'key'   => 'field_qeema_client_name',
+						'label' => 'Client Name (for accessibility, e.g. "Kids & Co")',
+						'name'  => 'client_name',
+						'type'  => 'text',
+					),
 				),
 			),
 		),

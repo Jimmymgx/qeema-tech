@@ -84,7 +84,10 @@ class Qeema_Trusted_By_Widget extends \Elementor\Widget_Base {
 		if ( ! empty( $clients ) && is_array( $clients ) ) {
 			foreach ( $clients as $row ) {
 				if ( ! empty( $row['logo'] ) ) {
-					$logo_ids[] = (int) $row['logo'];
+					$logo_ids[] = array(
+						'id'   => (int) $row['logo'],
+						'name' => ! empty( $row['client_name'] ) ? $row['client_name'] : '',
+					);
 				}
 			}
 		}
@@ -139,8 +142,11 @@ class Qeema_Trusted_By_Widget extends \Elementor\Widget_Base {
 	private function render_grid( $logo_ids ) {
 		$out = '<div class="qeema-trusted-by__grid">';
 		$i   = 0;
-		foreach ( $logo_ids as $id ) {
-			$img = wp_get_attachment_image( $id, 'medium', false, array( 'loading' => 'eager' ) );
+		foreach ( $logo_ids as $logo ) {
+			$img = wp_get_attachment_image( $logo['id'], 'medium', false, array(
+				'loading' => 'eager',
+				'alt'     => ! empty( $logo['name'] ) ? $logo['name'] : '',
+			) );
 			if ( ! $img ) {
 				continue;
 			}
@@ -192,13 +198,16 @@ class Qeema_Trusted_By_Widget extends \Elementor\Widget_Base {
 
 	private function render_logos( $logo_ids, $is_duplicate = false ) {
 		$out = $is_duplicate ? '<div class="qeema-trusted-by__track-dup" aria-hidden="true">' : '';
-		foreach ( $logo_ids as $id ) {
+		foreach ( $logo_ids as $logo ) {
 			// Eager-load: these images sit inside a CSS transform-animated
 			// marquee track, not real scrolling, so native lazy-loading's
 			// static-layout-position viewport check never fires for most of
 			// them (only ~10% ever loaded — see trusted-by-logos-widget.php
 			// audit, 2026-09). Only 48 small logos total, cheap to eager-load.
-			$img = wp_get_attachment_image( $id, 'medium', false, array( 'loading' => 'eager' ) );
+			$img = wp_get_attachment_image( $logo['id'], 'medium', false, array(
+				'loading' => 'eager',
+				'alt'     => ! empty( $logo['name'] ) ? $logo['name'] : '',
+			) );
 			if ( ! $img ) {
 				continue;
 			}

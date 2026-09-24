@@ -65,7 +65,7 @@ class Qeema_Sidebar_Cta_Widget extends \Elementor\Widget_Base {
 		$settings = $this->get_settings_for_display();
 		?>
 		<div class="qeema-sidebar-cta">
-			<div class="qeema-sidebar-cta__icon" aria-hidden="true"><i class="fa fa-comments"></i></div>
+			<div class="qeema-sidebar-cta__icon" aria-hidden="true"><?php qeema_fa_svg_e( 'fas fa-comments' ); ?></div>
 			<?php if ( ! empty( $settings['heading'] ) ) : ?>
 				<h3><?php echo esc_html( $settings['heading'] ); ?></h3>
 			<?php endif; ?>

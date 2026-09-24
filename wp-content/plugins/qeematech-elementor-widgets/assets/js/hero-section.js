@@ -17,9 +17,27 @@
 			var speed = 18;
 			var pause = 1200;
 
+			// PERF-6: this used to read pre.scrollHeight and write pre.scrollTop
+			// immediately after the textContent write above, on every single
+			// character tick (~18ms) — reading a layout-dependent property
+			// right after a DOM mutation forces the browser to do a
+			// synchronous layout recalculation on the spot instead of
+			// naturally batching it with the next frame, ~450 times per
+			// typing cycle. .qt-code-typing-widget now reserves a min-height
+			// that fits the whole snippet (see style.css) so this rarely
+			// needs to actually scroll anything, but .qt-pre is
+			// `white-space: pre-wrap`, so on narrow viewports a long line can
+			// still wrap tall enough to need it — the auto-scroll-follow
+			// behavior has to stay. Deferring the read+write to the next
+			// animation frame (instead of doing it synchronously inline)
+			// keeps the exact same visible behavior while letting the
+			// browser schedule the layout work normally rather than forcing
+			// it early.
 			function type() {
 				el.textContent = code.slice( 0, i++ );
-				pre.scrollTop = pre.scrollHeight;
+				window.requestAnimationFrame( function () {
+					pre.scrollTop = pre.scrollHeight;
+				} );
 				if ( i <= code.length ) {
 					setTimeout( type, speed );
 				} else {
@@ -98,10 +116,10 @@
 			widget.dataset.qtInitialized = 'true';
 
 			var slideEl = widget.querySelector( '.qt-services-slide' );
-			var iconEl  = widget.querySelector( '.qt-services-icon' );
+			var iconWrap = widget.querySelector( '.qt-services-icon-wrap' );
 			var nameEl  = widget.querySelector( '.qt-services-name' );
 			var dots    = widget.querySelectorAll( '.qt-services-dot' );
-			if ( ! slideEl || ! iconEl || ! nameEl || ! dots.length ) {
+			if ( ! slideEl || ! iconWrap || ! nameEl || ! dots.length ) {
 				return;
 			}
 
@@ -118,7 +136,11 @@
 			var index = 0;
 
 			function show( i ) {
-				iconEl.className = services[ i ].icon + ' qt-services-icon';
+				// PERF-2: services[i].svg is pre-rendered inline-SVG markup
+				// from qeema_fa_svg() (about-hero-widget.php) - swapping
+				// innerHTML here avoids depending on the Font Awesome
+				// icon-font/CSS at runtime the way a className swap did.
+				iconWrap.innerHTML = services[ i ].svg;
 				nameEl.textContent = services[ i ].label;
 				dots.forEach( function ( dot, di ) {
 					dot.classList.toggle( 'is-active', di === i );

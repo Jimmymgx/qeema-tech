@@ -1,6 +1,13 @@
 ﻿/* Shared radius token — keep UI corners consistent */
 :root{--qeema-radius:22px}
 
+/* === PERF-2: inline-SVG Font Awesome replacements (see qeema_fa_svg() in
+   qeematech-elementor-widgets/inc/icon-svg-helper.php). Sized/colored the
+   same way an icon-font glyph is: 1em square, fill from the inherited text
+   color, so every existing font-size/color rule targeting an icon's parent
+   (or, historically, a child `i` element) keeps working unchanged. === */
+.qeema-svg-icon{width:1em;height:1em;fill:currentColor;display:inline-block;flex-shrink:0;vertical-align:-0.125em}
+
 /* === scroll-reveal.css — progressive enhancement: elements only start
    hidden once JS has actually armed them (data attribute set by
    scroll-reveal.js), so content stays fully visible if JS fails/never
@@ -28,7 +35,16 @@ body::before{content:"";position:fixed;top:-140px;right:-140px;bottom:-140px;lef
 @media(prefers-reduced-motion:reduce){body::before{animation:none}}
 
 /* === hero-section.css === */
-.qt-code-typing-widget{width:100%;max-width:700px;aspect-ratio:7/5;height:auto;position:relative}
+/* PERF-6: min-height is a floor on top of the aspect-ratio-derived height,
+   sized to fit all 21 lines of the fully-typed code snippet (get_typing_code()
+   in hero-section-widget.php) at the desktop .qt-pre font metrics (46px title
+   bar + 32px .qt-code-body padding + 28px .qt-pre padding + 21 * 13px*1.65
+   line-height ≈ 557px, rounded up) so the card/pre never need to grow as text
+   streams in or as the Rubik/Font-Awesome webfonts swap mid-animation — this
+   was the #1 CLS contributor on the homepage. .qt-code-card/.qt-code-body/
+   .qt-pre below all use height:100%/calc(100% - 46px), which recompute off
+   this element's larger, now-stable box automatically. */
+.qt-code-typing-widget{width:100%;max-width:700px;aspect-ratio:7/5;height:auto;min-height:580px;position:relative}
 .qt-code-card{width:100%;height:100%;position:relative;border-radius:22px;overflow:visible;background:rgba(10,24,46,.42);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 26px 80px rgba(0,0,0,.30)}
 .qt-code-card::before{content:"";position:absolute;inset:0;border-radius:22px;background:linear-gradient(rgba(59,130,246,.10) 1px,transparent 1px),linear-gradient(90deg,rgba(34,211,238,.08) 1px,transparent 1px);background-size:34px 34px;opacity:.26;mask-image:radial-gradient(circle at 50% 45%,black 0 62%,transparent 82%);pointer-events:none}
 .qt-code-top{height:46px;display:flex;align-items:center;gap:8px;padding:0 14px;border-radius:22px 22px 0 0;border-bottom:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.03);overflow:hidden}
@@ -570,6 +586,9 @@ body::before{content:"";position:fixed;top:-140px;right:-140px;bottom:-140px;lef
 	.qeema-hero-section p{font-size:16px}
 	.qt-code-title{font-size:11px}
 	.qt-pre{font-size:11px;text-align:left}
+	/* Recomputed floor at the smaller mobile .qt-pre font-size (11px*1.65
+	   line-height * 21 lines + the same chrome/padding as above ≈ 487px). */
+	.qt-code-typing-widget{min-height:500px}
 }
 /* Inner-page heroes (About/Services/Our-Clients/etc.) sit right under the
    site's own 105px fixed-header offset (see thank-you-hero.css below), so
@@ -681,7 +700,7 @@ body::before{content:"";position:fixed;top:-140px;right:-140px;bottom:-140px;lef
 .qeema-why-steps__grid .qeema-why-step:not(:last-child)::after{content:"?";position:absolute;top:54px;inset-inline-end:-24px;transform:translateY(-50%);color:rgba(34,211,238,.55);font-size:19px;font-weight:800;z-index:2;animation:qtChevronNudge 1.8s ease-in-out infinite}
 @keyframes qtChevronNudge{0%,100%{transform:translateY(-50%) translateX(0)}50%{transform:translateY(-50%) translateX(-3px)}}
 .qeema-why-step__num{position:relative;width:68px;height:68px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;border-radius:50%;background:linear-gradient(135deg,rgba(16,207,255,.16),rgba(0,102,255,.10));border:1px solid rgba(34,211,238,.35);color:#22dcff;font-size:22px;font-weight:800;font-family:ui-monospace,Menlo,Consolas,monospace;box-shadow:0 0 26px rgba(34,211,238,.18);transition:transform .3s ease,box-shadow .3s ease}
-.qeema-why-step__num i{font-size:24px}
+.qeema-why-step__num i,.qeema-why-step__num svg{font-size:24px}
 .qeema-why-step__num::before{content:"";position:absolute;inset:-5px;border-radius:50%;background:conic-gradient(from 0deg,transparent 0 250deg,#22d3ee 275deg,#fff 290deg,#22d3ee 305deg,transparent 330deg 360deg);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2px));mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2px));animation:qeema-step-ring-spin 4s linear infinite;z-index:-1}
 .qeema-why-step:hover .qeema-why-step__num{transform:translateY(-4px) scale(1.05);box-shadow:0 0 34px rgba(34,211,238,.32)}
 .qeema-why-step__index{display:block;margin:0 0 8px;color:rgba(34,211,238,.75);font-size:12px;font-weight:800;letter-spacing:1px;font-family:ui-monospace,Menlo,Consolas,monospace}
@@ -840,8 +859,18 @@ body::before{content:"";position:fixed;top:-140px;right:-140px;bottom:-140px;lef
 	opacity:.85;
 }
 @keyframes qeema-app-halo-spin{to{transform:rotate(360deg)}}
-.qeema-app-store-proof__card{position:absolute;display:block;text-decoration:none;transform:rotateY(var(--tilt,0deg));transition:transform .45s cubic-bezier(.2,.8,.2,1);transform-style:preserve-3d}
-.qeema-app-store-proof__card:hover{transform:rotateY(calc(var(--tilt,0deg) * .3)) scale(1.06);z-index:10!important}
+/* Base card box is fixed (matches the old slot-a box exactly) - the a/b/c
+   slots' distinct fanned-out look now comes entirely from the --dx/--dy/--s/
+   --tilt custom properties below, resolved into one `transform`. That means
+   a plain CSS transition on `transform` (already declared here) is all that's
+   needed to ease the drag-release snap - JS (assets/js/app-store-proof.js)
+   only ever rewrites those 4 custom properties (plus opacity/z-index) each
+   frame, it never touches top/left/width directly. */
+.qeema-app-store-proof__card{position:absolute;display:block;text-decoration:none;top:16px;left:calc(50% - 115px);width:230px;-webkit-user-drag:none;user-select:none;--dx:0px;--dy:0px;--s:1;--tilt:0deg;transform:translate(var(--dx),var(--dy)) scale(var(--s)) rotateY(var(--tilt));transition:transform .45s cubic-bezier(.2,.8,.2,1),opacity .45s ease;transform-style:preserve-3d}
+.qeema-app-store-proof__card:hover{transform:translate(var(--dx),var(--dy)) scale(calc(var(--s) * 1.06)) rotateY(calc(var(--tilt) * .3));z-index:10!important}
+.qeema-app-store-proof__stage{cursor:grab}
+.qeema-app-store-proof.is-dragging .qeema-app-store-proof__stage{cursor:grabbing}
+.qeema-app-store-proof.is-dragging .qeema-app-store-proof__card{transition:none}
 .qeema-app-store-proof__float{display:flex;flex-direction:column;align-items:center;gap:16px;animation:qeema-appcard-bob 4.8s ease-in-out infinite;animation-delay:var(--bob-delay,0s)}
 @keyframes qeema-appcard-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
 .qeema-app-store-proof__art{position:relative;width:100%;overflow:hidden;border-radius:22px;background:#eef1f5;border:1px solid rgba(255,255,255,.14);box-shadow:0 30px 60px rgba(0,0,0,.4)}
@@ -853,30 +882,40 @@ body::before{content:"";position:fixed;top:-140px;right:-140px;bottom:-140px;lef
 .qeema-app-store-proof__caption-badge{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
 .qeema-app-store-proof__caption-badge.store-google{background:rgba(61,220,132,.18);color:#3ddc84}
 .qeema-app-store-proof__caption-badge.store-apple{background:rgba(255,255,255,.14);color:#f5f5f7}
-.app-mock-a{width:230px;top:16px;left:calc(50% - 115px);z-index:3;--tilt:0deg}
-.app-mock-a .qeema-app-store-proof__art{height:290px}
-.app-mock-b{width:190px;top:44px;left:calc(50% - 370px);z-index:2;opacity:.88;--tilt:-26deg;--bob-delay:.3s}
-.app-mock-b .qeema-app-store-proof__art{height:240px}
-.app-mock-c{width:190px;top:44px;left:calc(50% + 180px);z-index:1;opacity:.82;--tilt:26deg;--bob-delay:.6s}
-.app-mock-c .qeema-app-store-proof__art{height:240px}
+.qeema-app-store-proof__caption-badge .qeema-app-store-proof__store-svg{width:13px;height:13px;display:block}
+.qeema-app-store-proof__card .qeema-app-store-proof__art{height:290px}
+/* Slot b/c's old width:190/height:240 box (vs slot a's 230/290) was already a
+   near-uniform ~0.826 scale-down of slot a's box (190/230=.8261, 240/290=.8276
+   - off by under a px), so expressing it as --s on the shared 230x290 base
+   reproduces the original pixel size almost exactly instead of needing a
+   separate width/height override per slot. */
+.app-mock-a{z-index:3}
+.app-mock-b{z-index:2;opacity:.88;--tilt:-26deg;--dx:-275px;--dy:28px;--s:.8261;--bob-delay:.3s}
+.app-mock-c{z-index:1;opacity:.82;--tilt:26deg;--dx:275px;--dy:28px;--s:.8261;--bob-delay:.6s}
 .qeema-app-store-proof__chip{position:absolute;z-index:4}
 .qeema-app-store-proof__chip--a{top:260px;left:calc(50% - 460px)}
 .qeema-app-store-proof__chip--b{bottom:6px;left:calc(50% - 60px)}
 .qeema-app-store-proof__chip--c{top:20px;left:calc(50% + 440px)}
 @media(max-width:1024px){
 	.qeema-app-store-proof__stage{height:440px}
-	.app-mock-a{width:200px;left:calc(50% - 100px)}.app-mock-a .qeema-app-store-proof__art{height:250px}
-	.app-mock-b{width:160px;left:calc(50% - 300px)}.app-mock-b .qeema-app-store-proof__art{height:200px}
-	.app-mock-c{width:160px;left:calc(50% + 150px)}.app-mock-c .qeema-app-store-proof__art{height:200px}
+	.qeema-app-store-proof__card{width:200px;left:calc(50% - 100px)}
+	.qeema-app-store-proof__card .qeema-app-store-proof__art{height:250px}
+	.app-mock-b{--dx:-220px;--s:.8}
+	.app-mock-c{--dx:230px;--s:.8}
 	.qeema-app-store-proof__chip--a{top:210px;left:calc(50% - 380px)}.qeema-app-store-proof__chip--c{top:20px;left:calc(50% + 360px)}
 }
 @media(max-width:768px){
 	.qeema-app-store-proof{padding:56px 20px}
 	.qeema-app-store-proof__head h2{font-size:28px}
-	.qeema-app-store-proof__stage{height:auto;display:flex;gap:16px;overflow-x:auto;overflow-y:visible;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scroll-behavior:smooth;scrollbar-width:none;-ms-overflow-style:none;padding:20px 4px 16px}
+	.qeema-app-store-proof__stage{height:auto;display:flex;gap:16px;overflow-x:auto;overflow-y:visible;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scroll-behavior:smooth;scrollbar-width:none;-ms-overflow-style:none;padding:20px 4px 16px;cursor:auto}
 	.qeema-app-store-proof__stage::-webkit-scrollbar{display:none}
 	.qeema-app-store-proof__halo,.qeema-app-store-proof__glow{display:none}
-	.app-mock-a,.app-mock-b,.app-mock-c{position:static;flex:0 0 min(64vw,230px);width:auto;top:auto;left:auto;right:auto;margin:0;opacity:1;z-index:auto;--tilt:0deg;scroll-snap-align:center}
+	/* Below this width the JS drag/rotate interaction hands off entirely to
+	   this plain scroll-snap strip (see app-store-proof.js's isMobileTier()
+	   guard, which also actively clears any inline --dx/--dy/--s/opacity/
+	   z-index it had set at a wider viewport - inline styles win over these
+	   class rules, so the reset here alone only covers the no-JS case). */
+	.app-mock-a,.app-mock-b,.app-mock-c{position:static;flex:0 0 min(64vw,230px);width:auto;top:auto;left:auto;right:auto;margin:0;opacity:1;z-index:auto;--dx:0px;--dy:0px;--s:1;--tilt:0deg;scroll-snap-align:center}
 	.app-mock-a .qeema-app-store-proof__art,.app-mock-b .qeema-app-store-proof__art,.app-mock-c .qeema-app-store-proof__art{height:290px}
 	.qeema-app-store-proof__chip{display:none}
 }
@@ -1105,7 +1144,7 @@ body::before{content:"";position:fixed;top:-140px;right:-140px;bottom:-140px;lef
 	.qeema-mobile-tabbar__btn:focus-visible{
 		color:rgba(255,255,255,.75);background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.22);
 	}
-	.qeema-mobile-tabbar__btn i{font-size:17px}
+	.qeema-mobile-tabbar__btn i,.qeema-mobile-tabbar__btn svg{font-size:17px}
 	.qeema-mobile-tabbar__btn:active{transform:scale(.96)}
 	.qeema-mobile-tabbar__btn--primary,
 	.qeema-mobile-tabbar__btn--primary:link,
@@ -1137,7 +1176,7 @@ body::before{content:"";position:fixed;top:-140px;right:-140px;bottom:-140px;lef
 .qeema-footer__brand:hover::before,.qeema-footer__column:hover::before{opacity:1}
 .qeema-footer__brand:hover::after,.qeema-footer__column:hover::after{opacity:1}
 .qeema-footer__brand{flex:1.3 1 260px;display:flex;flex-direction:column}
-.qeema-footer__brand img{max-height:46px;margin-bottom:16px;filter:brightness(0) invert(1);align-self:flex-start}
+.qeema-footer__brand img{max-height:46px;max-width:85px;width:auto;margin-bottom:16px;filter:brightness(0) invert(1);align-self:flex-start}
 .qeema-footer__brand p{position:relative;z-index:1;color:rgba(255,255,255,.68);line-height:1.9;font-size:14.5px}
 .qeema-footer__stats{position:relative;z-index:1;display:flex;gap:22px;margin-top:18px;padding-top:18px;border-top:1px solid rgba(255,255,255,.08)}
 .qeema-footer__stat{display:flex;flex-direction:column;gap:2px}
@@ -1263,7 +1302,7 @@ body::before{content:"";position:fixed;top:-140px;right:-140px;bottom:-140px;lef
 }
 
 .qeema-footer h4{position:relative;z-index:1;display:flex;align-items:center;gap:9px;color:#fff;font-size:17px;margin:0 0 22px;font-weight:800;padding-bottom:13px}
-.qeema-footer h4 i{color:#00d4ff;font-size:14px}
+.qeema-footer h4 i,.qeema-footer h4 svg{color:#00d4ff;font-size:14px}
 .qeema-footer h4::after{content:"";position:absolute;right:0;bottom:0;width:32px;height:3px;border-radius:3px;background:linear-gradient(90deg,#00d4ff,#8b5cf6)}
 .qeema-footer__links{position:relative;z-index:1;list-style:none;margin:0;padding:0}
 .qeema-footer__links li{margin-bottom:13px}
@@ -2012,7 +2051,7 @@ html.qeema-preloader-active{overflow:hidden}
 .qt-catcard-title{margin-left:10px;color:rgba(255,255,255,.78);font:650 12px/1.2 ui-monospace,Menlo,Consolas,"Courier New",monospace;letter-spacing:.7px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .qt-catcard-body{position:relative;display:flex;align-items:center;gap:20px;padding:28px 24px}
 .qt-catcard-icon-tile{position:relative;flex:0 0 100px;width:100px;height:100px;border-radius:22px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#10cfff,#0066ff);box-shadow:0 18px 40px rgba(16,207,255,.3);animation:qeema-icon-breathe 4s ease-in-out infinite}
-.qt-catcard-icon-tile i{font-size:38px;color:#fff}
+.qt-catcard-icon-tile i,.qt-catcard-icon-tile svg{font-size:38px;color:#fff}
 .qt-catcard-icon-shine-mask{position:absolute;inset:0;border-radius:22px;overflow:hidden;pointer-events:none}
 .qt-catcard-icon-shine{position:absolute;inset:-60% -20%;background:linear-gradient(115deg,transparent 42%,rgba(255,255,255,.4) 50%,transparent 58%);background-size:250% 100%;background-position:180% 0;animation:qeema-icon-shine 4.6s ease-in-out infinite}
 @keyframes qeema-icon-breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
@@ -2045,7 +2084,7 @@ html.qeema-preloader-active{overflow:hidden}
 	.qeema-works-hero__chip--a,.qeema-works-hero__chip--b,.qeema-works-hero__chip--c{display:none}
 	.qt-catcard-widget{max-width:340px}
 	.qt-catcard-icon-tile{flex-basis:76px;width:76px;height:76px}
-	.qt-catcard-icon-tile i{font-size:30px}
+	.qt-catcard-icon-tile i,.qt-catcard-icon-tile svg{font-size:30px}
 	.qt-catcard-step__label{font-size:12px}
 	.qt-catcard-steps{gap:12px}
 }
@@ -2240,13 +2279,13 @@ html.qeema-preloader-active{overflow:hidden}
 .qeema-thank-you-hero__ring--1{animation:qtThankYouPulse 2.6s ease-out infinite}
 .qeema-thank-you-hero__ring--2{animation:qtThankYouPulse 2.6s ease-out infinite 1.3s}
 .qeema-thank-you-hero__check{position:relative;z-index:1;width:78px;height:78px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#10cfff,#0066ff);box-shadow:0 20px 50px rgba(16,207,255,.35)}
-.qeema-thank-you-hero__check i{font-size:32px;color:#fff}
+.qeema-thank-you-hero__check i,.qeema-thank-you-hero__check svg{font-size:32px;color:#fff}
 @keyframes qtThankYouPulse{0%{transform:scale(.9);opacity:.8}100%{transform:scale(1.6);opacity:0}}
 .qeema-thank-you-hero__badge{display:inline-block;padding:10px 16px;border-radius:22px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.10);color:#8feeff;font-size:14px;font-weight:700;margin-bottom:18px}
 .qeema-thank-you-hero__heading{color:#fff;font-size:42px;line-height:1.4;font-weight:800;margin:0 0 16px}
 .qeema-thank-you-hero__subheading{color:rgba(255,255,255,.78);font-size:18px;line-height:1.9;margin:0 0 32px;max-width:560px}
 .qeema-thank-you-hero__actions{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
-@media(max-width:600px){.qeema-thank-you-hero{padding:24px 16px}.qeema-thank-you-hero__wrap{padding:36px 24px;border-radius:22px}.qeema-thank-you-hero__heading{font-size:28px}.qeema-thank-you-hero__mark{width:88px;height:88px;margin-bottom:22px}.qeema-thank-you-hero__check{width:62px;height:62px}.qeema-thank-you-hero__check i{font-size:26px}}
+@media(max-width:600px){.qeema-thank-you-hero{padding:24px 16px}.qeema-thank-you-hero__wrap{padding:36px 24px;border-radius:22px}.qeema-thank-you-hero__heading{font-size:28px}.qeema-thank-you-hero__mark{width:88px;height:88px;margin-bottom:22px}.qeema-thank-you-hero__check{width:62px;height:62px}.qeema-thank-you-hero__check i,.qeema-thank-you-hero__check svg{font-size:26px}}
 @media(prefers-reduced-motion:reduce){.qeema-thank-you-hero__ring{animation:none!important;opacity:0}}
 
 /* === thank-you-social.css � compact closing "stay connected" strip: real
@@ -2260,7 +2299,7 @@ html.qeema-preloader-active{overflow:hidden}
 .qeema-thank-you__social-row{display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
 .qeema-thank-you__pill{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:22px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);color:#fff;text-decoration:none;font-size:14px;font-weight:700;transition:background .25s ease,border-color .25s ease,transform .25s ease}
 .qeema-thank-you__pill:hover{background:rgba(34,211,238,.12);border-color:rgba(34,211,238,.35);color:#fff;transform:translateY(-2px)}
-.qeema-thank-you__pill i{color:#8feeff;font-size:15px}
+.qeema-thank-you__pill i,.qeema-thank-you__pill svg{color:#8feeff;font-size:15px}
 @media(max-width:600px){.qeema-thank-you-social{padding:44px 20px}.qeema-thank-you-social__head h2{font-size:24px}}
 
 /* Post 869 only: category-showcase is reused twice on the thank-you page
@@ -2647,8 +2686,8 @@ body.single-portfolio .elementor-widget-qeema-cta-banner{display:none!important}
 }
 .qeema-live-apps-grid__btn:hover{filter:brightness(1.15);transform:translateY(-2px)}
 .qeema-live-apps-grid__btn:active{transform:translateY(0) scale(.96)}
-.qeema-live-apps-grid__btn i{font-size:14px;flex-shrink:0;transition:transform .3s}
-.qeema-live-apps-grid__btn:hover i{transform:scale(1.15)}
+.qeema-live-apps-grid__btn i,.qeema-live-apps-grid__btn svg{font-size:14px;flex-shrink:0;transition:transform .3s}
+.qeema-live-apps-grid__btn:hover i,.qeema-live-apps-grid__btn:hover svg{transform:scale(1.15)}
 .qeema-live-apps-grid__btn--play{background:#01875f}
 .qeema-live-apps-grid__btn--apple{background:#0070c9}
 

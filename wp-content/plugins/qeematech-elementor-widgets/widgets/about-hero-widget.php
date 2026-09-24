@@ -254,22 +254,22 @@ class Qeema_About_Hero_Widget extends \Elementor\Widget_Base {
 				</div>
 
 				<div class="qt-hub-node qt-hub-node--n" style="--i:0">
-					<span class="qt-hub-node__icon"><i class="fas fa-project-diagram"></i></span>
+					<span class="qt-hub-node__icon">' . qeema_fa_svg( 'fas fa-project-diagram' ) . '</span>
 					<span class="qt-hub-node__num qeema-stat-box__num" data-target="6500" data-prefix="+" data-suffix="">0</span>
 					<span class="qt-hub-node__label">مشروع</span>
 				</div>
 				<div class="qt-hub-node qt-hub-node--e" style="--i:1">
-					<span class="qt-hub-node__icon"><i class="fas fa-headset"></i></span>
+					<span class="qt-hub-node__icon">' . qeema_fa_svg( 'fas fa-headset' ) . '</span>
 					<span class="qt-hub-node__num">24/7</span>
 					<span class="qt-hub-node__label">دعم مستمر</span>
 				</div>
 				<div class="qt-hub-node qt-hub-node--s" style="--i:2">
-					<span class="qt-hub-node__icon"><i class="fas fa-bolt"></i></span>
+					<span class="qt-hub-node__icon">' . qeema_fa_svg( 'fas fa-bolt' ) . '</span>
 					<span class="qt-hub-node__num qeema-stat-box__num" data-target="99" data-prefix="" data-suffix="%">0</span>
 					<span class="qt-hub-node__label">جاهزية</span>
 				</div>
 				<div class="qt-hub-node qt-hub-node--w" style="--i:3">
-					<span class="qt-hub-node__icon"><i class="fas fa-user-cog"></i></span>
+					<span class="qt-hub-node__icon">' . qeema_fa_svg( 'fas fa-user-cog' ) . '</span>
 					<span class="qt-hub-node__num qeema-stat-box__num" data-target="80" data-prefix="+" data-suffix="">0</span>
 					<span class="qt-hub-node__label">مهندس</span>
 				</div>
@@ -295,6 +295,15 @@ class Qeema_About_Hero_Widget extends \Elementor\Widget_Base {
 			array( 'icon' => 'fas fa-code', 'label' => 'مشاريع برمجة خاصة' ),
 			array( 'icon' => 'fas fa-sitemap', 'label' => 'أنظمة ERP' ),
 		);
+		// PERF-2: hero-section.js used to cycle this icon by swapping the FA
+		// class directly (relying on the icon font's ::before glyph). Since
+		// these 6 icons are all in the converted SVG set, pre-render each
+		// one's markup here so the JS can just swap innerHTML — no runtime
+		// dependency on the Font Awesome font/CSS.
+		foreach ( $services as &$service ) {
+			$service['svg'] = qeema_fa_svg( $service['icon'], 'qt-services-icon' );
+		}
+		unset( $service );
 
 		$dots = '';
 		foreach ( $services as $i => $service ) {
@@ -311,16 +320,16 @@ class Qeema_About_Hero_Widget extends \Elementor\Widget_Base {
 					</div>
 					<div class="qt-services-body">
 						<div class="qt-services-slide">
-							<div class="qt-services-icon-wrap"><i class="' . esc_attr( $services[0]['icon'] ) . ' qt-services-icon"></i></div>
+							<div class="qt-services-icon-wrap">' . $services[0]['svg'] . '</div>
 							<div class="qt-services-name">' . esc_html( $services[0]['label'] ) . '</div>
 						</div>
 						<div class="qt-services-dots">' . $dots . '</div>
 					</div>
 				</div>
 			</div>
-			<div class="qt-float-chip chip-svc-a"><i class="fas fa-server"></i> استضافة</div>
-			<div class="qt-float-chip chip-svc-b"><i class="fas fa-search"></i> SEO</div>
-			<div class="qt-float-chip chip-svc-c"><i class="fas fa-handshake"></i> CRM</div>
+			<div class="qt-float-chip chip-svc-a">' . qeema_fa_svg( 'fas fa-server' ) . ' استضافة</div>
+			<div class="qt-float-chip chip-svc-b">' . qeema_fa_svg( 'fas fa-search' ) . ' SEO</div>
+			<div class="qt-float-chip chip-svc-c">' . qeema_fa_svg( 'fas fa-handshake' ) . ' CRM</div>
 		';
 	}
 
@@ -410,11 +419,16 @@ class Qeema_About_Hero_Widget extends \Elementor\Widget_Base {
 			'no_found_rows'  => true,
 		) );
 
+		// PERF-2: same icon reused for every entry, so compute its SVG once
+		// rather than re-generating identical markup per article.
+		$newspaper_svg = qeema_fa_svg( 'fas fa-newspaper', 'qt-services-icon' );
+
 		$articles = array();
 		while ( $query->have_posts() ) {
 			$query->the_post();
 			$articles[] = array(
 				'icon'  => 'fas fa-newspaper',
+				'svg'   => $newspaper_svg,
 				'label' => get_the_title(),
 			);
 		}
@@ -439,7 +453,7 @@ class Qeema_About_Hero_Widget extends \Elementor\Widget_Base {
 					</div>
 					<div class="qt-services-body">
 						<div class="qt-services-slide">
-							<div class="qt-services-icon-wrap"><i class="' . esc_attr( $articles[0]['icon'] ) . ' qt-services-icon"></i></div>
+							<div class="qt-services-icon-wrap">' . $articles[0]['svg'] . '</div>
 							<div class="qt-services-name">' . esc_html( $articles[0]['label'] ) . '</div>
 						</div>
 						<div class="qt-services-dots">' . $dots . '</div>

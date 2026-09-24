@@ -355,6 +355,7 @@ class Qeema_Portfolio_Case_Story_Widget extends \Elementor\Widget_Base {
 										'loading'  => 'lazy',
 										'decoding' => 'async',
 										'sizes'    => '(max-width:640px) 60vw, 220px',
+										'alt'      => get_the_title( $post_id ),
 									) );
 									?>
 								</div>
@@ -362,7 +363,7 @@ class Qeema_Portfolio_Case_Story_Widget extends \Elementor\Widget_Base {
 								<div class="qeema-cs-webframe">
 									<div class="qeema-cs-webframe__chrome" aria-hidden="true"><span></span><span></span><span></span></div>
 									<div class="qeema-cs-webframe__screen">
-										<?php echo wp_get_attachment_image( $image_id, 'large', false, array( 'loading' => 'lazy', 'decoding' => 'async' ) ); ?>
+										<?php echo wp_get_attachment_image( $image_id, 'large', false, array( 'loading' => 'lazy', 'decoding' => 'async', 'alt' => get_the_title( $post_id ) ) ); ?>
 									</div>
 								</div>
 							<?php endif; ?>

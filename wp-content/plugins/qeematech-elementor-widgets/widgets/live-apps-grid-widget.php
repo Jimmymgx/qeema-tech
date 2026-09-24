@@ -130,12 +130,12 @@ class Qeema_Live_Apps_Grid_Widget extends \Elementor\Widget_Base {
 				<div class="qeema-live-apps-grid__buttons">
 					<?php if ( $google_url ) : ?>
 						<a class="qeema-live-apps-grid__btn qeema-live-apps-grid__btn--play" href="<?php echo esc_url( $google_url ); ?>" target="_blank" rel="noopener noreferrer">
-							<i class="fab fa-google-play" aria-hidden="true"></i><span><?php esc_html_e( 'Google Play', 'qeematech-elementor-widgets' ); ?></span>
+							<?php qeema_fa_svg_e( 'fab fa-google-play' ); ?><span><?php esc_html_e( 'Google Play', 'qeematech-elementor-widgets' ); ?></span>
 						</a>
 					<?php endif; ?>
 					<?php if ( $apple_url ) : ?>
 						<a class="qeema-live-apps-grid__btn qeema-live-apps-grid__btn--apple" href="<?php echo esc_url( $apple_url ); ?>" target="_blank" rel="noopener noreferrer">
-							<i class="fab fa-app-store-ios" aria-hidden="true"></i><span><?php esc_html_e( 'App Store', 'qeematech-elementor-widgets' ); ?></span>
+							<?php qeema_fa_svg_e( 'fab fa-app-store-ios' ); ?><span><?php esc_html_e( 'App Store', 'qeematech-elementor-widgets' ); ?></span>
 						</a>
 					<?php endif; ?>
 				</div>

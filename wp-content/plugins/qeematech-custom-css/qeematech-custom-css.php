@@ -27,11 +27,37 @@ function qeema_custom_css_enqueue() {
 	if ( ! file_exists( $path ) ) {
 		return;
 	}
+
+	// PERF-1: this file was found ~11% smaller (whitespace/comments only —
+	// no rule changes) once minified, and it's ~50KB unminified, so that's
+	// real render-blocking bytes on every page load. A .min.css sibling is
+	// (re)generated only when style.css's own mtime moves past it — same
+	// "regenerate on source change" shape as filemtime() cache-busting
+	// above, just applied to the file's contents instead of its version
+	// query string. Falls back to serving the unminified file untouched if
+	// the minified copy can't be written (e.g. read-only filesystem) or
+	// minification produces something obviously broken (empty output).
+	$min_path = __DIR__ . '/assets/css/style.min.css';
+	$src_mtime = filemtime( $path );
+
+	if ( ! file_exists( $min_path ) || filemtime( $min_path ) < $src_mtime ) {
+		$minified = qeema_minify_css( file_get_contents( $path ) );
+		if ( $minified && strlen( $minified ) > 100 ) {
+			file_put_contents( $min_path, $minified );
+			// Match the minified file's mtime to the source so the staleness
+			// check above is exact even if the filesystem's write-time
+			// granularity differs from $src_mtime.
+			touch( $min_path, $src_mtime );
+		}
+	}
+
+	$serve_min = file_exists( $min_path ) && filemtime( $min_path ) >= $src_mtime;
+
 	wp_enqueue_style(
 		'qeematech-custom-css',
-		plugin_dir_url( __FILE__ ) . 'assets/css/style.css',
+		plugin_dir_url( __FILE__ ) . 'assets/css/' . ( $serve_min ? 'style.min.css' : 'style.css' ),
 		array(),
-		filemtime( $path )
+		$serve_min ? filemtime( $min_path ) : $src_mtime
 	);
 
 	$cursor_js_path = __DIR__ . '/assets/js/cursor.js';
@@ -63,6 +89,26 @@ function qeema_custom_css_enqueue() {
 }
 add_action( 'wp_enqueue_scripts', 'qeema_custom_css_enqueue', 999 );
 add_action( 'elementor/preview/enqueue_styles', 'qeema_custom_css_enqueue', 999 );
+
+/**
+ * Deliberately conservative regex minifier — this stylesheet has no url()
+ * data-URIs or multi-word quoted content strings (checked directly), so
+ * blindly collapsing whitespace is safe here. Strips comments, collapses
+ * runs of whitespace to a single space, removes the space around structural
+ * punctuation ({ } : ; , > ~ +), and drops the now-redundant last
+ * declaration's trailing semicolon in each rule block.
+ */
+function qeema_minify_css( $css ) {
+	// Strip /* ... */ comments (non-greedy, spans newlines).
+	$css = preg_replace( '#/\*.*?\*/#s', '', $css );
+	// Collapse all whitespace runs (including newlines) to a single space.
+	$css = preg_replace( '/\s+/', ' ', $css );
+	// Drop the space around structural punctuation.
+	$css = preg_replace( '/\s*([{}:;,>~+])\s*/', '$1', $css );
+	// The last declaration in a block doesn't need its trailing semicolon.
+	$css = str_replace( ';}', '}', $css );
+	return trim( $css );
+}
 
 /**
  * The Rubik font stylesheet was a plain wp_enqueue_style, making it a

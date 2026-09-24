@@ -332,7 +332,7 @@ class Qeema_Works_Hero_Slider_Widget extends \Elementor\Widget_Base {
 			$href  = $link ? ' href="' . esc_url( $link ) . '" target="_blank" rel="noopener"' : '';
 			$label = $is_apple ? 'احصل عليه' : 'تثبيت';
 			$logo_html = ! empty( $app['logo']['id'] )
-				? wp_get_attachment_image( $app['logo']['id'], 'thumbnail', false, array( 'alt' => '' ) )
+				? wp_get_attachment_image( $app['logo']['id'], 'thumbnail', false, array( 'alt' => $app['name'] ?? '' ) )
 				: '<img src="' . esc_url( $app['logo']['url'] ) . '" alt="" loading="lazy">';
 			return '<' . $tag . ' class="qeema-store-row"' . $href . '>'
 				. '<div class="qeema-store-row__plate">' . $logo_html . '</div>'
@@ -418,7 +418,7 @@ class Qeema_Works_Hero_Slider_Widget extends \Elementor\Widget_Base {
 							<div class="qeema-apple-feature__slide">
 								<div class="qeema-apple-feature__plate">
 								<?php if ( ! empty( $featured['logo']['id'] ) ) : ?>
-									<?php echo wp_get_attachment_image( $featured['logo']['id'], 'thumbnail', false, array( 'alt' => '', 'loading' => false ) ); ?>
+									<?php echo wp_get_attachment_image( $featured['logo']['id'], 'thumbnail', false, array( 'alt' => $featured['name'] ?? '', 'loading' => false ) ); ?>
 								<?php else : ?>
 									<img src="<?php echo esc_url( $featured['logo']['url'] ); ?>" alt="">
 								<?php endif; ?>
@@ -466,6 +466,13 @@ class Qeema_Works_Hero_Slider_Widget extends \Elementor\Widget_Base {
 		$title = $badge_text ? $badge_text : 'مشروعك القادم';
 		$steps = array( 'تحليل الفكرة', 'تصميم الواجهة', 'التطوير والبرمجة', 'الإطلاق والدعم' );
 
+		$icon_svg = qeema_fa_svg( $icon_class );
+		if ( ! $icon_svg ) {
+			// Not one of the ~30 converted icons — editor can type any FA
+			// class here, so fall back to the original icon-font render.
+			$icon_svg = '<i class="' . esc_attr( $icon_class ) . '"></i>';
+		}
+
 		$steps_html = '';
 		foreach ( $steps as $i => $label ) {
 			$steps_html .= '<div class="qt-catcard-step" style="--i:' . esc_attr( $i ) . '">'
@@ -486,7 +493,7 @@ class Qeema_Works_Hero_Slider_Widget extends \Elementor\Widget_Base {
 					<div class="qt-catcard-body">
 						<div class="qt-catcard-icon-tile">
 							<span class="qt-catcard-icon-shine-mask"><span class="qt-catcard-icon-shine"></span></span>
-							<i class="' . esc_attr( $icon_class ) . '"></i>
+							' . $icon_svg . '
 						</div>
 						<div class="qt-catcard-rail"><span class="qt-catcard-rail__fill"></span></div>
 						<div class="qt-catcard-steps">' . $steps_html . '</div>

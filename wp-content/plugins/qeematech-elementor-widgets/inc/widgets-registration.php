@@ -49,6 +49,7 @@ function qeema_register_widget_assets() {
 	wp_register_script( 'qeema-bank-details', $plugin_url . 'assets/js/bank-details.js', array(), $script_version( 'assets/js/bank-details.js' ), true );
 	wp_register_script( 'qeema-app-logo-accent', $plugin_url . 'assets/js/app-logo-accent.js', array(), $script_version( 'assets/js/app-logo-accent.js' ), true );
 	wp_register_script( 'qeema-live-apps-carousel', $plugin_url . 'assets/js/live-apps-carousel.js', array(), $script_version( 'assets/js/live-apps-carousel.js' ), true );
+	wp_register_script( 'qeema-app-store-proof', $plugin_url . 'assets/js/app-store-proof.js', array(), $script_version( 'assets/js/app-store-proof.js' ), true );
 
 }
 add_action( 'wp_enqueue_scripts', 'qeema_register_widget_assets' );

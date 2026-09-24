@@ -102,7 +102,7 @@ class Qeema_Thank_You_Success_Hero_Widget extends \Elementor\Widget_Base {
 				<div class="qeema-thank-you-hero__mark">
 					<span class="qeema-thank-you-hero__ring qeema-thank-you-hero__ring--1"></span>
 					<span class="qeema-thank-you-hero__ring qeema-thank-you-hero__ring--2"></span>
-					<span class="qeema-thank-you-hero__check"><i class="fas fa-check" aria-hidden="true"></i></span>
+					<span class="qeema-thank-you-hero__check"><?php qeema_fa_svg_e( 'fas fa-check' ); ?></span>
 				</div>
 
 				<?php if ( ! empty( $settings['badge'] ) ) : ?>

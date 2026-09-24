@@ -191,7 +191,14 @@ class Qeema_Feature_Grid_Widget extends \Elementor\Widget_Base {
 							<div class="qeema-feature-card__icon"><?php
 								$icon_value = trim( $card['icon_text'] );
 								if ( preg_match( '/^(fas|far|fab|fal|fad)\s+fa-[\w-]+$/', $icon_value ) ) {
-									printf( '<i class="%s" aria-hidden="true"></i>', esc_attr( $icon_value ) );
+									$icon_svg = qeema_fa_svg( $icon_value );
+									if ( $icon_svg ) {
+										echo $icon_svg; // phpcs:ignore WordPress.Security.EscapeOutput -- qeema_fa_svg() escapes internally.
+									} else {
+										// Not one of the ~30 converted icons — editor can type any FA
+										// class here, so fall back to the original icon-font render.
+										printf( '<i class="%s" aria-hidden="true"></i>', esc_attr( $icon_value ) );
+									}
 								} else {
 									echo esc_html( $icon_value );
 								}

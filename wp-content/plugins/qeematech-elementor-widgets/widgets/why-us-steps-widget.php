@@ -157,7 +157,14 @@ class Qeema_Why_Us_Steps_Widget extends \Elementor\Widget_Base {
 								<span class="qeema-why-step__ghost" aria-hidden="true"><?php echo esc_html( $num ); ?></span>
 								<div class="qeema-why-step__num">
 									<?php if ( ! empty( $step['icon_text'] ) ) : ?>
-										<i class="<?php echo esc_attr( $step['icon_text'] ); ?>"></i>
+										<?php
+										$why_icon_svg = qeema_fa_svg( $step['icon_text'] );
+										if ( $why_icon_svg ) {
+											echo $why_icon_svg; // phpcs:ignore WordPress.Security.EscapeOutput -- qeema_fa_svg() escapes internally.
+										} else {
+											printf( '<i class="%s"></i>', esc_attr( $step['icon_text'] ) );
+										}
+										?>
 									<?php else : ?>
 										<?php echo esc_html( $num ); ?>
 									<?php endif; ?>

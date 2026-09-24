@@ -400,11 +400,11 @@ class Qeema_Site_Header_Widget extends \Elementor\Widget_Base {
 		?>
 		<nav class="qeema-mobile-tabbar" aria-label="<?php esc_attr_e( 'تنقل سريع', 'qeematech-elementor-widgets' ); ?>">
 			<a class="qeema-mobile-tabbar__btn" href="<?php echo esc_url( home_url( '/أعمالنا/' ) ); ?>">
-				<i class="fas fa-briefcase" aria-hidden="true"></i>
+				<?php qeema_fa_svg_e( 'fas fa-briefcase' ); ?>
 				<span><?php esc_html_e( 'أعمالنا', 'qeematech-elementor-widgets' ); ?></span>
 			</a>
 			<a class="qeema-mobile-tabbar__btn qeema-mobile-tabbar__btn--primary" href="<?php echo esc_url( home_url( '/أتصل-بنا/' ) ); ?>">
-				<i class="fas fa-comment-dots" aria-hidden="true"></i>
+				<?php qeema_fa_svg_e( 'fas fa-comment-dots' ); ?>
 				<span><?php esc_html_e( 'اتصل بنا', 'qeematech-elementor-widgets' ); ?></span>
 			</a>
 		</nav>

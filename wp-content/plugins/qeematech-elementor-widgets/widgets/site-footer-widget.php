@@ -135,7 +135,7 @@ class Qeema_Site_Footer_Widget extends \Elementor\Widget_Base {
 			<div class="qeema-footer__column">
 				<?php if ( ! empty( $col['heading'] ) ) : ?>
 					<h4>
-						<?php if ( $icon_class ) : ?><i class="<?php echo esc_attr( $icon_class ); ?>" aria-hidden="true"></i><?php endif; ?>
+						<?php if ( $icon_class ) : ?><?php qeema_fa_svg_e( $icon_class ); ?><?php endif; ?>
 						<?php echo esc_html( $col['heading'] ); ?>
 					</h4>
 				<?php endif; ?>
@@ -182,7 +182,17 @@ class Qeema_Site_Footer_Widget extends \Elementor\Widget_Base {
 								// accessible name). Must check emptiness, not just isset().
 								$social_label = ! empty( $s['label'] ) ? $s['label'] : 'رابط تواصل اجتماعي';
 								?>
-								<a <?php echo ! empty( $s['link']['url'] ) ? 'href="' . esc_url( $s['link']['url'] ) . '"' : ''; ?> target="_blank" rel="noopener" aria-label="<?php echo esc_attr( $social_label ); ?>"><i class="<?php echo esc_attr( $s['icon_class'] ); ?>" aria-hidden="true"></i></a>
+								<?php $social_svg = qeema_fa_svg( $s['icon_class'] ); ?>
+								<a <?php echo ! empty( $s['link']['url'] ) ? 'href="' . esc_url( $s['link']['url'] ) . '"' : ''; ?> target="_blank" rel="noopener" aria-label="<?php echo esc_attr( $social_label ); ?>"><?php
+									if ( $social_svg ) {
+										echo $social_svg; // phpcs:ignore WordPress.Security.EscapeOutput -- qeema_fa_svg() escapes internally.
+									} else {
+										// Editor typed a Font Awesome class this converted set doesn't
+										// cover — fall back to the original icon-font rendering so
+										// nothing breaks for icons outside the ~30 we converted.
+										printf( '<i class="%s" aria-hidden="true"></i>', esc_attr( $s['icon_class'] ) );
+									}
+								?></a>
 							<?php endforeach; ?>
 						</div>
 					</div>
@@ -199,7 +209,7 @@ class Qeema_Site_Footer_Widget extends \Elementor\Widget_Base {
 				<div class="qeema-footer__bottom">
 					<span><?php echo esc_html( $settings['copyright_text'] ); ?></span>
 					<a class="qeema-footer__totop" href="#" aria-label="<?php esc_attr_e( 'Back to top', 'qeematech-elementor-widgets' ); ?>">
-						<i class="fas fa-arrow-up" aria-hidden="true"></i>
+						<?php qeema_fa_svg_e( 'fas fa-arrow-up' ); ?>
 					</a>
 				</div>
 			<?php endif; ?>

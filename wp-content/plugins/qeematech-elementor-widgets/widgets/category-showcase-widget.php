@@ -111,7 +111,14 @@ class Qeema_Category_Showcase_Widget extends \Elementor\Widget_Base {
 						$accent_class = 'accent-' . ( ( $index % 3 ) + 1 );
 						?>
 						<div class="qeema-category-showcase__item <?php echo esc_attr( $accent_class ); ?> qeema-reveal" style="--reveal-delay:<?php echo $delay; ?>s;">
-							<div class="qeema-category-showcase__icon"><i class="<?php echo esc_attr( $item['icon_text'] ); ?>" aria-hidden="true"></i></div>
+							<div class="qeema-category-showcase__icon"><?php
+								$cs_icon_svg = qeema_fa_svg( $item['icon_text'] );
+								if ( $cs_icon_svg ) {
+									echo $cs_icon_svg; // phpcs:ignore WordPress.Security.EscapeOutput -- qeema_fa_svg() escapes internally.
+								} else {
+									printf( '<i class="%s" aria-hidden="true"></i>', esc_attr( $item['icon_text'] ) );
+								}
+							?></div>
 							<h3 class="qeema-category-showcase__title"><?php echo esc_html( $item['title'] ); ?></h3>
 							<?php if ( ! empty( $item['description'] ) ) : ?>
 								<p class="qeema-category-showcase__desc"><?php echo esc_html( $item['description'] ); ?></p>

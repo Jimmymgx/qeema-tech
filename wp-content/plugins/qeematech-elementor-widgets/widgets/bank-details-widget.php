@@ -153,7 +153,7 @@ class Qeema_Bank_Details_Widget extends \Elementor\Widget_Base {
 								<?php if ( ! empty( $account['account_logo']['url'] ) && \Elementor\Utils::get_placeholder_image_src() !== $account['account_logo']['url'] ) : ?>
 									<span class="qeema-bank-details__account-logo">
 										<?php if ( ! empty( $account['account_logo']['id'] ) ) : ?>
-											<?php echo wp_get_attachment_image( $account['account_logo']['id'], 'thumbnail', false, array( 'alt' => '' ) ); ?>
+											<?php echo wp_get_attachment_image( $account['account_logo']['id'], 'thumbnail', false, array( 'alt' => $account['account_title'] ?? '' ) ); ?>
 										<?php else : ?>
 											<img src="<?php echo esc_url( $account['account_logo']['url'] ); ?>" alt="">
 										<?php endif; ?>
@@ -176,7 +176,7 @@ class Qeema_Bank_Details_Widget extends \Elementor\Widget_Base {
 										<span class="qeema-bank-details__value" dir="ltr"><?php echo esc_html( $field['value'] ); ?></span>
 										<?php if ( $is_copyable ) : ?>
 											<button type="button" class="qeema-bank-details__copy" data-copy-value="<?php echo esc_attr( $field['value'] ); ?>" aria-label="<?php echo esc_attr( sprintf( __( 'Copy %s', 'qeematech-elementor-widgets' ), $field['label'] ) ); ?>">
-												<i class="fas fa-copy" aria-hidden="true"></i>
+	<?php qeema_fa_svg_e( 'fas fa-copy' ); ?>
 											</button>
 										<?php endif; ?>
 									</span>

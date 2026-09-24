@@ -288,6 +288,7 @@ class Qeema_Portfolio_Teaser_Widget extends \Elementor\Widget_Base {
 							'loading'  => 'lazy',
 							'decoding' => 'async',
 							'sizes'    => '(max-width:820px) 45vw, 280px',
+							'alt'      => get_the_title( $post_id ),
 						) );
 						?>
 					</a>
@@ -325,6 +326,7 @@ class Qeema_Portfolio_Teaser_Widget extends \Elementor\Widget_Base {
 						'loading'  => 'lazy',
 						'decoding' => 'async',
 						'sizes'    => '(max-width:560px) 70vw, 220px',
+						'alt'      => get_the_title( $post_id ),
 					) );
 					?>
 				</a>

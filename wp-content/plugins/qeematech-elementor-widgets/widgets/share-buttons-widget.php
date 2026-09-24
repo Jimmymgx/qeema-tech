@@ -113,7 +113,7 @@ class Qeema_Share_Buttons_Widget extends \Elementor\Widget_Base {
 						href="<?php echo esc_url( $network['href'] ); ?>"
 						aria-label="<?php echo esc_attr( $network['label'] ); ?>"
 						<?php echo $is_email ? '' : 'target="_blank" rel="noopener"'; ?>>
-						<i class="<?php echo esc_attr( $network['icon'] ); ?>" aria-hidden="true"></i>
+						<?php qeema_fa_svg_e( $network['icon'] ); ?>
 					</a>
 				<?php endforeach; ?>
 			</div>
