@@ -18,25 +18,20 @@
 			var pause = 1200;
 
 			// PERF-6: this used to read pre.scrollHeight and write pre.scrollTop
-			// immediately after the textContent write above, on every single
-			// character tick (~18ms) — reading a layout-dependent property
-			// right after a DOM mutation forces the browser to do a
-			// synchronous layout recalculation on the spot instead of
-			// naturally batching it with the next frame, ~450 times per
-			// typing cycle. .qt-code-typing-widget now reserves a min-height
-			// that fits the whole snippet (see style.css) so this rarely
-			// needs to actually scroll anything, but .qt-pre is
-			// `white-space: pre-wrap`, so on narrow viewports a long line can
-			// still wrap tall enough to need it — the auto-scroll-follow
-			// behavior has to stay. Deferring the read+write to the next
-			// animation frame (instead of doing it synchronously inline)
-			// keeps the exact same visible behavior while letting the
-			// browser schedule the layout work normally rather than forcing
-			// it early.
+			// on every character tick (~18ms, ~450 times per typing cycle).
+			// Deferring that pair to requestAnimationFrame (an earlier pass)
+			// only moved *when* the forced layout happened, not *whether* it
+			// did — reading scrollHeight right after a textContent mutation
+			// still forces a synchronous recalc to answer that read, same as
+			// before, just one frame later. A scrollTop write clamps itself
+			// to the actual max scroll position, so writing an arbitrarily
+			// large number scrolls to the bottom exactly like
+			// `scrollTop = scrollHeight` does, but without ever reading
+			// scrollHeight — a pure write, nothing to force a layout for.
 			function type() {
 				el.textContent = code.slice( 0, i++ );
 				window.requestAnimationFrame( function () {
-					pre.scrollTop = pre.scrollHeight;
+					pre.scrollTop = 1e9;
 				} );
 				if ( i <= code.length ) {
 					setTimeout( type, speed );

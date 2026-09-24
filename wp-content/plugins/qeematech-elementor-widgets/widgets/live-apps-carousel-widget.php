@@ -124,6 +124,17 @@ class Qeema_Live_Apps_Carousel_Widget extends \Elementor\Widget_Base {
 		ob_start();
 		?>
 		<div class="qeema-live-apps-carousel__phone">
+			<!-- PERF: the continuous "float" bob and the one-time "reveal" drop-in
+			     used to both run as CSS animations on this same .screen element
+			     (animation:qeemaLiveAppsReveal ..., qeemaLiveAppsFloat ...) - two
+			     independent transform-animating keyframe animations on one node
+			     can't both be promoted to the compositor thread, so Chrome fell
+			     back to running them on the main thread. Splitting them onto two
+			     nested elements lets each run its own single transform animation
+			     and be composited normally. (Float can't move up to .phone
+			     instead, since JS sets .phone's transform directly for the
+			     coverflow positioning - a CSS animation there would fight it.) -->
+			<div class="qeema-live-apps-carousel__float">
 			<div class="qeema-live-apps-carousel__screen">
 				<div class="qeema-live-apps-carousel__statusbar">
 					<span>9:41</span>
@@ -169,6 +180,7 @@ class Qeema_Live_Apps_Carousel_Widget extends \Elementor\Widget_Base {
 						<div class="qeema-live-apps-carousel__about-text"><?php echo esc_html( $app['description'] ); ?></div>
 					</div>
 				<?php endif; ?>
+			</div>
 			</div>
 		</div>
 		<?php

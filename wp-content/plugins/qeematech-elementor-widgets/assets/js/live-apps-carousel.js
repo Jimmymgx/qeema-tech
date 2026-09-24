@@ -34,12 +34,23 @@
 		var dragPointerId = null;
 		var dragStartX = 0;
 
+		// PERF-7: window.innerWidth reflects the viewport, not document
+		// layout, but Chrome can still treat reading it as "layout-dependent"
+		// when style/layout work is already pending (e.g. right at
+		// DOMContentLoaded, while other widgets on the page are still
+		// settling) and forces a synchronous recalc to answer it - that's
+		// exactly where PageSpeed's forced-reflow trace pointed. matchMedia()
+		// answers the same "narrow viewport?" question from the media-query
+		// engine instead, which never depends on element layout, so it can't
+		// trigger this even under the same pending-layout conditions.
+		var narrowViewportMQ = window.matchMedia( '(max-width: 600px)' );
+
 		// On a narrow phone screen, showing up to 3 side phones on each side
 		// (7 phones at once) turns into a wall of overlapping slivers with
 		// unreadable edge text - only the immediate neighbor peeking in on
 		// each side reads clearly at that size.
 		function maxVisibleOffset() {
-			return window.innerWidth <= 600 ? 1 : 3;
+			return narrowViewportMQ.matches ? 1 : 3;
 		}
 
 		// The outer stage is scaled way down on phones to fit the fanned
@@ -48,7 +59,7 @@
 		// own scale (independent of the outer stage scale) compensates for
 		// that without affecting the side phones' size or spacing.
 		function activeScale() {
-			return window.innerWidth <= 600 ? 1.35 : 1;
+			return narrowViewportMQ.matches ? 1.35 : 1;
 		}
 
 		// PERF-7: render() runs on every single pointermove while dragging

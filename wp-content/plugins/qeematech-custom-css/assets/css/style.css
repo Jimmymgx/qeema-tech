@@ -1824,10 +1824,30 @@ span.ez-toc-js-icon-con{display:none!important}
    exact - anything off that (e.g. 52%) leaves an uncovered strip through the
    middle of the assembled mark. Markup printed by
    qeema_print_preloader_markup(), timing/dismissal in preloader.js. === */
-#qeema-preloader{position:fixed;inset:0;z-index:999999;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#071320 0%,#0b1b31 45%,#142b4d 100%);transition:opacity .5s ease}
+/* PERF-2/font-display: Elementor's bundled Font Awesome ships its @font-face
+   rules with font-display:block (hide icon text up to 3s while the font
+   downloads) instead of swap. Most icons on this site are already inline SVG
+   and the font itself now loads non-blocking (see qeema_preload_font_awesome
+   in qeematech-custom-css.php), but the handful of places still depending on
+   the font (editor-typed icon classes this plugin can't know about ahead of
+   time) still inherit :block from Elementor's own stylesheet. Re-declaring
+   the same font-family/weight/style here - this stylesheet loads after
+   Elementor's at priority 999 - lets the later declaration win per the CSS
+   spec's font-face-matching rules, without touching Elementor's own file.
+   file:// paths are relative to THIS stylesheet's own location, one level
+   deeper than Elementor's, hence the extra ../ vs Elementor's own file. */
+@font-face{font-family:"Font Awesome 5 Free";font-style:normal;font-weight:900;font-display:swap;src:url(../../../elementor/assets/lib/font-awesome/webfonts/fa-solid-900.woff2) format("woff2")}
+@font-face{font-family:"Font Awesome 5 Free";font-style:normal;font-weight:400;font-display:swap;src:url(../../../elementor/assets/lib/font-awesome/webfonts/fa-regular-400.woff2) format("woff2")}
+@font-face{font-family:"Font Awesome 5 Brands";font-style:normal;font-weight:400;font-display:swap;src:url(../../../elementor/assets/lib/font-awesome/webfonts/fa-brands-400.woff2) format("woff2")}
+
+/* PERF: will-change hints the browser to promote these to their own
+   compositor layer up front, rather than deciding mid-transition (while the
+   shard children's own infinite keyframe animations are already running) -
+   that's what PageSpeed's non-composited-animations check was catching. */
+#qeema-preloader{position:fixed;inset:0;z-index:999999;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#071320 0%,#0b1b31 45%,#142b4d 100%);transition:opacity .5s ease;will-change:opacity}
 html.qeema-preloader-active{overflow:hidden}
 .qeema-preloader__sr-text{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-.qeema-preloader__assemble{position:relative;width:100px;height:100px;transition:opacity .4s ease,transform .4s ease}
+.qeema-preloader__assemble{position:relative;width:100px;height:100px;transition:opacity .4s ease,transform .4s ease;will-change:opacity,transform}
 .qeema-preloader__shard{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;filter:brightness(0) invert(1);animation-duration:3.2s;animation-timing-function:ease-in-out;animation-iteration-count:infinite}
 .qeema-preloader__shard.tl{clip-path:inset(0 50% 50% 0);animation-name:qeemaShardTL}
 .qeema-preloader__shard.tr{clip-path:inset(0 0 50% 50%);animation-name:qeemaShardTR}
@@ -2562,23 +2582,40 @@ body.single-portfolio .elementor-widget-qeema-cta-banner{display:none!important}
 }
 .qeema-live-apps-carousel__phone.is-active{box-shadow:0 34px 70px rgba(0,0,0,.5),inset 0 0 0 2px rgba(255,255,255,.06),0 0 60px rgba(34,211,238,.3)}
 
+/* PERF: qeemaLiveAppsFloat (continuous) used to run alongside qeemaLiveAppsReveal
+   (one-time) on this same element - two transform-animating keyframe animations
+   on one node can't both go to the compositor, so Chrome ran them on the main
+   thread. Float now lives on the new .qeema-live-apps-carousel__float wrapper
+   (see live-apps-carousel-widget.php), Reveal stays here - each element has
+   exactly one transform animation, so both composite normally. */
+.qeema-live-apps-carousel__float{width:100%;height:100%;animation:qeemaLiveAppsFloat 4.5s ease-in-out infinite}
 .qeema-live-apps-carousel__screen{
 	width:100%;height:100%;border-radius:22px;background:#fff;color:#0c0c0c;display:flex;flex-direction:column;
 	overflow:hidden;text-align:right;direction:rtl;text-decoration:none;
-	animation:qeemaLiveAppsReveal .7s cubic-bezier(.22,1,.36,1) both, qeemaLiveAppsFloat 4.5s ease-in-out infinite;
+	animation:qeemaLiveAppsReveal .7s cubic-bezier(.22,1,.36,1) both;
 }
 @keyframes qeemaLiveAppsFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
 @keyframes qeemaLiveAppsReveal{from{opacity:0;transform:translateY(24px) scale(.92)}to{opacity:1;transform:translateY(0) scale(1)}}
-.qeema-live-apps-carousel__phone:nth-child(1) .qeema-live-apps-carousel__screen{animation-delay:0s,.7s}
-.qeema-live-apps-carousel__phone:nth-child(2) .qeema-live-apps-carousel__screen{animation-delay:.06s,.76s}
-.qeema-live-apps-carousel__phone:nth-child(3) .qeema-live-apps-carousel__screen{animation-delay:.12s,.82s}
-.qeema-live-apps-carousel__phone:nth-child(4) .qeema-live-apps-carousel__screen{animation-delay:.18s,.88s}
-.qeema-live-apps-carousel__phone:nth-child(5) .qeema-live-apps-carousel__screen{animation-delay:.24s,.94s}
-.qeema-live-apps-carousel__phone:nth-child(6) .qeema-live-apps-carousel__screen{animation-delay:.3s,1s}
-.qeema-live-apps-carousel__phone:nth-child(7) .qeema-live-apps-carousel__screen{animation-delay:.36s,1.06s}
-.qeema-live-apps-carousel__phone:nth-child(8) .qeema-live-apps-carousel__screen{animation-delay:.42s,1.12s}
-.qeema-live-apps-carousel__phone:nth-child(9) .qeema-live-apps-carousel__screen{animation-delay:.48s,1.18s}
-.qeema-live-apps-carousel__phone:nth-child(10) .qeema-live-apps-carousel__screen{animation-delay:.54s,1.24s}
+.qeema-live-apps-carousel__phone:nth-child(1) .qeema-live-apps-carousel__screen{animation-delay:0s}
+.qeema-live-apps-carousel__phone:nth-child(1) .qeema-live-apps-carousel__float{animation-delay:.7s}
+.qeema-live-apps-carousel__phone:nth-child(2) .qeema-live-apps-carousel__screen{animation-delay:.06s}
+.qeema-live-apps-carousel__phone:nth-child(2) .qeema-live-apps-carousel__float{animation-delay:.76s}
+.qeema-live-apps-carousel__phone:nth-child(3) .qeema-live-apps-carousel__screen{animation-delay:.12s}
+.qeema-live-apps-carousel__phone:nth-child(3) .qeema-live-apps-carousel__float{animation-delay:.82s}
+.qeema-live-apps-carousel__phone:nth-child(4) .qeema-live-apps-carousel__screen{animation-delay:.18s}
+.qeema-live-apps-carousel__phone:nth-child(4) .qeema-live-apps-carousel__float{animation-delay:.88s}
+.qeema-live-apps-carousel__phone:nth-child(5) .qeema-live-apps-carousel__screen{animation-delay:.24s}
+.qeema-live-apps-carousel__phone:nth-child(5) .qeema-live-apps-carousel__float{animation-delay:.94s}
+.qeema-live-apps-carousel__phone:nth-child(6) .qeema-live-apps-carousel__screen{animation-delay:.3s}
+.qeema-live-apps-carousel__phone:nth-child(6) .qeema-live-apps-carousel__float{animation-delay:1s}
+.qeema-live-apps-carousel__phone:nth-child(7) .qeema-live-apps-carousel__screen{animation-delay:.36s}
+.qeema-live-apps-carousel__phone:nth-child(7) .qeema-live-apps-carousel__float{animation-delay:1.06s}
+.qeema-live-apps-carousel__phone:nth-child(8) .qeema-live-apps-carousel__screen{animation-delay:.42s}
+.qeema-live-apps-carousel__phone:nth-child(8) .qeema-live-apps-carousel__float{animation-delay:1.12s}
+.qeema-live-apps-carousel__phone:nth-child(9) .qeema-live-apps-carousel__screen{animation-delay:.48s}
+.qeema-live-apps-carousel__phone:nth-child(9) .qeema-live-apps-carousel__float{animation-delay:1.18s}
+.qeema-live-apps-carousel__phone:nth-child(10) .qeema-live-apps-carousel__screen{animation-delay:.54s}
+.qeema-live-apps-carousel__phone:nth-child(10) .qeema-live-apps-carousel__float{animation-delay:1.24s}
 
 .qeema-live-apps-carousel__statusbar{display:flex;justify-content:space-between;align-items:center;padding:9px 16px 2px;font-size:10.5px;font-weight:700;color:#111;direction:ltr}
 .qeema-live-apps-carousel__statusbar-icons{display:flex;align-items:center;gap:4px}
@@ -2617,8 +2654,17 @@ body.single-portfolio .elementor-widget-qeema-cta-banner{display:none!important}
 }
 .qeema-live-apps-carousel__nav button:hover{background:linear-gradient(135deg,#10cfff,#0066ff);border-color:transparent}
 .qeema-live-apps-carousel__dots{position:relative;z-index:2;display:flex;justify-content:center;gap:7px;margin-top:16px}
-.qeema-live-apps-carousel__dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.25);transition:.3s;cursor:pointer}
-.qeema-live-apps-carousel__dot.active{background:#8feeff;width:20px;border-radius:4px}
+/* PERF: was width:6px->20px + border-radius:50%->4px on .active, animated via
+   a blanket `transition:.3s` (= transition:all) - width/border-radius are
+   layout-affecting properties Chrome can't hand to the compositor. Same pill-
+   growing look, done with transform:scaleX instead, keeping the dot's actual
+   layout box a fixed 6px (so siblings never reflow): resting radius 3px = a
+   perfect 6px circle; .active scales x3.333 (6px->20px) from the center,
+   growing ~7px into the gap on each side - which is exactly this row's `gap`,
+   so the grown pill lands flush against its neighbors instead of overlapping
+   them. transform + background-color both composite cleanly. */
+.qeema-live-apps-carousel__dot{width:6px;height:6px;border-radius:3px;background:rgba(255,255,255,.25);transform:scaleX(1);transition:transform .3s,background-color .3s;cursor:pointer}
+.qeema-live-apps-carousel__dot.active{background:#8feeff;transform:scaleX(3.333)}
 
 @media(max-width:900px){
 	.qeema-live-apps-carousel__stage{transform:scale(.72)}
