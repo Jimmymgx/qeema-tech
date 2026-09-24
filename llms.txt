@@ -1,0 +1,27 @@
+# Qeematech (قيمة تك)
+
+> Qeematech is an Egypt-based digital agency ("We Add A New Value") that designs and builds websites, e-commerce stores, mobile apps, and custom software (including CRM and Odoo ERP implementations) for businesses, alongside SEO, hosting, and digital marketing services. The site is in Arabic (RTL).
+
+## Company
+
+- [Homepage](https://www.qeematech.net/): overview of all services, featured portfolio work, and live client apps.
+- [Contact us](https://www.qeematech.net/%d8%a3%d8%aa%d8%b5%d9%84-%d8%a8%d9%86%d8%a7/): request a quote via a form (name, email, phone, country, service needed, project type, message) or reach the team directly by WhatsApp/email.
+- [Portfolio](https://www.qeematech.net/portfolio/): case studies of completed client projects (websites, stores, apps).
+- [Live App](https://www.qeematech.net/live-app/): showcase of mobile apps Qeematech built that are live in the Google Play / App Store today.
+
+## Services
+
+- [Website design & development](https://www.qeematech.net/%d8%aa%d8%b5%d9%85%d9%8a%d9%85-%d9%88%d8%aa%d8%b7%d9%88%d9%8a%d8%b1-%d8%a7%d9%84%d9%85%d9%88%d8%a7%d9%82%d8%b9-%d8%a7%d9%84%d8%a5%d9%84%d9%83%d8%aa%d8%b1%d9%88%d9%86%d9%8a%d8%a9/)
+- [Mobile app development](https://www.qeematech.net/%d8%aa%d8%b7%d9%88%d9%8a%d8%b1-%d9%88%d8%a8%d8%b1%d9%85%d8%ac%d8%a9-%d8%aa%d8%b7%d8%a8%d9%8a%d9%82%d8%a7%d8%aa-%d8%a7%d9%84%d9%85%d9%88%d8%a8%d8%a7%d9%8a%d9%84-%d9%85%d9%86-%d9%82%d9%8a%d9%85%d8%a9/)
+- [E-commerce store design & development](https://www.qeematech.net/%d8%aa%d8%b5%d9%85%d9%8a%d9%85-%d9%88%d8%aa%d8%b7%d9%88%d9%8a%d8%b1-%d8%a7%d9%84%d9%85%d8%aa%d8%a7%d8%ac%d8%b1-%d8%a7%d9%84%d8%a5%d9%84%d9%83%d8%aa%d8%b1%d9%88%d9%86%d9%8a%d8%a9/)
+- [SEO](https://www.qeematech.net/%d8%aa%d9%87%d9%8a%d8%a6%d8%a9-%d8%a7%d9%84%d9%85%d9%88%d9%82%d8%b9-%d9%81%d9%8a-%d9%85%d8%ad%d8%b1%d9%83%d8%a7%d8%aa-%d8%a7%d9%84%d8%a8%d8%ad%d8%ab-seo/)
+- [Digital marketing services](https://www.qeematech.net/%d8%ae%d8%af%d9%85%d8%a7%d8%aa-%d8%a7%d9%84%d8%aa%d8%b3%d9%88%d9%8a%d9%82-%d8%a7%d9%84%d8%a5%d9%84%d9%83%d8%aa%d8%b1%d9%88%d9%86%d9%8a/)
+- [Web hosting](https://www.qeematech.net/%d8%a7%d8%b3%d8%aa%d8%b6%d8%a7%d9%81%d8%a9-%d9%85%d9%88%d8%a7%d9%82%d8%b9-%d8%a7%d9%84%d9%83%d8%aa%d8%b1%d9%88%d9%86%d9%8a%d8%a9/)
+- [Custom software projects](https://www.qeematech.net/%d9%85%d8%b4%d8%a7%d8%b1%d9%8a%d8%b9-%d8%a8%d8%b1%d9%85%d8%ac%d8%a9-%d8%ae%d8%a7%d8%b5%d8%a9/)
+- [CRM implementation](https://www.qeematech.net/crm/)
+- [Odoo ERP implementation](https://www.qeematech.net/odoo-erp/)
+
+## Notes for AI agents
+
+- The Contact page's form is annotated for [WebMCP](https://developer.chrome.com/docs/ai/webmcp) as the `submit_contact_request` tool — prefer that structured path over guessing at form fields when a user asks you to request a quote.
+- All prices, timelines, and project specifics are handled on request through the Contact page or WhatsApp — this site does not list fixed pricing.

@@ -140,11 +140,11 @@ class Qeema_Portfolio_Teaser_Widget extends \Elementor\Widget_Base {
 				</header>
 
 				<?php if ( ! empty( $settings['categories'] ) ) : ?>
-					<div class="qeema-portfolio-teaser__categories" role="tablist">
+					<div class="qeema-portfolio-teaser__categories">
 						<?php foreach ( $settings['categories'] as $cat ) :
 							$is_active = 'yes' === ( $cat['active'] ?? '' );
 							?>
-							<a class="qeema-portfolio-teaser__cat<?php echo $is_active ? ' active' : ''; ?>" <?php echo ! empty( $cat['link']['url'] ) ? 'href="' . esc_url( $cat['link']['url'] ) . '"' : ''; ?>>
+							<a class="qeema-portfolio-teaser__cat<?php echo $is_active ? ' active' : ''; ?>" <?php echo $is_active ? 'aria-current="page"' : ''; ?> <?php echo ! empty( $cat['link']['url'] ) ? 'href="' . esc_url( $cat['link']['url'] ) . '"' : ''; ?>>
 								<?php echo esc_html( $cat['label'] ); ?>
 							</a>
 						<?php endforeach; ?>

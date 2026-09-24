@@ -32,6 +32,7 @@ require_once __DIR__ . '/inc/create-contracting-landing-page.php';
 require_once __DIR__ . '/inc/create-live-apps-home-carousel.php';
 require_once __DIR__ . '/inc/country-dial-codes.php';
 require_once __DIR__ . '/inc/geo-country-detect-endpoint.php';
+require_once __DIR__ . '/inc/webmcp-contact-form.php';
 /**
  * The live-content import tools (Tools → Import Live Content + their AJAX
  * batch handlers) are only needed while migrating content from qeematech.net.
