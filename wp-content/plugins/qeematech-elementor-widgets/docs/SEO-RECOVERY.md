@@ -8,6 +8,7 @@
 - Supply missing Rank Math XML sitemap settings for portfolio and live-apps. Explicit administrator exclusions and per-post noindex directives remain effective. Nothing globally enables tag indexing.
 - Invalidate Rank Math sitemap cache once when an administrator next visits wp-admin after merging the code.
 - Disable the optional homepage preloader and its JavaScript by default. It previously imposed a minimum visible wait and depended on a script that could be delayed by optimization. This does not establish that the overlay was the only cause of poor field LCP. To deliberately restore it, use `add_filter( 'qeema_enable_preloader', '__return_true' );` in site-specific code.
+- Remove syntactically invalid JSON-LD script blocks from rendered article content after shortcode/paragraph processing. The affected article contained a sixth, malformed manual FAQ block using `type = "application/ld+json"`, alongside five valid blocks. The content filter recognizes attribute whitespace, preserves valid JSON-LD and visible content, and does not change Rank Math's head output or stored article content.
 
 ## Files to merge
 
@@ -16,7 +17,9 @@ Under `wp-content/plugins/qeematech-elementor-widgets/`:
 - `qeematech-elementor-widgets.php` (one new require)
 - `inc/seo-migration-recovery.php`
 - `inc/seo-legacy-redirects.php`
+- `inc/structured-data-content.php`
 - `tests/seo-migration-recovery-test.php` and `tests/seo-recovery-wordpress-test.php` (verification tools)
+- `tests/structured-data-content-test.php`
 - `docs/SEO-RECOVERY.md` and `docs/redirect-evidence.csv` (review evidence)
 
 Under `wp-content/plugins/qeematech-custom-css/`:
@@ -33,12 +36,15 @@ Merge only these changes into production's current files. Do not replace product
 4. Confirm `/portfolio/cairo-zoo/` remains 404 while its post is a draft, and random nonexistent URLs remain 404. Confirm important existing pages still return 200 and retain correct canonical tags.
 5. Confirm the homepage renders without a loading overlay, including before the first interaction. Re-run mobile Lighthouse/PageSpeed and inspect the LCP element and layout-shift sources. Field results do not update immediately and no improved metric is claimed by this patch.
 6. Submit/refresh the sitemap index in Search Console. Use URL Inspection for a few restored canonical targets; request indexing for valuable targets, not old redirected URLs. Google controls indexing and timing.
+7. Test `/برمجة-وتصميم-مواقع-الويب-في-مصر/` with Google's Rich Results Test after purging cached HTML. The local response has five JSON-LD blocks, all syntactically valid. Once Google's live test confirms the parsing error is absent, validate the specific Unparsable structured data issue in Search Console. Syntax validation does not guarantee rich-result eligibility.
 
 ## Tests
 
 From the plugin directory:
 
 `php tests/seo-migration-recovery-test.php`
+
+`php tests/structured-data-content-test.php`
 
 From the WordPress root:
 

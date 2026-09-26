@@ -15,6 +15,7 @@ require_once __DIR__ . '/inc/icon-svg-helper.php';
 require_once __DIR__ . '/inc/perf-defer-jquery.php';
 require_once __DIR__ . '/inc/cpt-acf-registration.php';
 require_once __DIR__ . '/inc/seo-migration-recovery.php';
+require_once __DIR__ . '/inc/structured-data-content.php';
 require_once __DIR__ . '/inc/widgets-registration.php';
 require_once __DIR__ . '/inc/about-page-seo.php';
 require_once __DIR__ . '/inc/ga4-tracking.php';
