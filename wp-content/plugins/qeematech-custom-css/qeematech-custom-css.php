@@ -71,10 +71,9 @@ function qeema_custom_css_enqueue() {
 		);
 	}
 
-	// Preloader JS is only needed on the homepage — its markup (below) is
-	// gated the same way, so loading this everywhere else would just be a
-	// dead script tag for markup that no longer exists on the page.
-	if ( is_front_page() ) {
+	// Optional preloader: keep markup and script gated together. Disabled by
+	// default so content never waits behind a JavaScript-controlled overlay.
+	if ( qeema_preloader_enabled() ) {
 		$preloader_js_path = __DIR__ . '/assets/js/preloader.js';
 		if ( file_exists( $preloader_js_path ) ) {
 			wp_enqueue_script(
@@ -131,17 +130,22 @@ function qeema_preload_google_font() {
 add_action( 'wp_head', 'qeema_preload_google_font', 1 );
 
 /**
- * Sitewide "Mark Assemble" preloader, shown on every page load: the real QT
+ * Optional homepage "Mark Assemble" preloader: the real QT
  * mark splits into its 4 quadrants and flies together from the corners
  * (see .qeema-preloader__shard in style.css), instead of a generic spinner.
- * Printed at wp_body_open like the background canvas above; the actual
+ * Disabled by default; opt in with qeema_enable_preloader. The actual
  * minimum-display/fade-out timing lives entirely in preloader.js.
  */
+function qeema_preloader_enabled() {
+	// The overlay delayed visible content and depended on delayed JavaScript.
+	return is_front_page() && (bool) apply_filters( 'qeema_enable_preloader', false );
+}
+
 function qeema_print_preloader_markup() {
 	// is_front_page() isn't reliably populated this early on every hook, but
 	// wp_body_open fires well after the main query is resolved, so it's safe
 	// here. Sitewide preloader was overkill — only the homepage needs it.
-	if ( ! is_front_page() ) {
+	if ( ! qeema_preloader_enabled() ) {
 		return;
 	}
 
