@@ -112,7 +112,7 @@ class Qeema_Portfolio_Case_Hero_Widget extends \Elementor\Widget_Base {
 		<section class="qeema-cs-hero<?php echo esc_attr( $mod ); ?>" id="qeema-cs-top">
 			<div class="qeema-cs-hero__stage">
 				<div class="qeema-cs-hero__glow" aria-hidden="true"></div>
-				<div class="qeema-cs-hero__copy qeema-reveal">
+				<div class="qeema-cs-hero__copy">
 					<?php if ( $industry || $service ) : ?>
 						<span class="qeema-cs-chip"><?php echo esc_html( $industry ? $industry : $service ); ?></span>
 					<?php endif; ?>
@@ -146,7 +146,7 @@ class Qeema_Portfolio_Case_Hero_Widget extends \Elementor\Widget_Base {
 				</div>
 
 				<?php if ( $device_id ) : ?>
-					<div class="qeema-cs-hero__visual qeema-reveal" style="--reveal-delay:.12s">
+					<div class="qeema-cs-hero__visual">
 						<?php if ( $is_app ) : ?>
 							<figure class="qeema-cs-shot">
 								<?php
@@ -155,6 +155,7 @@ class Qeema_Portfolio_Case_Hero_Widget extends \Elementor\Widget_Base {
 									'loading'       => 'eager',
 									'fetchpriority' => 'high',
 									'decoding'      => 'async',
+									'data-no-lazy'  => '1',
 									'sizes'         => '(max-width:980px) 70vw, 320px',
 								) );
 								?>
@@ -169,6 +170,7 @@ class Qeema_Portfolio_Case_Hero_Widget extends \Elementor\Widget_Base {
 										'loading'       => 'eager',
 										'fetchpriority' => 'high',
 										'decoding'      => 'async',
+										'data-no-lazy'  => '1',
 									) );
 									?>
 								</div>
