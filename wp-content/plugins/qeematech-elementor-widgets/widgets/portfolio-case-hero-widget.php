@@ -171,6 +171,7 @@ class Qeema_Portfolio_Case_Hero_Widget extends \Elementor\Widget_Base {
 										'fetchpriority' => 'high',
 										'decoding'      => 'async',
 										'data-no-lazy'  => '1',
+										'sizes'         => '(max-width: 480px) calc(100vw - 50px), (max-width: 980px) 520px, (max-width: 1200px) 40vw, 470px',
 									) );
 									?>
 								</div>

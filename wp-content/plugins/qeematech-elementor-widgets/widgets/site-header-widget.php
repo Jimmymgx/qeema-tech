@@ -333,9 +333,9 @@ class Qeema_Site_Header_Widget extends \Elementor\Widget_Base {
 							<img class="qeema-header__logo-full" src="<?php echo esc_url( $settings['logo']['url'] ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
 						<?php endif; ?>
 						<?php if ( $logo_mobile_id ) : ?>
-							<?php echo wp_get_attachment_image( $logo_mobile_id, 'medium', false, array( 'class' => 'qeema-header__logo-mobile', 'alt' => get_bloginfo( 'name' ), 'loading' => 'eager' ) ); ?>
+							<?php echo wp_get_attachment_image( $logo_mobile_id, 'medium', false, array( 'class' => 'qeema-header__logo-mobile', 'alt' => get_bloginfo( 'name' ), 'loading' => 'eager', 'data-no-lazy' => '1' ) ); ?>
 						<?php else : ?>
-							<img class="qeema-header__logo-mobile" src="<?php echo esc_url( $logo_mobile_url ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
+							<img class="qeema-header__logo-mobile" src="<?php echo esc_url( $logo_mobile_url ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>" data-no-lazy="1">
 						<?php endif; ?>
 					<?php endif; ?>
 				</a>
