@@ -56,6 +56,22 @@ add_action( 'wp_enqueue_scripts', 'qeema_register_widget_assets' );
 add_action( 'elementor/editor/before_enqueue_scripts', 'qeema_register_widget_assets' );
 
 /**
+ * Keep the mobile menu usable on the first tap. LiteSpeed's delayed JS
+ * currently folds this handle into its delayed bundle, so the first tap only
+ * starts that bundle and leaves the menu closed. The header script can run
+ * before jQuery because its only jQuery usage is inside Elementor's optional
+ * frontend-init branch; the menu itself uses native browser APIs.
+ */
+function qeema_keep_header_script_immediate( $tag, $handle ) {
+	if ( 'qeema-site-header' !== $handle || false !== strpos( $tag, 'data-no-optimize=' ) ) {
+		return $tag;
+	}
+
+	return str_replace( '<script ', '<script data-no-optimize="1" data-no-defer="1" ', $tag );
+}
+add_filter( 'script_loader_tag', 'qeema_keep_header_script_immediate', 10, 2 );
+
+/**
  * 'font-awesome-5-all' is only registered by Elementor's legacy v4-icon shim
  * path, not unconditionally - referencing it as a wp_enqueue_style dependency
  * was a no-op and silently left every fa/fab icon in these widgets unstyled.
