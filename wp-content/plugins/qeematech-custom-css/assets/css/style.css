@@ -929,7 +929,7 @@ body::before{content:"";position:fixed;top:-140px;right:-140px;bottom:-140px;lef
 .qeema-progress-bar__fill{height:100%;width:100%;transform-origin:left;transform:scaleX(0);background:linear-gradient(90deg,#00d4ff,#8b5cf6,#00d4ff);box-shadow:0 0 10px rgba(0,212,255,.6)}
 .qeema-header{position:fixed;top:0;left:0;right:0;width:100%;z-index:200;background:rgba(10,24,48,0);border-bottom:1px solid rgba(255,255,255,0);box-shadow:0 10px 30px rgba(0,0,0,0);transition:background-color .35s ease,border-color .35s ease,box-shadow .35s ease,backdrop-filter .35s ease}
 /* The fixed header needs its space reserved before delayed JavaScript runs. */
-body:has(.qeema-header){padding-top:79px}
+body:has(.qeema-header){padding-top:82px}
 .qeema-header.qeema-scrolled{background:rgba(10,24,48,.55);border-bottom-color:rgba(255,255,255,.08);box-shadow:0 10px 30px rgba(0,0,0,.35);backdrop-filter:blur(20px) saturate(150%);-webkit-backdrop-filter:blur(20px) saturate(150%)}
 .qeema-header__main{box-sizing:border-box;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px;transition:padding .35s ease;min-height:78px}
 .qeema-header.qeema-scrolled .qeema-header__main{padding:10px 24px;min-height:70px}
@@ -1114,6 +1114,12 @@ body:has(.qeema-header){padding-top:79px}
   .qeema-mega__aside{border-inline-start:0;border-top:1px solid rgba(255,255,255,.06)}
 }
 @media(max-width:1024px){.qeema-header__nav{display:none}.qeema-header__toggle{display:flex}.qeema-header__logo img.qeema-header__logo-full{display:none}.qeema-header__logo img.qeema-header__logo-mobile{display:block}}
+/* Keep the desktop links on one line just above the hamburger breakpoint. */
+@media(min-width:1025px) and (max-width:1119px){
+  .qeema-header__nav{gap:8px}
+  .qeema-header__main{gap:12px;padding-inline:16px}
+  .qeema-header__cta{padding-inline:20px}
+}
 
 /* === mobile-tabbar.css — fixed bottom action bar, mobile/tablet only (same
    ≤1024px breakpoint the header itself switches to hamburger mode at).
