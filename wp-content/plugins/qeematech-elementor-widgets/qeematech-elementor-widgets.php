@@ -31,6 +31,7 @@ require_once __DIR__ . '/inc/create-testimonials-page.php';
 require_once __DIR__ . '/inc/create-clients-page.php';
 require_once __DIR__ . '/inc/create-bank-info-page.php';
 require_once __DIR__ . '/inc/create-thank-you-page.php';
+require_once __DIR__ . '/inc/create-404-page.php';
 require_once __DIR__ . '/inc/create-contracting-landing-page.php';
 require_once __DIR__ . '/inc/create-live-apps-home-carousel.php';
 require_once __DIR__ . '/inc/country-dial-codes.php';
