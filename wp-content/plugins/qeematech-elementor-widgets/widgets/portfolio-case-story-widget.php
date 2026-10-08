@@ -63,8 +63,8 @@ class Qeema_Portfolio_Case_Story_Widget extends \Elementor\Widget_Base {
 			return;
 		}
 
-		$contact = home_url( '/أتصل-بنا/' );
-		$works   = home_url( '/أعمالنا/' );
+		$contact = get_permalink( 800 ); // Contact Us page — ID-based, not the Arabic slug literal (slugs have mismatched/changed before on this project).
+		$works   = get_permalink( 848 ); // أعمالنا (works) archive page.
 		?>
 		<section class="qeema-cs-story">
 

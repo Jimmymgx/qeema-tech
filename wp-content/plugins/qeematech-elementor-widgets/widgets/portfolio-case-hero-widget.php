@@ -106,7 +106,7 @@ class Qeema_Portfolio_Case_Hero_Widget extends \Elementor\Widget_Base {
 		$device_id = ( $is_app && $thumb_id ) ? $thumb_id : ( $banner_id ? $banner_id : $thumb_id );
 		$lead     = $this->first_non_empty_excerpt( array( $idea, $challenge, $journey ), 42 );
 
-		$contact_url = home_url( '/أتصل-بنا/' );
+		$contact_url = get_permalink( 800 ); // Contact Us page — ID-based, not the Arabic slug literal (slugs have mismatched/changed before on this project).
 		$mod         = $is_app ? ' qeema-cs-hero--app' : ' qeema-cs-hero--web';
 		?>
 		<section class="qeema-cs-hero<?php echo esc_attr( $mod ); ?>" id="qeema-cs-top">

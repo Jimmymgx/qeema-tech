@@ -1960,6 +1960,13 @@ html.qeema-preloader-active{overflow:hidden}
 @media(max-width:1024px){.qeema-blog-archive__grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.qeema-blog-archive__grid{grid-template-columns:1fr}}
 
+/* Curated Articles widget — hand-picked article links on service pages.
+   Reuses .qeema-blog-archive__grid/.qeema-blog-card verbatim (see note
+   above); only the heading needs its own rule. */
+.qeema-curated-articles{max-width:1600px;margin:0 auto;padding:0 20px}
+.qeema-curated-articles__heading{text-align:center;font-size:clamp(24px,3vw,34px);font-weight:800;color:#fff;margin:0 0 32px}
+.qeema-curated-articles .qeema-curated-articles__grid{margin:0}
+
 .qeema-blog-pagination{display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap;margin:40px auto 0}
 .qeema-blog-pagination span,.qeema-blog-pagination a{min-width:40px;height:40px;padding:0 14px;border-radius:22px;display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);color:#fff;text-decoration:none;font-weight:700;font-size:14px;transition:background .2s ease,border-color .2s ease}
 .qeema-blog-pagination a:hover{background:rgba(255,255,255,.1);border-color:rgba(34,211,238,.4)}

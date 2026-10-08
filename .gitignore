@@ -1,4 +1,8 @@
 .htaccess.tar
 
 uploads/
-uploads/*   
+uploads/*
+
+# Secrets / runtime logs — must never be tracked (see 2026-10-07 security note)
+wp-config.php
+wp-content/debug.log*   
